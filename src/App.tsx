@@ -1,13 +1,15 @@
 import Navbar from "./components/Navbar/Navbar"
-import Login from "./components/user/Login"
+import LandingPageBanner from "./components/user/LandingPageBanner"
+
 
 
 function App() {
  
   return (
     <>
-     {/* <Navbar/> */}
-      <Login/>
+     <Navbar/>
+      {/* <Login/> */}
+      <LandingPageBanner/>
     </>
   )
 }

@@ -3,13 +3,10 @@ import './css/login.css'
 
 const Login = () => {
   return (
-    <div>
-      <div className='oval-login-div'>
-        <img src="/public/worker.png" className='oval-img' alt="worker image" />
-      </div>
-      <div>
-        <h1>Login</h1>
-        <p>Login to access your Admin  account</p>
+    <div className='login-main-div'>
+      <div className='login-left-div'></div>
+      <div className='login-right-div'>
+        <div className='login-right-oval'></div>
       </div>
     </div>
   )
