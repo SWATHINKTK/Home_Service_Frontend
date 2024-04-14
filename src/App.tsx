@@ -1,7 +1,8 @@
 import Navbar from "./components/Navbar/Navbar"
 import LandingPageBanner from "./components/user/LandingPageBanner"
+import LandingPageBusiness from "./components/user/LandingPageBusiness"
 import LandingPageServiceSection from "./components/user/LandingPageServiceSection"
-import 
+
 
 
 
@@ -13,7 +14,7 @@ function App() {
       {/* <Login/> */}
       <LandingPageBanner/>
       <LandingPageServiceSection/>
-      
+      <LandingPageBusiness/>
     </>
   )
 }
