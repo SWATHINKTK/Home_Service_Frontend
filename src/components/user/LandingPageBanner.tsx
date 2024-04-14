@@ -58,14 +58,6 @@ const LandingPageBanner = () => {
           <div className="bg lg:w-[96%]  lg:h-[87%] md:h-[90%] w-[100%] h-[46vh]   "></div>
         </div>
       </div>
-      <div className="h-[100vh]">
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius,
-          consectetur ratione cum consequatur nihil necessitatibus minus nemo,
-          voluptatibus pariatur sit blanditiis qui alias voluptate perspiciatis
-          nostrum quisquam labore incidunt? Veritatis!
-        </p>
-      </div>
     </>
   );
 };
