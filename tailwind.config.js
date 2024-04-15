@@ -8,7 +8,8 @@ export default {
     extend: {},
     fontFamily:{
       Montserrat:["Montserrat", `sans-serif`],
-      WixMadeForDisplay:["Wix Madefor Display", `sans-serif`]
+      WixMadeForDisplay:["Wix Madefor Display", `sans-serif`],
+      SegoeUI:['Segoe UI', `sans-serif`]
     }
   },
   plugins: [],

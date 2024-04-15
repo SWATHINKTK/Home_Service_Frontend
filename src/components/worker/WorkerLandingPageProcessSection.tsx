@@ -1,13 +1,13 @@
-
 import { PiArrowBendDoubleUpRightDuotone } from "react-icons/pi";
 import { PiArrowBendDoubleUpLeftDuotone } from "react-icons/pi";
+import React from 'react';
 
-const LandingPageProcessSection = () => {
+const WorkerLandingPageProcessSection = () => {
   return (
     <div className="lg:mt-[7.3%] mt-10">
       <div className="text-center">
         <h2 className="font-Montserrat font-[650] lg:text-[2rem] text-[1.6rem]">
-          Effortless Booking Process
+          Working Process
         </h2>
         <h6 className="font-Montserrat font-[600] my-2 mb-5">
           Here's How We Work
@@ -31,12 +31,10 @@ const LandingPageProcessSection = () => {
             </div>
             <div className=" lg:mx-5 mx-2 md:w-[50%] my-auto">
               <h2 className="font-Montserrat font-[600] lg:text-[1.2rem] text-[1rem]">
-                Booking Service
+              Check Bookings 
               </h2>
               <p className="font-Montserrat text-[10px]">
-                Browse through our range of services, select the one that suits
-                your needs, and when you're ready, simply tap 'Book Now'. Plus,
-                enjoy the convenience of paying just 25% upfront
+              quickly check incoming bookings and confirm your commitment to complete the assigned tasks. Simplify your workflow by promptly confirming availability and initiating work.
               </p>
             </div>
             <div className="flex items-end pl-4 -mb-2">
@@ -68,12 +66,10 @@ const LandingPageProcessSection = () => {
             </div>
             <div className=" lg:mx-5 mx-2 md:w-[50%] my-auto">
               <h2 className="font-Montserrat font-[600] lg:text-[1.2rem] text-[1rem]">
-                Confirmation
+              Confirmation
               </h2>
               <p className="font-Montserrat text-[10px] ">
-                After you've booked, our dedicated workers will promptly review
-                your request and confirm its success. Rest assured, your service
-                is in good hands.
+              After reviewing the details of the appointment, your confirmation seals the deal. Simply affirm your availability to proceed with the assigned task.
               </p>
             </div>
           </div>
@@ -92,12 +88,10 @@ const LandingPageProcessSection = () => {
             </div>
             <div className=" lg:mx-5 mx-2 md:w-[50%] my-auto">
               <h2 className="font-Montserrat font-[600] text-[1.2rem]">
-                Workers at your doorstep
+              Do That Work
               </h2>
               <p className="font-Montserrat text-[10px] ">
-                Our workers arrive at your doorstep and verify their presence
-                using an OTP. They efficiently solve your issues, ensuring a
-                seamless experience.
+              Upon confirmation, proceed to the customer's location to initiate the assigned task. Begin working promptly upon entering the OTP.
               </p>
             </div>
           </div>
@@ -121,7 +115,7 @@ const LandingPageProcessSection = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LandingPageProcessSection;
+export default WorkerLandingPageProcessSection
