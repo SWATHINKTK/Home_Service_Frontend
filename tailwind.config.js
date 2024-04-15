@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {},
     fontFamily:{
-      Montserrat:["Montserrat", `sans-serif`]
+      Montserrat:["Montserrat", `sans-serif`],
+      WixMadeForDisplay:["Wix Madefor Display", `sans-serif`]
     }
   },
   plugins: [],

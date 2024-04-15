@@ -31,7 +31,7 @@ const LandingPageServiceSection = () => {
       {/* Service Section */}
       <div className="lg:mx-44 flex gap-[4%] gap-y-9 flex-wrap my-6 justify-center">
         {/* 1 */}
-        <div className="h-auto bg-gray-200 md:w-[15rem] w-[85%]  py-6 rounded-sm">
+        <div className="h-auto bg-[#F8F8F8] md:w-[15rem] w-[85%]  py-6 rounded-sm">
           <div className="flex flex-col place-items-center justify-center">
             <div className="flex place-items-center justify-center h-24 w-24 rounded-[37%] bg-[#C3F4BE]">
               <img
@@ -52,7 +52,7 @@ const LandingPageServiceSection = () => {
         </div>
 
         {/* 2 */}
-        <div className="h-auto bg-gray-200 md:w-[15rem] w-[85%]  py-6 rounded-sm">
+        <div className="h-auto bg-[#F8F8F8] md:w-[15rem] w-[85%]  py-6 rounded-sm">
           <div className="flex flex-col place-items-center justify-center">
             <div className="flex place-items-center justify-center h-24 w-24 rounded-[37%] bg-[#C3F4BE]">
               <img
@@ -74,7 +74,7 @@ const LandingPageServiceSection = () => {
 
         {/* 3 */}
 
-        <div className="h-auto bg-gray-200 md:w-[15rem] w-[85%] py-6 rounded-sm">
+        <div className="h-auto bbg-[#F8F8F8] md:w-[15rem] w-[85%] py-6 rounded-sm">
           <div className="flex flex-col place-items-center justify-center">
             <div className="flex place-items-center justify-center h-24 w-24 rounded-[37%] bg-[#C3F4BE]">
               <img
@@ -95,7 +95,7 @@ const LandingPageServiceSection = () => {
         </div>
 
         {/* 4 */}
-        <div className="h-auto bg-gray-200 md:w-[15rem] w-[85%] py-6 rounded-sm">
+        <div className="h-auto bg-[#F8F8F8] md:w-[15rem] w-[85%] py-6 rounded-sm">
           <div className="flex flex-col place-items-center justify-center">
             <div className="flex place-items-center justify-center h-24 w-24 rounded-[37%] bg-[#C3F4BE]">
               <img
