@@ -3,7 +3,7 @@ import React from 'react'
 const WorkerLandingPageBanner = () => {
   return (
     <>
-   <div className='relative h-[90vh] bg-[#c8c8c8] rounded-b-[20%] py-5'>
+   <div className='relative h-[90vh] bg-[#16185a] text-white rounded-b-[20%] py-5'>
       <div className='w-[80%]  h-[80%] mx-auto flex '>
         <div className='w-[55%] h-full flex justify-center items-center'>
             <div>

@@ -19,7 +19,7 @@ const Navbar:React.FC<NavbarProb> = ({ user }) => {
 
   return (
     <div>
-      <nav className={`${user ? 'bg-[#F8F8F8]' : 'bg-[#c8c8c8]'} border-gray-200`}>
+      <nav className={`${user ? 'bg-[#F8F8F8]' : 'bg-[#16185a]'} border-gray-200`}>
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto md:p-4  py-4 pr-2">
           <a
             href="#"
