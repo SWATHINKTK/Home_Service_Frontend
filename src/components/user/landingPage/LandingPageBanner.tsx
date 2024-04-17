@@ -1,4 +1,4 @@
-import "./css/login.css";
+import "../css/userLanding.css";
 
 const LandingPageBanner = () => {
   return (

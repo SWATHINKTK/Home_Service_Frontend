@@ -59,7 +59,7 @@ const Navbar:React.FC<NavbarProb> = ({ user }) => {
             } w-full md:block md:w-auto`}
             id="navbar-default"
           >
-            <ul className={`text-black font-Montserrat text-[15px] font-[700] flex flex-col gap-2  p-4 md:p-0 mt-4  rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700`}>
+            <ul className={`${user ? 'text-black' : 'text-white'} font-Montserrat text-[15px] font-[700] flex flex-col gap-2  p-4 md:p-0 mt-4  rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700`}>
               <li>
                 <a
                   href="#"
