@@ -1,16 +1,16 @@
 import React from "react";
-import { CiSearch } from "react-icons/ci";
 
-import "./css/login.css";
+import "./css/login.css"
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
     <>
       <div className="login-main-div flex flex-col-reverse md:flex-row md:h-[100vh] pt-10">
-        <div className="md:w-[50%] w-[100%] flex flex-col justify-center md:px-52 px-5 py-10 md:py-0">
-          <div className="mb-2"> 
-            <h1 className="font-Montserrat font-[700] text-4xl">Login</h1>
-            <h6>Login to access your worker account</h6>
+        <div className="md:w-[50%] w-[100%] flex flex-col justify-center md:px-52 px-5 py-7 md:py-0">
+          <div className="mb-1"> 
+            <h1 className="font-Montserrat tracking-wide font-[700] text-[2.5rem]">Login</h1>
+            <h6 className="font-[400]  text-[0.9rem] text-gray-500">Login to access your worker account</h6>
           </div>
           <div className="my-6">
             <div className="relative mb-6">
@@ -29,7 +29,7 @@ const Login = () => {
               <input
                 type="text"
                 id="input-group-1"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[94%] w-full ps-10 p-2.5  "
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[100%] w-full ps-10 p-2.5  "
                 placeholder="Username"
               />
             </div>
@@ -53,24 +53,23 @@ const Login = () => {
               <input
                 type="text"
                 id="input-group-1"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[94%] w-full ps-10 p-2.5  "
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[100%] w-full ps-10 p-2.5  "
                 placeholder="Password"
               />
+              
             </div>
           </div>
 
-          <button className="login-btn md:w-[94%] w-full font-Montserrat">
+          <button className="login-btn md:w-[100%] w-full font-Montserrat">
             Sign in
           </button>
 
-          <div>
-            
-          </div>
-
+            <h6 className="my-3 font-Montserrat font-[400] text-[12px]">Don't have an account ? <Link to='/worker/register' className="font-[600] text-[14px] text-[#385185]" >Sign up</Link> </h6>
+            <p className="font-Montserrat font-[300] text-[12px] text-gray-900 mt-1">By registering you with our <a className="text-[#9D5CE9] font-[500]" href="">Terms and Conditions</a></p>
         </div>
 
         <div className=" md:w-[50%] w-[100%] flex justify-center place-items-end">
-          <img src="/public/user/image.png" className="md:h-[70vh] w-auto" alt="" />
+          <img src="/public/user/image.png" className="md:h-[70vh] w-auto md:rounded-none rounded-b-[25%]" alt="" />
         </div>
       </div>
     </>
