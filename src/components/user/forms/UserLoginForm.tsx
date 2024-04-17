@@ -1,18 +1,10 @@
-import React from "react";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-import "./css/login.css"
-import { Link } from "react-router-dom";
-
-const Login = () => {
+const UserLoginForm = () => {
   return (
     <>
-      <div className="login-main-div flex flex-col-reverse md:flex-row md:h-[100vh] pt-10">
-        <div className="md:w-[50%] w-[100%] flex flex-col justify-center md:px-52 px-5 py-7 md:py-0">
-          <div className="mb-1"> 
-            <h1 className="font-Montserrat tracking-wide font-[700] text-[2.5rem]">Login</h1>
-            <h6 className="font-[400]  text-[0.9rem] text-gray-500">Login to access your worker account</h6>
-          </div>
-          <div className="my-6">
+    <div className="my-6">
             <div className="relative mb-6">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                 <svg
@@ -65,15 +57,8 @@ const Login = () => {
           </button>
 
             <h6 className="my-3 font-Montserrat font-[400] text-[12px]">Don't have an account ? <Link to='/worker/register' className="font-[600] text-[14px] text-[#385185]" >Sign up</Link> </h6>
-            <p className="font-Montserrat font-[300] text-[12px] text-gray-900 mt-1">By registering you with our <a className="text-[#9D5CE9] font-[500]" href="">Terms and Conditions</a></p>
-        </div>
-
-        <div className=" md:w-[50%] w-[100%] flex justify-center place-items-end">
-          <img src="/public/user/image.png" className="md:h-[70vh] w-auto md:rounded-none rounded-b-[25%]" alt="" />
-        </div>
-      </div>
     </>
-  );
-};
+  )
+}
 
-export default Login;
+export default UserLoginForm;
