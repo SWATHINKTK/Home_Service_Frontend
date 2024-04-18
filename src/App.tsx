@@ -7,6 +7,7 @@ import WorkerRegister from "./pages/worker/WorkerRegister";
 import WorkerOTP from "./pages/worker/WorkerOTP";
 import UserLogin from "./pages/user/UserLogin";
 import UserRegistration from "./pages/user/UserRegistration";
+import AdminLogin from "./components/admin/AdminLogin";
 
 
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/worker/login" element={<WorkerLogin/>} />
           <Route path="/worker/register" element={<WorkerRegister />} />
           <Route path="/worker/otp" element={<WorkerOTP />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
         </Routes>
       </Router>
     </>
