@@ -18,11 +18,11 @@ const Authentication: React.FC<AuthenticationProb> = ({
       <div className="login-main-div flex flex-col-reverse md:flex-row lg:h-[100vh] ">
         <div
           className={`lg:w-[50%] w-[100%] flex flex-col justify-center ${
-            register ? "lg:px-28" : "lg:px-52"
+            register ? "lg:px-28" : "lg:px-[13%]"
           } px-5 py-7 md:py-0 lg:py-0`}
         >
           <div className="mb-1">
-            <h1 className="font-Montserrat tracking-wide font-[700] text-[2.5rem]">
+            <h1 className="font-Montserrat tracking-wide font-[700] md:text-[2.5rem] text-[2rem]">
               {heading}
             </h1>
             <h6 className="font-[400]  text-[0.9rem] text-gray-500">
