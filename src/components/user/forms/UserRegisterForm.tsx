@@ -53,7 +53,7 @@ const UserRegisterForm: React.FC = () => {
     if(response.success){
         toast.success(response.message);
         dispatch(storeUserData(data));
-        navigate('/login')
+        navigate('/otpVerification')
     }
 
   };

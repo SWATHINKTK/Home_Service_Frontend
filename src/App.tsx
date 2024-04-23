@@ -9,7 +9,6 @@ import UserLogin from "./pages/user/UserLogin";
 import UserRegistration from "./pages/user/UserRegistration";
 import AdminLogin from "./components/admin/AdminLogin";
 import PrivateRouter from "./utils/PrivateRouter";
-import UserOTPForm from "./components/user/forms/UserOTPForm";
 import UserOTPPage from "./pages/user/UserOTPPage";
 
 

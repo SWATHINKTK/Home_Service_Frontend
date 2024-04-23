@@ -1,9 +1,16 @@
 import React, { CSSProperties, useState } from 'react'
 import OTPInput from 'react-otp-input';
+import { useAppSelector } from '../../../hooks/useTypedSelector';
+import { registerUser } from '../../../utils/api/userAPI';
+import { useNavigate } from 'react-router-dom';
+import { IUser } from '../../../@types/user';
+import { toast } from 'react-toastify';
 
 const UserOTPForm = () => {
     const [otp, setOTP] = useState('');
     const [error, setError] = useState("");
+    const { userData } = useAppSelector((state) => state.userRegisterSlice);
+    const navigate = useNavigate();
 
     const inputStyle: CSSProperties = {
         width:"2.8rem",
@@ -21,13 +28,41 @@ const UserOTPForm = () => {
    
    
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!/^\d+$/.test(otp)) {
             setError('Enter valid OTP');
             return;
         }
-        alert('hello')
+        try {
+
+            if(userData){
+                const registerData:IUser = {
+                    firstname:userData.firstname,
+                    lastname:userData.lastname,
+                    email:userData.email,
+                    phoneNumber:userData.phoneNumber,
+                    district:userData.district,
+                    password:userData.password,
+                    userEnteredOTP:otp
+                }
+           
+                const response = await registerUser(registerData);
+                if(response.success){
+                    toast.success(response.message,{
+                        onClose:() => {
+                            navigate('/login');
+                        }
+                    })
+                    navigate('/login');
+                }
+            }else{
+                toast.error('Registration Failed.');
+                navigate('/register');
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     

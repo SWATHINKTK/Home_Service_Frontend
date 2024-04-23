@@ -6,4 +6,5 @@ export interface IUser {
     phoneNumber: string;
     password: string;
     confirmPassword?: string;
+    userEnteredOTP?:string
 }
