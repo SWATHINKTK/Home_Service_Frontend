@@ -1,6 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+
 
 import { FaUser, FaPhoneAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
@@ -8,8 +10,14 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { FaLocationDot } from "react-icons/fa6";
 
 import { IUser } from "../../../@types/user";
+import { userVerification } from "../../../utils/api/userAPI";
+import { useAppDispatch } from "../../../hooks/useTypedSelector";
+import { storeUserData } from "../../../reducers/user/userRegisterSlice";
 
 const UserRegisterForm: React.FC = () => {
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    
   const {
     register,
     handleSubmit,
@@ -27,13 +35,27 @@ const UserRegisterForm: React.FC = () => {
     return true;
   };
 
-  const onSubmit = (data: IUser) => {
+  const onSubmit = async(data: IUser) => {
     if (data.password !== data.confirmPassword) {
       return setError("confirmPassword", {
         type: "manual",
         message: "Passwords do not match",
       });
     }
+
+    const otpCredential = {
+        email:data.email,
+        firstname:data.firstname,
+        lastname:data.lastname
+    }
+
+    const response = await userVerification(otpCredential);
+    if(response.success){
+        toast.success(response.message);
+        dispatch(storeUserData(data));
+        navigate('/login')
+    }
+
   };
 
   return (

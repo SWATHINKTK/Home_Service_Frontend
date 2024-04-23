@@ -8,6 +8,9 @@ import WorkerOTP from "./pages/worker/WorkerOTP";
 import UserLogin from "./pages/user/UserLogin";
 import UserRegistration from "./pages/user/UserRegistration";
 import AdminLogin from "./components/admin/AdminLogin";
+import PrivateRouter from "./utils/PrivateRouter";
+import UserOTPForm from "./components/user/forms/UserOTPForm";
+import UserOTPPage from "./pages/user/UserOTPPage";
 
 
 
@@ -19,7 +22,10 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<UserLanding/>} />
+          <Route element={<PrivateRouter/>}>
+            <Route path="/" element={<UserLanding/>} />
+          </Route>
+          <Route path="/otpVerification" element={<UserOTPPage/>} />
           <Route path="/login" element={<UserLogin/>} />
           <Route path="/register" element={<UserRegistration/>} />
           <Route path="/worker" element={<WorkerLanding />} />
