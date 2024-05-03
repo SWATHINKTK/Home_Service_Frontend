@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../../components/Navbar/Navbar';
+import Navbar from '../../components/navbar/Navbar';
 import WorkerLandingPageBanner from '../../components/worker/landing/WorkerLandingPageBanner';
 import LandingPageBusiness from '../../components/user/landingPage/LandingPageBusiness';
 import WorkerLandingPageProcessSection from '../../components/worker/landing/WorkerLandingPageProcessSection';

@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../../components/Navbar/Navbar'
+import Navbar from '../../components/navbar/Navbar'
 import LandingPageBanner from '../../components/user/landingPage/LandingPageBanner'
 import LandingPageServiceSection from '../../components/user/landingPage/LandingPageServiceSection'
 import LandingPageBusiness from '../../components/user/landingPage/LandingPageBusiness'

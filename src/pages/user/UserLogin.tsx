@@ -1,5 +1,5 @@
 import React from 'react'
-import Authentication from '../../components/Authentication/Authentication'
+import Authentication from '../../components/Authentication/Authentication' 
 import UserLoginForm from '../../components/user/forms/UserLoginForm'
 
 const UserLogin = () => {

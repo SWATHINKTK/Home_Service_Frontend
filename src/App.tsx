@@ -11,6 +11,13 @@ import AdminLogin from "./components/admin/AdminLogin";
 import PrivateRouter from "./utils/PrivateRouter";
 import UserOTPPage from "./pages/user/UserOTPPage";
 
+import AdminUserPage from "./pages/admin/AdminUserPage";
+import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
+import AdminServiceViewPage from "./pages/admin/AdminServiceViewPage";
+
+
+
+
 
 
 
@@ -21,21 +28,24 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route element={<PrivateRouter/>}>
-            <Route path="/" element={<UserLanding/>} />
+          <Route element={<PrivateRouter />}>
+            <Route path="/" element={<UserLanding />} />
           </Route>
-          <Route path="/otpVerification" element={<UserOTPPage/>} />
-          <Route path="/login" element={<UserLogin/>} />
-          <Route path="/register" element={<UserRegistration/>} />
+          <Route path="/otpVerification" element={<UserOTPPage />} />
+          <Route path="/login" element={<UserLogin />} />
+          <Route path="/register" element={<UserRegistration />} />
           <Route path="/worker" element={<WorkerLanding />} />
-          <Route path="/worker/login" element={<WorkerLogin/>} />
+          <Route path="/worker/login" element={<WorkerLogin />} />
           <Route path="/worker/register" element={<WorkerRegister />} />
           <Route path="/worker/otp" element={<WorkerOTP />} />
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminDashboardPage />} />
+          <Route path="/admin/user" element={<AdminUserPage />} />
+          <Route path="/admin/service" element={<AdminServiceViewPage/>} />
         </Routes>
       </Router>
     </>
-  )
+  );
 }
 
 export default App

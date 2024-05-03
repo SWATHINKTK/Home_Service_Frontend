@@ -154,11 +154,10 @@ const UserRegisterForm: React.FC = () => {
                 required: "district is required.",
               })}
             >
-              <option selected>Choose Your District</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
+              <option value="Calicut" selected>Calicut</option>
+              <option value="Kannur">Kannur</option>
+              <option value="Kasargod">Kasargod</option>
+              <option value="Wayanad">Wayanad</option>
             </select>
           </div>
           {errors.district && (
