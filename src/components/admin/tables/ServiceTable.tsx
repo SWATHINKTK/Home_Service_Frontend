@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { MdModeEditOutline } from "react-icons/md";
 import { IoSave } from "react-icons/io5";
-interface IService {
+import { editServiceAPI } from "../../../utils/api/adminAPI";
+export interface IService {
   _id?: string;
   serviceName: string;
   minimumAmount: number;
@@ -19,6 +20,7 @@ interface IService {
 const ServiceTable: React.FC = () => {
   const [services, setServices] = useState<IService[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [editData, setEditData] = useState<IService | null>(null);
   const heading = [
     "#",
     "Icon",
@@ -48,15 +50,21 @@ const ServiceTable: React.FC = () => {
 
   const handleEditClick = (index: number) => {
     setEditingIndex(index);
+    setEditData(services[index])
   };
 
-  const handleSaveClick = (index:number) => {
-    console.log(services[index])
-    // Save changes to the backend
+  const handleSaveClick = async(index:number) => {
+
+    const response = await editServiceAPI(editData!)
+    if(response){
+      toast.success(response.message)
+      const newServices = [...services];
+      newServices[index] = editData!;
+      setServices(newServices);
+    }
     setEditingIndex(null);
   };
 
-  console.log(services);
   return (
     <div className="mt-20 w-[82%]">
       <div className="flex justify-between mb-3">
@@ -72,8 +80,8 @@ const ServiceTable: React.FC = () => {
         <table className="w-full  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
           <thead className="text-xs text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              {heading.map((title) => (
-                <th scope="col" className="px-3 py-3">
+              {heading.map((title, index) => (
+                <th scope="col" key={title + index} className="px-3 py-3">
                   {title}
                 </th>
               ))}
@@ -82,6 +90,7 @@ const ServiceTable: React.FC = () => {
           <tbody>
             {services.map((service, index) => (
               <tr
+                key={service._id || index}
                 className={`${
                   editingIndex === index ? "bg-[#d8dbe8]" : "bg-white"
                 } border-b text-center dark:bg-gray-800 dark:border-gray-700`}
@@ -99,11 +108,12 @@ const ServiceTable: React.FC = () => {
                     <input
                       className="px-1 py-2 border-2 bg-white rounded-md"
                       type="text"
-                      value={service.serviceName}
+                      value={editData?.serviceName || ""}
                       onChange={(e) => {
-                        const newServices = [...services];
-                        newServices[index].serviceName = e.target.value;
-                        setServices(newServices);
+                        setEditData({
+                          ...editData!,
+                          serviceName: e.target.value,
+                        });
                       }}
                       style={{ width: "calc(100% + 1rem)" }}
                     />
@@ -116,13 +126,12 @@ const ServiceTable: React.FC = () => {
                     <input
                       className="px-1 py-2 border-2 bg-white rounded-md"
                       type="text"
-                      value={service.minimumAmount}
+                      value={editData?.minimumAmount || ""}
                       onChange={(e) => {
-                        const newServices = [...services];
-                        newServices[index].minimumAmount = parseFloat(
-                          e.target.value
-                        );
-                        setServices(newServices);
+                        setEditData({
+                          ...editData!,
+                          minimumAmount: parseFloat(e.target.value),
+                        });
                       }}
                       style={{ width: "calc(100% + 1rem)" }}
                     />
@@ -135,29 +144,29 @@ const ServiceTable: React.FC = () => {
                     <input
                       className="px-1 py-2 border-2 bg-white rounded-md"
                       type="text"
-                      value={service.hourlyAmount}
+                      value={editData?.hourlyAmount || ""}
                       onChange={(e) => {
-                        const newServices = [...services];
-                        newServices[index].hourlyAmount = parseFloat(
-                          e.target.value
-                        );
-                        setServices(newServices);
+                        setEditData({
+                          ...editData!,
+                          hourlyAmount: parseFloat(e.target.value),
+                        });
                       }}
                       style={{ width: "calc(100% + 1rem)" }}
                     />
                   ) : (
-                    service.minimumAmount
+                    service.hourlyAmount
                   )}
                 </td>
                 <td className="px-3 py-2 w-5/12 text-justify">
                   {editingIndex === index ? (
                     <textarea
                       className="w-full h-20 px-3 py-2 border-2 bg-white rounded-md   resize-none"
-                      value={service.serviceDescription}
+                      value={editData?.serviceDescription || ""}
                       onChange={(e) => {
-                        const newServices = [...services];
-                        newServices[index].serviceDescription = e.target.value;
-                        setServices(newServices);
+                        setEditData({
+                          ...editData!,
+                          serviceDescription: e.target.value,
+                        });
                       }}
                       style={{
                         scrollbarWidth: "thin",
@@ -187,14 +196,14 @@ const ServiceTable: React.FC = () => {
                       onClick={() => handleSaveClick(editingIndex)}
                       className="inline-flex items-center justify-center w-10 h-10 mr-2 text-gray-700 transition-colors duration-150 bg-green-200 rounded-full focus:shadow-outline hover:bg-gray-200"
                     >
-                      <IoSave size={17}/>
+                      <IoSave size={17} />
                     </button>
                   ) : (
                     <button
                       onClick={() => handleEditClick(index)}
                       className="inline-flex items-center justify-center w-10 h-10 mr-2 text-gray-700 transition-colors duration-150 bg-blue-200 rounded-full focus:shadow-outline hover:bg-gray-200"
                     >
-                      <MdModeEditOutline size={18}/>
+                      <MdModeEditOutline size={18} />
                     </button>
                   )}
                 </td>
