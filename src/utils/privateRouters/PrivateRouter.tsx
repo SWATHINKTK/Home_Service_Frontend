@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { useAppSelector } from '../hooks/useTypedSelector';
+import { useAppSelector } from '../../hooks/useTypedSelector';
 
 
 const PrivateRouter = () => {

@@ -3,21 +3,19 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { IAdminData } from "../../@types/admin";
 
-interface AdminData {
-    username: string;
-    password: string;
-}
 
-const AdminLogin = () => {
+
+const AdminLogin:React.FC = () => {
     const navigate = useNavigate();
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<AdminData>();
+    } = useForm<IAdminData>();
 
-    const onSubmit = async(value: AdminData) => {
+    const onSubmit = async(value: IAdminData) => {
         try {
             const response = await axios.post('/api/admin/login',value);
             if(response.data.success){

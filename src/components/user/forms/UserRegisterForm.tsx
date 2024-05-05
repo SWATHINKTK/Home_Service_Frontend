@@ -198,7 +198,7 @@ const UserRegisterForm: React.FC = () => {
               <RiLockPasswordFill className="text-gray-500" />
             </div>
             <input
-              type="text"
+              type="password"
               id="input-group-1"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[100%] w-full ps-10 p-2"
               placeholder="Password"
@@ -210,7 +210,7 @@ const UserRegisterForm: React.FC = () => {
                 },
                 validate: validatePassword,
                 maxLength: {
-                  value: 8,
+                  value: 16,
                   message: "password cannot exceed 8 characters.",
                 },
               })}
@@ -227,7 +227,7 @@ const UserRegisterForm: React.FC = () => {
               <RiLockPasswordFill className="text-gray-500" />
             </div>
             <input
-              type="text"
+              type="password"
               id="input-group-1"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[100%] w-full ps-10 p-2"
               placeholder="Re Enter Password"
@@ -238,7 +238,7 @@ const UserRegisterForm: React.FC = () => {
                   message: "password must be at least 5 characters.",
                 },
                 maxLength: {
-                  value: 8,
+                  value: 16,
                   message: "password cannot exceed 8 characters.",
                 },
               })}

@@ -21,7 +21,7 @@ export const userVerification = async (otpCredentials:{email:string, firstname:s
         if (error instanceof AxiosError && error.response) {
             toast.error(error.response.data.errors[0].message);
         }
-        throw error;
+        toast.error('Something went wrong try again.')
     }
 };
 
@@ -35,5 +35,19 @@ export const registerUser = async (registerCredentials:IUser) => {
             toast.error(error.response.data.errors[0].message);
         }
         throw error;
+    }
+}
+
+
+
+export const blockUserAPI = async(userId:string) => {
+    try {
+        const response = await axios.patch(`/api/admin/${userId}/block`);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        toast.error("Server error")
     }
 }

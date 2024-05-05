@@ -42,6 +42,7 @@ const userSlice = createSlice({
         })
 
         builder.addCase(userAuth.rejected, (state, action) => {
+            state.loading = false;
             state.error = (action.payload as { message: string }).message;
         })
     },

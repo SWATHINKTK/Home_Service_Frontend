@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Swal from 'sweetalert2'
+import { blockUserAPI } from "../../../utils/api/userAPI";
 
 interface UserData {
     _id?: string;
@@ -30,25 +32,30 @@ const UserTable: React.FC = () => {
     const heading = ["#", "Firstname", "Lastname", "Email", "Phn.No", "district", "Status", "createdAt", "Action"];
 
 
-    const handleBlockUser = async (userId: string | undefined, index: number) => {
-        console.log(userId, index);
-        if (!userId) {
-            toast.error("Something went wrong.");
-            return;
-        }
-
-        try {
-            const response = await axios.patch(`/api/admin/${userId}/block`);
-            if (response.status == 200) {
-                setUsers((prevUsers) => prevUsers.map((user, i) => (i === index ? { ...user, _isBlocked: !user._isBlocked } : user)));
-
-            } else {
-                throw new Error('Server Error');
-            }
-
-        } catch (error) {
-            toast.error("Server error")
-        }
+    const handleBlockUser = async (userId: string, index: number) => {
+         Swal.fire({
+           title: "Block User",
+           text: "Are you sure you want to block this user?",
+           icon: "warning",
+           showCancelButton: true,
+           confirmButtonColor: "#3085d6",
+           cancelButtonColor: "#d33",
+           confirmButtonText: "Block",
+         }).then(async (result) => {
+           if (result.isConfirmed) {
+             const response = await blockUserAPI(userId);
+             if (response.success) {
+               toast.success(response.message);
+               setUsers((prevUsers) =>
+                 prevUsers.map((user, i) =>
+                   i === index
+                     ? { ...user, _isBlocked: !user._isBlocked }
+                     : user
+                 )
+               );
+             }
+           }
+         });
     }
 
     return (
@@ -101,7 +108,7 @@ const UserTable: React.FC = () => {
                                         <button
                                             className={`${user._isBlocked ? "bg-green-400" : "bg-red-500 px-5"
                                                 } px-3 py-1 font-bold text-black rounded-md`}
-                                            onClick={() => handleBlockUser(user._id, index)}
+                                            onClick={() => handleBlockUser(user._id!, index)}
                                         >
                                             {user._isBlocked ? "Unblock" : "Block"}
                                         </button>

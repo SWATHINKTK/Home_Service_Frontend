@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { MdModeEditOutline } from "react-icons/md";
 import { IoSave } from "react-icons/io5";
-import { editServiceAPI } from "../../../utils/api/adminAPI";
+import { blockServiceAPI, editServiceAPI } from "../../../utils/api/adminAPI";
+import Swal from "sweetalert2";
 export interface IService {
   _id?: string;
   serviceName: string;
@@ -63,6 +64,32 @@ const ServiceTable: React.FC = () => {
       setServices(newServices);
     }
     setEditingIndex(null);
+  };
+
+  const handleBlockService = (serviceId:string, index:number) => {
+    Swal.fire({
+      title: "Block Service",
+      text: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await blockServiceAPI(serviceId);
+        if (response.success) {
+          toast.success(response.message);
+          setServices((prevService) =>
+            prevService.map((service, i) =>
+              i === index
+                ? { ...service, _isBlocked: !service._isBlocked }
+                : service
+            )
+          );
+        }
+      }
+    });
   };
 
   return (
@@ -185,9 +212,15 @@ const ServiceTable: React.FC = () => {
                   />
                 </td>
                 <td className="px-3 py-2">
-                  <span className="bg-green-500 font-semibold text-black rounded-md px-3.5">
-                    Active
-                  </span>
+                  {service._isBlocked ? (
+                    <span className="bg-red-500 font-semibold text-black rounded-md px-2">
+                      Inactive
+                    </span>
+                  ) : (
+                    <span className="bg-green-500 font-semibold text-black rounded-md px-3.5">
+                      Active
+                    </span>
+                  )}
                 </td>
                 <td className="px-3 py-2">2024-05-04T17:52:38.183Z</td>
                 <td>
@@ -208,8 +241,13 @@ const ServiceTable: React.FC = () => {
                   )}
                 </td>
                 <td>
-                  <button className="px-3  py-1 mx-2 font-bold text-black rounded-md bg-red-500">
-                    Block
+                  <button
+                    className={`${
+                      service._isBlocked ? "bg-green-400" : "bg-red-500 px-5"
+                    } px-3 py-1 font-bold text-black rounded-md`}
+                    onClick={() => handleBlockService(service._id!, index)}
+                  >
+                    {service._isBlocked ? "Unblock" : "Block"}
                   </button>
                 </td>
               </tr>
