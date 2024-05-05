@@ -59,7 +59,7 @@ const UserTable: React.FC = () => {
                 </h1>
             </div>
             <div className={`relative overflow-scroll hide-scrollbar sm:rounded-lg `}>
-                <table className="w-full  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
+                <table className="w-[80%]  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-scroll">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             {heading.map((title) => (

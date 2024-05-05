@@ -1,45 +1,215 @@
-import React from 'react'
-
-const ServiceTable: React.FC = () => {
-    const heading = [
-        "#",
-        "Firstname",
-        "Lastname",
-        "Email",
-        "Phn.No",
-        "district",
-        "Block",
-        "createdAt",
-        "Action",
-    ];
-    return (
-      <div className="mt-20 w-[82%]">
-        <div className="flex justify-between mb-3">
-          <h1 className="font-Montserrat font-[700] text-[1.9rem] tracking-wider ">
-            Services
-          </h1>
-          <button className=" bg-neutral-950 text-neutral-400 border border-neutral-400 border-b-4 font-medium overflow-hidden relative px-4  rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
-            <span className="bg-neutral-400 shadow-neutral-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
-            Add Service
-          </button>
-        </div>
-        <div
-          className={`relative overflow-scroll hide-scrollbar sm:rounded-lg `}
-        >
-          <table className="w-full  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                {heading.map((title) => (
-                  <th scope="col" className="px-3 py-3">
-                    {title}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
-    );
+import axios, { AxiosError } from "axios";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { MdModeEditOutline } from "react-icons/md";
+import { IoSave } from "react-icons/io5";
+interface IService {
+  _id?: string;
+  serviceName: string;
+  minimumAmount: number;
+  hourlyAmount: number;
+  serviceDescription: string;
+  icon?: string;
+  image?: string;
+  _isBlocked?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-export default ServiceTable
+const ServiceTable: React.FC = () => {
+  const [services, setServices] = useState<IService[]>([]);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const heading = [
+    "#",
+    "Icon",
+    "Name",
+    `Amount`,
+    "Per Hour",
+    "Service Description",
+    "image",
+    "Block",
+    "createdAt",
+    "",
+    "",
+  ];
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get("/api/admin/service");
+        setServices(response.data.data);
+      } catch (error) {
+        if (error instanceof AxiosError)
+          toast.error(error.response?.data.errors[0].message);
+      }
+    };
+    fetchServices();
+  }, []);
+
+  const handleEditClick = (index: number) => {
+    setEditingIndex(index);
+  };
+
+  const handleSaveClick = (index:number) => {
+    console.log(services[index])
+    // Save changes to the backend
+    setEditingIndex(null);
+  };
+
+  console.log(services);
+  return (
+    <div className="mt-20 w-[82%]">
+      <div className="flex justify-between mb-3">
+        <h1 className="font-Montserrat font-[700] text-[1.9rem] tracking-wider ">
+          Services
+        </h1>
+        <button className=" bg-neutral-950 text-neutral-400 border border-neutral-400 border-b-4 font-medium overflow-hidden relative px-4  rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+          <span className="bg-neutral-400 shadow-neutral-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
+          Add Service
+        </button>
+      </div>
+      <div className={`relative overflow-scroll hide-scrollbar sm:rounded-lg `}>
+        <table className="w-full  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
+          <thead className="text-xs text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              {heading.map((title) => (
+                <th scope="col" className="px-3 py-3">
+                  {title}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {services.map((service, index) => (
+              <tr
+                className={`${
+                  editingIndex === index ? "bg-[#d8dbe8]" : "bg-white"
+                } border-b text-center dark:bg-gray-800 dark:border-gray-700`}
+              >
+                <td className="px-3 py-2 font-bold text-black">{index + 1}</td>
+                <th className="mx-3 my-2">
+                  <img
+                    className="w-10 h-10 rounded-full"
+                    src={service.icon}
+                    alt="Jese image"
+                  />
+                </th>
+                <td className="px-4">
+                  {editingIndex === index ? (
+                    <input
+                      className="px-1 py-2 border-2 bg-white rounded-md"
+                      type="text"
+                      value={service.serviceName}
+                      onChange={(e) => {
+                        const newServices = [...services];
+                        newServices[index].serviceName = e.target.value;
+                        setServices(newServices);
+                      }}
+                      style={{ width: "calc(100% + 1rem)" }}
+                    />
+                  ) : (
+                    service.serviceName
+                  )}
+                </td>
+                <td className="px-3 py-2">
+                  {editingIndex === index ? (
+                    <input
+                      className="px-1 py-2 border-2 bg-white rounded-md"
+                      type="text"
+                      value={service.minimumAmount}
+                      onChange={(e) => {
+                        const newServices = [...services];
+                        newServices[index].minimumAmount = parseFloat(
+                          e.target.value
+                        );
+                        setServices(newServices);
+                      }}
+                      style={{ width: "calc(100% + 1rem)" }}
+                    />
+                  ) : (
+                    service.minimumAmount
+                  )}
+                </td>
+                <td className="px-3 py-2">
+                  {editingIndex === index ? (
+                    <input
+                      className="px-1 py-2 border-2 bg-white rounded-md"
+                      type="text"
+                      value={service.hourlyAmount}
+                      onChange={(e) => {
+                        const newServices = [...services];
+                        newServices[index].hourlyAmount = parseFloat(
+                          e.target.value
+                        );
+                        setServices(newServices);
+                      }}
+                      style={{ width: "calc(100% + 1rem)" }}
+                    />
+                  ) : (
+                    service.minimumAmount
+                  )}
+                </td>
+                <td className="px-3 py-2 w-5/12 text-justify">
+                  {editingIndex === index ? (
+                    <textarea
+                      className="w-full h-20 px-3 py-2 border-2 bg-white rounded-md   resize-none"
+                      value={service.serviceDescription}
+                      onChange={(e) => {
+                        const newServices = [...services];
+                        newServices[index].serviceDescription = e.target.value;
+                        setServices(newServices);
+                      }}
+                      style={{
+                        scrollbarWidth: "thin",
+                        msOverflowStyle: "none",
+                      }}
+                    />
+                  ) : (
+                    service.serviceDescription
+                  )}
+                </td>
+                <td className="">
+                  <img
+                    src={service.image}
+                    className="w-16 md:w-32 max-w-full max-h-full"
+                    alt="Apple Watch"
+                  />
+                </td>
+                <td className="px-3 py-2">
+                  <span className="bg-green-500 font-semibold text-black rounded-md px-3.5">
+                    Active
+                  </span>
+                </td>
+                <td className="px-3 py-2">2024-05-04T17:52:38.183Z</td>
+                <td>
+                  {editingIndex === index ? (
+                    <button
+                      onClick={() => handleSaveClick(editingIndex)}
+                      className="inline-flex items-center justify-center w-10 h-10 mr-2 text-gray-700 transition-colors duration-150 bg-green-200 rounded-full focus:shadow-outline hover:bg-gray-200"
+                    >
+                      <IoSave size={17}/>
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleEditClick(index)}
+                      className="inline-flex items-center justify-center w-10 h-10 mr-2 text-gray-700 transition-colors duration-150 bg-blue-200 rounded-full focus:shadow-outline hover:bg-gray-200"
+                    >
+                      <MdModeEditOutline size={18}/>
+                    </button>
+                  )}
+                </td>
+                <td>
+                  <button className="px-3  py-1 mx-2 font-bold text-black rounded-md bg-red-500">
+                    Block
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default ServiceTable;
