@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { userLogin } from "../../../utils/api/userAPI";
 import { AxiosError } from "axios";
-import { toast } from "react-toastify";
 
 
 
@@ -18,8 +17,6 @@ export const userAuth = createAsyncThunk('user/login',async (userCredential: Use
       if (error instanceof AxiosError && error.response) {
         return thunkApi.rejectWithValue(error.response.data)
       }
-      toast.error('Something went wrong.try again.')
-      throw error;
     }
   }
 );

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IUser } from "../../@types/user";
 import { userAuth } from "./middlewares/userLoginThunk";
+import { toast } from "react-toastify";
 
 export interface IUserState{
     user:IUser | null,
@@ -43,7 +44,9 @@ const userSlice = createSlice({
 
         builder.addCase(userAuth.rejected, (state, action) => {
             state.loading = false;
-            state.error = (action.payload as { message: string }).message;
+            console.log("payload",action.payload)
+            state.error = (action.payload as { errors?: { message: string }[] }).errors?.[0]?.message ?? "An error occurred";
+            toast.error(state.error)
         })
     },
 })

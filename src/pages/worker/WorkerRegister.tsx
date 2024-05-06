@@ -1,13 +1,19 @@
 import React from 'react'
 import Authentication from '../../components/Authentication/Authentication'
-import WorkerRegisterForm from '../../components/worker/WorkerRegisterForm'
+import WorkerRegisterForm from '../../components/worker/forms/WorkerRegisterForm'
 
-const WorkerRegister = () => {
+const WorkerRegister:React.FC = () => {
   return (
-   <>
-   <Authentication worker={true} register={true} heading='Register' subHeading='Register to access your worker account' form={<WorkerRegisterForm />} />
-   </> 
-  )
+    <>
+      <Authentication
+        worker={true}
+        register={true}
+        heading="Register"
+        subHeading="Complete your registration in 3 simple steps!"
+        form={<WorkerRegisterForm />}
+      />
+    </>
+  );
 }
 
 export default WorkerRegister

@@ -13,6 +13,8 @@ import { IUser } from "../../../@types/user";
 import { userVerification } from "../../../utils/api/userAPI";
 import { useAppDispatch } from "../../../hooks/useTypedSelector";
 import { storeUserData } from "../../../reducers/user/userRegisterSlice";
+import { ULCaseCheckRegex, emailRegex, mobileNumberRegex, specialCharacterCheckRegex } from "../../../constants/regex";
+
 
 const UserRegisterForm: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -26,13 +28,17 @@ const UserRegisterForm: React.FC = () => {
   } = useForm<IUser>();
 
   const validatePassword = (value: string): boolean | string => {
-    if (!/^(?=.*[a-z])(?=.*[A-Z]).+$/.test(value)) {
+    if (!ULCaseCheckRegex.test(value)) {
       return "password must contain at least one uppercase and one lowercase letter.";
     }
-    if (!/^.*[@$!%*?&].*$/.test(value)) {
+    if (!specialCharacterCheckRegex.test(value)) {
       return "password contain at least one of the specified special characters:";
     }
     return true;
+  };
+
+  const createRequiredValidator = (fieldName: string) => (value: string) => {
+    return !value.trim() ? `${fieldName} is required.` : undefined;
   };
 
   const onSubmit = async(data: IUser) => {
@@ -81,6 +87,7 @@ const UserRegisterForm: React.FC = () => {
                   value: 18,
                   message: "first name cannot exceed 18 characters.",
                 },
+                validate: createRequiredValidator("first name"),
               })}
             />
           </div>
@@ -109,6 +116,7 @@ const UserRegisterForm: React.FC = () => {
                   value: 18,
                   message: "last name cannot exceed 18 characters.",
                 },
+                validate: createRequiredValidator("last name"),
               })}
             />
           </div>
@@ -130,7 +138,7 @@ const UserRegisterForm: React.FC = () => {
               {...register("email", {
                 required: "email is required.",
                 pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  value: emailRegex,
                   message:
                     "invalid email format. Please enter a valid email address.",
                 },
@@ -154,7 +162,9 @@ const UserRegisterForm: React.FC = () => {
                 required: "district is required.",
               })}
             >
-              <option value="Calicut" selected>Calicut</option>
+              <option value="Calicut" selected>
+                Calicut
+              </option>
               <option value="Kannur">Kannur</option>
               <option value="Kasargod">Kasargod</option>
               <option value="Wayanad">Wayanad</option>
@@ -178,7 +188,7 @@ const UserRegisterForm: React.FC = () => {
               {...register("phoneNumber", {
                 required: "phone number is required.",
                 pattern: {
-                  value: /^[6789]\d{9}$/,
+                  value: mobileNumberRegex,
                   message:
                     "invalid mobile number format.It should consist of 10 digits.",
                 },
@@ -211,7 +221,7 @@ const UserRegisterForm: React.FC = () => {
                 validate: validatePassword,
                 maxLength: {
                   value: 16,
-                  message: "password cannot exceed 8 characters.",
+                  message: "password cannot exceed 16 characters.",
                 },
               })}
             />
@@ -239,7 +249,7 @@ const UserRegisterForm: React.FC = () => {
                 },
                 maxLength: {
                   value: 16,
-                  message: "password cannot exceed 8 characters.",
+                  message: "password cannot exceed 16 characters.",
                 },
               })}
             />

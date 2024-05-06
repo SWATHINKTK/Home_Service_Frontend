@@ -1,6 +1,6 @@
 import React from 'react'
 import Authentication from '../../components/Authentication/Authentication'
-import WorkerLoginForm from '../../components/worker/WorkerLoginForm'
+import WorkerLoginForm from '../../components/worker/forms/WorkerLoginForm'
 
 const WorkerLogin = () => {
   return (

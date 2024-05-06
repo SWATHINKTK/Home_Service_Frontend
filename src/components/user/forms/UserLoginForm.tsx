@@ -8,6 +8,7 @@ import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useTypedSelector";
 import { userAuth } from "../../../reducers/user/middlewares/userLoginThunk";
+import { ULCaseCheckRegex, emailRegex, specialCharacterCheckRegex } from "../../../constants/regex";
 
 
 interface LoginData{
@@ -37,10 +38,10 @@ const UserLoginForm: React.FC = () => {
    
 
     const validatePassword = (value: string): boolean | string => {
-        if (!/^(?=.*[a-z])(?=.*[A-Z]).+$/.test(value)) {
+        if (!ULCaseCheckRegex.test(value)) {
             return "password must contain at least one uppercase and one lowercase letter.";
         }
-        if (!/^.*[@$!%*?&].*$/.test(value)) {
+        if (!specialCharacterCheckRegex.test(value)) {
             return "password contain at least one of the specified special characters:";
         }
         return true;
@@ -66,7 +67,7 @@ const UserLoginForm: React.FC = () => {
                             {...register("username", {
                                 required: "username is required.",
                                 pattern: {
-                                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                                    value: emailRegex,
                                     message:
                                         "invalid email format. Please enter a valid email address.",
                                 },
