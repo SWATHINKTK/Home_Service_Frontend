@@ -5,6 +5,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { IoSave } from "react-icons/io5";
 import { blockServiceAPI, editServiceAPI } from "../../../utils/api/adminAPI";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 export interface IService {
   _id?: string;
   serviceName: string;
@@ -22,6 +23,7 @@ const ServiceTable: React.FC = () => {
   const [services, setServices] = useState<IService[]>([]);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [editData, setEditData] = useState<IService | null>(null);
+  const navigate = useNavigate();
   const heading = [
     "#",
     "Icon",
@@ -74,7 +76,7 @@ const ServiceTable: React.FC = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Block",
     }).then(async (result) => {
       if (result.isConfirmed) {
         const response = await blockServiceAPI(serviceId);
@@ -98,7 +100,10 @@ const ServiceTable: React.FC = () => {
         <h1 className="font-Montserrat font-[700] text-[1.9rem] tracking-wider ">
           Services
         </h1>
-        <button className=" bg-neutral-950 text-neutral-400 border border-neutral-400 border-b-4 font-medium overflow-hidden relative px-4  rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+        <button
+          className=" bg-neutral-950 text-neutral-400 border border-neutral-400 border-b-4 font-medium overflow-hidden relative px-4  rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group"
+          onClick={() => navigate("/admin/addService")}
+        >
           <span className="bg-neutral-400 shadow-neutral-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
           Add Service
         </button>
@@ -240,7 +245,7 @@ const ServiceTable: React.FC = () => {
                     </button>
                   )}
                 </td>
-                <td>
+                <td className="px-3">
                   <button
                     className={`${
                       service._isBlocked ? "bg-green-400" : "bg-red-500 px-5"

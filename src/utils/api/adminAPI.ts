@@ -10,6 +10,7 @@ export const adminAuthAPI = async(adminCredentials:IAdminData) => {
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
             toast.error(error.response.data.errors[0].message);
+            throw error;
         }
         toast.error('Somethig went wrong.try again.')
     }

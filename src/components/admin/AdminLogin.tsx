@@ -1,33 +1,34 @@
-import axios, { AxiosError } from "axios";
-import React from "react";
+
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { IAdminData } from "../../@types/admin";
+import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
+import { adminAuthThunk } from "../../reducers/admin/middlewares/adminLoginThunk";
 
 
 
 const AdminLogin:React.FC = () => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { admin } = useAppSelector((state) => state.adminAuthSlice)
+
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<IAdminData>();
 
-    const onSubmit = async(value: IAdminData) => {
-        try {
-            const response = await axios.post('/api/admin/login',value);
-            if(response.data.success){
-                navigate('/admin')
-            }
-        } catch (error) {
-            if(error instanceof AxiosError && error.response){
-                toast.error(error.response.data.error[0].message)
-            }
-            throw error;
+    useEffect(() => {
+        if(admin){
+            navigate("/admin",{replace:true});
         }
+    },[admin,navigate]);
+
+    const onSubmit = async(value: IAdminData) => {
+        dispatch(adminAuthThunk(value));
     };
+    console.log(admin)
     return (
         <div className="w-[100vw] h-[100vh] flex justify-center items-center ">
             <div className="md:w-[26%] w-[100%] h-auto flex flex-col place-items-center p-5 py-8 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-xl ">
@@ -66,6 +67,7 @@ const AdminLogin:React.FC = () => {
 
                         <div className="relative h-11 w-full min-w-[200px] mt-4">
                             <input
+                                type="password"
                                 placeholder="Password"
                                 className="peer h-full w-full border-b border-black bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100"
                                 {...register("password", {

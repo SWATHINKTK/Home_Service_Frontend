@@ -15,6 +15,7 @@ import AdminUserPage from "./pages/admin/AdminUserPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
 import AdminServiceViewPage from "./pages/admin/AdminServiceViewPage";
 import AdminServiceAddPage from "./pages/admin/AdminServiceAddPage";
+import AdminPrivateRouter from "./utils/privateRouters/AdminPrivateRouter";
 
 
 
@@ -40,10 +41,12 @@ function App() {
           <Route path="/worker/register" element={<WorkerRegister />} />
           <Route path="/worker/otp" element={<WorkerOTP />} />
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminDashboardPage />} />
-          <Route path="/admin/user" element={<AdminUserPage />} />
-          <Route path="/admin/service" element={<AdminServiceViewPage />} />
-          <Route path="/admin/addService" element={<AdminServiceAddPage />} />
+          <Route element={<AdminPrivateRouter />}>
+            <Route path="/admin" element={<AdminDashboardPage />} />
+            <Route path="/admin/user" element={<AdminUserPage />} />
+            <Route path="/admin/service" element={<AdminServiceViewPage />} />
+            <Route path="/admin/addService" element={<AdminServiceAddPage />} />
+          </Route>
         </Routes>
       </Router>
     </>

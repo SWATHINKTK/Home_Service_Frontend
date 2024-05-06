@@ -6,7 +6,8 @@ interface IAdminState{
     admin:string | null,
     loading:boolean,
     success:boolean,
-    error:boolean
+    error:boolean,
+    message:string,
 }
 
 
@@ -14,7 +15,8 @@ const INITIAL_STATE:IAdminState = {
     admin:null,
     loading:false,
     success: false,
-    error:false
+    error:false,
+    message:''
 }
 
 const checkAdminExist = () => {
@@ -39,12 +41,13 @@ const adminAuthSlice = createSlice({
             state.loading = false;
             state.success = true;
             state.error = false;
-            state.admin = action.payload.data;
-            localStorage.setItem('adminAuth', action.payload.data)
+            state.admin = action.payload;
+            localStorage.setItem('adminAuth', action.payload)
         })
 
-        builder.addCase(adminAuthThunk.rejected , (state) => {
+        builder.addCase(adminAuthThunk.rejected , (state,action) => {
             state.error = true;
+            state.message = (action.payload as { errors?: { message: string }[] }).errors?.[0]?.message ?? "An error occurred";
         })
     }
 })
