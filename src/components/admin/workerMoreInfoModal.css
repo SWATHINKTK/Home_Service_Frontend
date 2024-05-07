@@ -1,0 +1,10 @@
+/* WorkerMoreInfoModal.css */
+::-webkit-scrollbar {
+    width: 0;
+    /* Hide the scrollbar */
+}
+
+/* Optional: Hide scrollbar on Firefox */
+* {
+    scrollbar-width: none;
+}

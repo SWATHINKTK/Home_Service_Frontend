@@ -48,6 +48,6 @@ export const blockUserAPI = async(userId:string) => {
         if (error instanceof AxiosError && error.response) {
             toast.error(error.response.data.errors[0].message);
         }
-        toast.error("Server error")
+        throw error
     }
 }

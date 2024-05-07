@@ -17,6 +17,7 @@ import AdminServiceViewPage from "./pages/admin/AdminServiceViewPage";
 import AdminServiceAddPage from "./pages/admin/AdminServiceAddPage";
 import AdminPrivateRouter from "./utils/privateRouters/AdminPrivateRouter";
 import WorkerRegisterStep2 from "./pages/worker/WorkerRegisterStep2";
+import AdminWorkerPage from "./pages/admin/AdminWorkerPage";
 
 
 
@@ -41,13 +42,17 @@ function App() {
           <Route path="/worker/login" element={<WorkerLogin />} />
           <Route path="/worker/register" element={<WorkerRegister />} />
           <Route path="/worker/register/otp" element={<WorkerOTP />} />
-          <Route path="/worker/register/upload" element={<WorkerRegisterStep2 />} />
+          <Route
+            path="/worker/register/upload"
+            element={<WorkerRegisterStep2 />}
+          />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route element={<AdminPrivateRouter />}>
             <Route path="/admin" element={<AdminDashboardPage />} />
             <Route path="/admin/user" element={<AdminUserPage />} />
             <Route path="/admin/service" element={<AdminServiceViewPage />} />
             <Route path="/admin/addService" element={<AdminServiceAddPage />} />
+            <Route path="/admin/worker" element={<AdminWorkerPage />} />
           </Route>
         </Routes>
       </Router>

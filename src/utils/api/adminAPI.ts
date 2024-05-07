@@ -39,3 +39,41 @@ export const blockServiceAPI = async(serviceId:string) => {
         toast.error("Server error")
     }
 }
+
+
+export const fetchAllWorkerAPI = async(status:boolean) => {
+    try {
+        const response = await axios.get(`/api/admin/worker/${status}`);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        toast.error("Server error")
+    }
+}
+
+
+export const blockWorkerAPI = async(workerId:string) => {
+    try {
+        const response = await axios.patch(`/api/admin/worker/${workerId}/block`);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}
+
+export const verifyWorkerAPI = async (workerId: string) => {
+    try {
+        const response = await axios.patch(`/api/admin/worker/${workerId}/verify`);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}

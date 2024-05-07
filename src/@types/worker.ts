@@ -1,6 +1,5 @@
-
-
 export interface IWorker{
+    _id?:string,
     username: string;
     email: string;
     phoneNumber: string;
@@ -11,6 +10,10 @@ export interface IWorker{
     experience: number;
     password?: string;
     confirmPassword?:string;
-    certificate?:File;
-    idProof?:File;
+    certificate?:File | string;
+    idProof?:File | string;
+    fireBaseAuth?:unknown;
+    _isBlocked?:boolean;
+    _isVerified?:boolean;
+    createdAt?:string;
 }
