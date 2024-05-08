@@ -1,6 +1,6 @@
 import React from 'react'
-import Authentication from '../../components/Authentication/Authentication'
-import WorkerRegisterForm from '../../components/worker/forms/WorkerRegisterForm'
+import Authentication from '../../components/Common/AuthLayout/AuthLayout'
+import WorkerRegisterForm from '../../components/Worker/WorkerRegister/WorkerRegisterForm'
 
 const WorkerRegister:React.FC = () => {
   return (

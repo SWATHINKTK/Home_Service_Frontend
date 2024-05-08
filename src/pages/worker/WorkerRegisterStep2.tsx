@@ -1,6 +1,6 @@
 import React from 'react'
-import RegisterStep2 from '../../components/worker/forms/RegisterStep2';
-import Authentication from '../../components/Authentication/Authentication';
+import RegisterStep2 from '../../components/Worker/WorkerRegister/RegisterStep2';
+import Authentication from '../../components/Common/AuthLayout/AuthLayout';
 
 const WorkerRegisterStep2:React.FC = () => {
   return (

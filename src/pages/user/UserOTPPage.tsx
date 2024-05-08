@@ -1,6 +1,6 @@
 import React from 'react'
-import Authentication from '../../components/Authentication/Authentication'
-import UserOTPForm from '../../components/user/forms/UserOTPForm'
+import Authentication from '../../components/Common/AuthLayout/AuthLayout'
+import UserOTPForm from '../../components/User/OTPVerification/UserOTPForm'
 
 const UserOTPPage = () => {
   return (

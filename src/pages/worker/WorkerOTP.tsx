@@ -1,6 +1,6 @@
 import React from 'react'
-import Authentication from '../../components/Authentication/Authentication'
-import WorkerOTPForm from '../../components/worker/forms/WorkerOTPForm'
+import Authentication from '../../components/Common/AuthLayout/AuthLayout'
+import WorkerOTPForm from '../../components/Worker/OTPVerification/WorkerOTPForm'
 
 const WorkerOTP = () => {
   return (

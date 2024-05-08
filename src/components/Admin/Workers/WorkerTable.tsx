@@ -5,7 +5,7 @@ import { MdVerifiedUser } from "react-icons/md";
 import { GoUnverified } from "react-icons/go";
 import Swal from 'sweetalert2'
 import { IWorker } from "../../../@types/worker";
-import WorkerMoreInfoModal from "../WorkerMoreInfoModal";
+import WorkerMoreInfoModal from "./WorkerMoreInfoModal";
 import { blockWorkerAPI, fetchAllWorkerAPI, verifyWorkerAPI } from "../../../utils/api/adminAPI";
 
 

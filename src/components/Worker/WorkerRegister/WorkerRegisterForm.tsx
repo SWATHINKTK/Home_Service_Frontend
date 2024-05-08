@@ -7,18 +7,19 @@ import { FaCity } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaLocationDot } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+
+
 
 import { IService } from "../../../@types/service";
 import { fetchAllServicesAPI } from "../../../utils/api/serviceAPI";
-import { useForm } from "react-hook-form";
 import { IWorker } from "../../../@types/worker";
 import { ULCaseCheckRegex, emailRegex, mobileNumberRegex, numberRegex, specialCharacterCheckRegex } from "../../../constants/regex";
-// import { sendOTPWithPhoneNumber } from "../../config/otpVerificationFirebase";
 import { useAppDispatch } from "../../../hooks/useTypedSelector";
 import { storeWorkerRegisterData } from "../../../reducers/worker/workerSlice";
-import { toast } from "react-toastify";
 
-import '../css/login.css';
+import './register.css';
 
 const WorkerRegisterForm:React.FC = () => {
 

@@ -2,9 +2,9 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { IAdminData } from "../../@types/admin";
-import { useAppDispatch, useAppSelector } from "../../hooks/useTypedSelector";
-import { adminAuthThunk } from "../../reducers/admin/middlewares/adminLoginThunk";
+import { IAdminData } from "../../../@types/admin";
+import { useAppDispatch, useAppSelector } from "../../../hooks/useTypedSelector";
+import { adminAuthThunk } from "../../../reducers/admin/middlewares/adminLoginThunk";
 
 
 

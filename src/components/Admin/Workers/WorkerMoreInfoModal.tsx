@@ -1,8 +1,9 @@
 import React from "react";
 import Modal from "react-modal";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import "./css/workerMoreInfoModal.css"; // Import your CSS file with scrollbar styles
-import { IWorker } from "../../@types/worker";
+
+import './workerMoreInfoModal.css';
+import { IWorker } from "../../../@types/worker";
 
 
 

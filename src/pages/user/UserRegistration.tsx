@@ -1,6 +1,6 @@
 import React from 'react'
-import Authentication from '../../components/Authentication/Authentication'
-import UserRegisterForm from '../../components/user/forms/UserRegisterForm'
+import Authentication from '../../components/Common/AuthLayout/AuthLayout'
+import UserRegisterForm from '../../components/User/Registration/UserRegisterForm'
 
 const UserRegistration:React.FC = () => {
   return (

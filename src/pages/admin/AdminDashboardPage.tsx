@@ -1,6 +1,6 @@
 import React from 'react'
-import AdminMainComponent from '../../components/admin/AdminMainComponent'
-import AdminDashboard from '../../components/admin/AdminDashboard'
+import AdminMainComponent from '../../components/Admin/AdminLayout/AdminMainComponent'
+import AdminDashboard from '../../components/Admin/Dashboard/AdminDashboard'
 
 
 const AdminDashboardPage:React.FC = () => {

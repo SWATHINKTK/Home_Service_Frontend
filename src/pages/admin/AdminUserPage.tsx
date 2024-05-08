@@ -1,5 +1,5 @@
-import AdminMainComponent from "../../components/admin/AdminMainComponent"
-import UserTable from "../../components/admin/tables/UserTable"
+import AdminMainComponent from "../../components/Admin/AdminLayout/AdminMainComponent"
+import UserTable from "../../components/Admin/Users/UserTable"
 
 const AdminUserPage = () => {
   return (

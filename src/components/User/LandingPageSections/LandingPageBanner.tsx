@@ -1,4 +1,4 @@
-import "../css/userLanding.css";
+import "./userLanding.css";
 
 const LandingPageBanner = () => {
   return (

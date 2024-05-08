@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { IService } from "../../components/admin/tables/ServiceTable";
+import { IService } from "../../components/Admin/Services/ServiceTable";
 import { toast } from "react-toastify";
 import { IAdminData } from "../../@types/admin";
 
@@ -48,6 +48,7 @@ export const fetchAllWorkerAPI = async(status:boolean) => {
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
             toast.error(error.response.data.errors[0].message);
+            throw error
         }
         toast.error("Server error")
     }

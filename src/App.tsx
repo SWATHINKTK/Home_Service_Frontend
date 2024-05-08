@@ -7,7 +7,7 @@ import WorkerRegister from "./pages/worker/WorkerRegister";
 import WorkerOTP from "./pages/worker/WorkerOTP";
 import UserLogin from "./pages/user/UserLogin";
 import UserRegistration from "./pages/user/UserRegistration";
-import AdminLogin from "./components/admin/AdminLogin";
+import AdminLogin from "./components/Admin/Login/AdminLogin";
 import PrivateRouter from "./utils/privateRouters/PrivateRouter";
 import UserOTPPage from "./pages/user/UserOTPPage";
 

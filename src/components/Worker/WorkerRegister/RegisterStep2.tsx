@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { TiPlus } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
-import '../css/login.css';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
 import { storeConfirmationResultFirebase, storeUploadDocuments } from '../../../reducers/worker/workerSlice';
 import { sendOTPWithPhoneNumber } from '../../../config/otpVerificationFirebase';
-import { toast } from 'react-toastify';
+import './register.css'
 
 
 

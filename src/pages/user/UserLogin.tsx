@@ -1,6 +1,6 @@
 import React from 'react'
-import Authentication from '../../components/Authentication/Authentication' 
-import UserLoginForm from '../../components/user/forms/UserLoginForm'
+import Authentication from '../../components/Common/AuthLayout/AuthLayout' 
+import UserLoginForm from '../../components/User/Login/UserLoginForm'
 
 const UserLogin = () => {
   return (

@@ -6,8 +6,10 @@ import { MdEngineering } from "react-icons/md";
 import { MdOutlineLogout } from "react-icons/md";
 import { FaUsersCog } from "react-icons/fa";
 import { MdMessage } from "react-icons/md";
-import "./css/adminMainComponent.css";
 import { useNavigate } from "react-router-dom";
+
+import "./adminMainComponent.css";
+
 
 interface AdminMainComponentProb {
   content: React.ReactNode;

@@ -1,5 +1,5 @@
-import AdminMainComponent from "../../components/admin/AdminMainComponent"
-import WorkerTable from "../../components/admin/tables/WorkerTable"
+import AdminMainComponent from "../../components/Admin/AdminLayout/AdminMainComponent"
+import WorkerTable from "../../components/Admin/Workers/WorkerTable"
 
 
 const AdminWorkerPage = () => {
