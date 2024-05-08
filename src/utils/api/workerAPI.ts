@@ -12,3 +12,13 @@ export const workerRegisterAPI = async(registerData:unknown) => {
         toast.error('Something went wrong try again.')
     }
 }
+
+export const workerLoginApi = async(workerCredentials: { username: string, password: string }) => {
+   try {
+        const response = await axios.post('/api/worker/login',workerCredentials);
+        return response.data;
+   } catch (error) {
+        console.log("error",error)
+        throw error;
+   }
+};

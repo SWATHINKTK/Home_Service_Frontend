@@ -18,6 +18,8 @@ import AdminServiceAddPage from "./pages/admin/AdminServiceAddPage";
 import AdminPrivateRouter from "./utils/privateRouters/AdminPrivateRouter";
 import WorkerRegisterStep2 from "./pages/worker/WorkerRegisterStep2";
 import AdminWorkerPage from "./pages/admin/AdminWorkerPage";
+import WorkerPrivateRouter from "./utils/privateRouters/WorkerPrivateRouter";
+import UserProfile from "./pages/user/UserProfilePage";
 
 
 
@@ -38,14 +40,15 @@ function App() {
           <Route path="/otpVerification" element={<UserOTPPage />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/register" element={<UserRegistration />} />
-          <Route path="/worker" element={<WorkerLanding />} />
+          <Route element={<WorkerPrivateRouter />}>
+            <Route path="/worker" element={<WorkerLanding />} />
+          </Route>
+          <Route path="/user/profile" element={<UserProfile />} />
+
           <Route path="/worker/login" element={<WorkerLogin />} />
           <Route path="/worker/register" element={<WorkerRegister />} />
           <Route path="/worker/register/otp" element={<WorkerOTP />} />
-          <Route
-            path="/worker/register/upload"
-            element={<WorkerRegisterStep2 />}
-          />
+          <Route path="/worker/register/upload"element={<WorkerRegisterStep2 />}/>
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route element={<AdminPrivateRouter />}>
             <Route path="/admin" element={<AdminDashboardPage />} />

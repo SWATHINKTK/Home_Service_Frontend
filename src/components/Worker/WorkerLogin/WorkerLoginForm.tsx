@@ -1,64 +1,126 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
 
-const WorkerLoginForm = () => {
+import { ULCaseCheckRegex, emailRegex, specialCharacterCheckRegex } from '../../../constants/regex';
+import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
+import { workerAuth } from '../../../reducers/worker/middlewares/workerLoginThunk';
+
+
+interface IWorkerLogin {
+  username: string,
+  password: string
+}
+
+const WorkerLoginForm: React.FC = () => {
+
+  const { worker } = useAppSelector((state) => state.workerSlice)
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IWorkerLogin>();
+
+  useEffect(() => {
+    if (worker) {
+      navigate('/worker', { replace: true })
+    }
+  }, [navigate, worker]);
+
+  const validatePassword = (value: string): boolean | string => {
+    if (!ULCaseCheckRegex.test(value)) {
+      return "password must contain at least one uppercase and one lowercase letter.";
+    }
+    if (!specialCharacterCheckRegex.test(value)) {
+      return "password contain at least one of the specified special characters:";
+    }
+    return true;
+  };
+
+  const handleLogin = (data: IWorkerLogin) => {
+      dispatch(workerAuth(data))
+      console.log(data);
+  };
   return (
     <>
-    <div className="my-6">
-            <div className="relative mb-6">
-              <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  viewBox="0 0 20 16"
-                >
-                  <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
-                  <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
-                </svg>
-              </div>
-              <input
-                type="text"
-                id="input-group-1"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[100%] w-full ps-10 p-2.5  "
-                placeholder="Username"
-              />
+      <form className="mt-4" onSubmit={handleSubmit(handleLogin)}>
+        <div className="mt-6 mb-4">
+          <div className="relative">
+            <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+              <MdEmail className="text-gray-500" />
             </div>
-
-            <div className="relative ">
-              <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  className="bi bi-shield-lock-fill text-gray-500 dark:text-gray-400"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.8 11.8 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7 7 0 0 0 1.048-.625 11.8 11.8 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.54 1.54 0 0 0-1.044-1.263 63 63 0 0 0-2.887-.87C9.843.266 8.69 0 8 0m0 5a1.5 1.5 0 0 1 .5 2.915l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99A1.5 1.5 0 0 1 8 5"
-                  />
-                </svg>
-              </div>
-              <input
-                type="text"
-                id="input-group-1"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[100%] w-full ps-10 p-2.5  "
-                placeholder="Password"
-              />
-              
-            </div>
+            <input
+              type="text"
+              id="input-group-1"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[100%] w-full ps-10 p-2.5  "
+              placeholder="Username"
+              {...register("username", {
+                required: "username is required.",
+                pattern: {
+                  value: emailRegex,
+                  message:
+                    "invalid email format. Please enter a valid email address.",
+                },
+              })}
+            />
           </div>
+          {errors.username && (
+            <p className="mx-3 mt-0.5 text-red-500 text-xs italic">
+              * {errors.username.message?.toString()}
+            </p>
+          )}
 
-          <button className="login-btn md:w-[100%] w-full font-Montserrat">
-            Sign in
-          </button>
+          <div className={`relative ${errors.username ? 'mt-2' : 'mt-5'}`}>
+            <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+              <RiLockPasswordFill className="text-gray-500" />
+            </div>
+            <input
+              type="text"
+              id="input-group-1"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[100%] w-full ps-10 p-2.5  "
+              placeholder="Password"
+              {...register("password", {
+                required: "password must be required.",
+                minLength: {
+                  value: 3,
+                  message: "password must be at least 5 characters.",
+                },
+                validate: validatePassword,
+                maxLength: {
+                  value: 12,
+                  message: "password cannot exceed 12 characters.",
+                },
+              })}
+            />
+          </div>
+          {errors.password && (
+            <p className="mx-3 mt-0.5 text-red-500 text-xs italic">
+              * {errors.password.message?.toString()}
+            </p>
+          )}
+        </div>
 
-            <h6 className="my-3 font-Montserrat font-[400] text-[12px]">Don't have an account ? <Link to='/worker/register' className="font-[600] text-[14px] text-[#385185]" >Sign up</Link> </h6>
+        <button className="login-btn md:w-[100%] w-full font-Montserrat">
+          Sign in
+        </button>
+      </form>
+
+      <h6 className="my-3 font-Montserrat font-[400] text-[12px]">
+        Don't have an account ?{" "}
+        <Link
+          to="/worker/register"
+          className="font-[600] text-[14px] text-[#385185]"
+        >
+          Sign up
+        </Link>{" "}
+      </h6>
     </>
-  )
+  );
 }
 
 export default WorkerLoginForm
