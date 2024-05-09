@@ -20,6 +20,7 @@ import WorkerRegisterStep2 from "./pages/worker/WorkerRegisterStep2";
 import AdminWorkerPage from "./pages/admin/AdminWorkerPage";
 import WorkerPrivateRouter from "./utils/privateRouters/WorkerPrivateRouter";
 import UserProfile from "./pages/user/UserProfilePage";
+import ServicePage from "./pages/user/ServicePage";
 
 
 
@@ -37,6 +38,7 @@ function App() {
           <Route element={<PrivateRouter />}>
             <Route path="/" element={<UserLanding />} />
             <Route path="/user/profile" element={<UserProfile />} />
+            <Route path="/service" element={<ServicePage />} />
           </Route>
           <Route path="/otpVerification" element={<UserOTPPage />} />
           <Route path="/login" element={<UserLogin />} />

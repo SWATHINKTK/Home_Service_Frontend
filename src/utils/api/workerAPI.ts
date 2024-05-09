@@ -13,7 +13,7 @@ export const workerRegisterAPI = async(registerData:unknown) => {
     }
 }
 
-export const workerLoginApi = async(workerCredentials: { username: string, password: string }) => {
+export const workerLoginApi = async(workerCredentials: { phoneNumber: string, password: string }) => {
    try {
         const response = await axios.post('/api/worker/login',workerCredentials);
         return response.data;

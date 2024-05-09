@@ -5,7 +5,7 @@ import { workerLoginApi } from "../../../utils/api/workerAPI";
 
 
 interface workerCredential {
-    username: string;
+    phoneNumber: string;
     password: string;
 }
 

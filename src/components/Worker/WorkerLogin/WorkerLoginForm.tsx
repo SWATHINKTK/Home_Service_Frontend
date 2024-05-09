@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { MdEmail } from "react-icons/md";
+import { FaPhoneAlt } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 
-import { ULCaseCheckRegex, emailRegex, specialCharacterCheckRegex } from '../../../constants/regex';
+import { ULCaseCheckRegex, mobileNumberRegex, specialCharacterCheckRegex } from '../../../constants/regex';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
 import { workerAuth } from '../../../reducers/worker/middlewares/workerLoginThunk';
 
 
 interface IWorkerLogin {
-  username: string,
+  phoneNumber: string,
   password: string
 }
 
@@ -52,35 +52,35 @@ const WorkerLoginForm: React.FC = () => {
         <div className="mt-6 mb-4">
           <div className="relative">
             <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-              <MdEmail className="text-gray-500" />
+              <FaPhoneAlt className="text-gray-500" />
             </div>
             <input
               type="text"
               id="input-group-1"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[100%] w-full ps-10 p-2.5  "
-              placeholder="Username"
-              {...register("username", {
-                required: "username is required.",
+              placeholder="Phone Number"
+              {...register("phoneNumber", {
+                required: "phone number is required.",
                 pattern: {
-                  value: emailRegex,
+                  value: mobileNumberRegex,
                   message:
-                    "invalid email format. Please enter a valid email address.",
+                    "invalid mobile number format.It should consist of 10 digits.",
                 },
               })}
             />
           </div>
-          {errors.username && (
+          {errors.phoneNumber && (
             <p className="mx-3 mt-0.5 text-red-500 text-xs italic">
-              * {errors.username.message?.toString()}
+              * {errors.phoneNumber.message?.toString()}
             </p>
           )}
 
-          <div className={`relative ${errors.username ? 'mt-2' : 'mt-5'}`}>
+          <div className={`relative ${errors.phoneNumber ? 'mt-2' : 'mt-5'}`}>
             <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
               <RiLockPasswordFill className="text-gray-500" />
             </div>
             <input
-              type="text"
+              type="password"
               id="input-group-1"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[100%] w-full ps-10 p-2.5  "
               placeholder="Password"

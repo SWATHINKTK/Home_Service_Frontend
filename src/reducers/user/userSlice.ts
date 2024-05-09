@@ -30,7 +30,12 @@ const checkUserExist = () => {
 const userSlice = createSlice({
     name:'user',
     initialState:checkUserExist(),
-    reducers:{},
+    reducers:{
+        updateUserData:(state,action) => {
+            state.user = action.payload
+            localStorage.setItem('userAuth',JSON.stringify(action.payload));
+        }
+    },
     extraReducers:(builder) => {
         builder.addCase(userAuth.pending,(state) => {
             state.loading = true;
@@ -65,4 +70,5 @@ const userSlice = createSlice({
     }
 })
 
+export const { updateUserData } = userSlice.actions;
 export default userSlice.reducer;

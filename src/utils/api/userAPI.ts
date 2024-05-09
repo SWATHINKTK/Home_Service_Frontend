@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { IUser, IUserUpdateData } from "../../@types/user";
+import { IUser } from "../../@types/user";
 
 export const userLogin = async (userCredential:{username:string, password:string}) => {
     try {
@@ -76,7 +76,7 @@ export const userProfileAPI = async() => {
 }
 
 
-export const manageUserProfileAPI = async(userUpdateData:IUserUpdateData) => {
+export const manageUserProfileAPI = async(userUpdateData:FormData) => {
     try {
         const response = await axios.put('/api/user/editProfile',userUpdateData);
         return response.data;
@@ -85,5 +85,19 @@ export const manageUserProfileAPI = async(userUpdateData:IUserUpdateData) => {
             toast.error(error.response.data.errors[0].message);
         }
         throw error
+    }
+}
+
+
+export const serviceListAPI = async() => {
+    try {
+        const response = await axios.get('/api/user/service');
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+            throw error
+        }
+        toast.error('server Error please try again.')
     }
 }

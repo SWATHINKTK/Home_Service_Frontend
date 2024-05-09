@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { IUser } from "../../../@types/user";
 import { manageUserProfileAPI, userProfileAPI } from "../../../utils/api/userAPI";
+import { toast } from "react-toastify";
+import { useAppDispatch } from "../../../hooks/useTypedSelector";
+import { updateUserData } from "../../../reducers/user/userSlice";
 
 const url =
   "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg=";
@@ -19,6 +22,7 @@ const UserProfile: React.FC = () => {
   } = useForm<IUser>();
   const [isEditProfile, setIsEditProfile] = useState(false);
   const [userData, setUserData] = useState<IUser | null>(null);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -74,16 +78,20 @@ const UserProfile: React.FC = () => {
     alert("hello");
     const formDataToSend = new FormData();
     Object.entries(editData).forEach(([key,value]) => formDataToSend.append(key, value));
-    formDataToSend.append("profile", imageFile as Blob);
-    await manageUserProfileAPI(formDataToSend)
+    if(imageFile){
+      formDataToSend.append("profile", imageFile as Blob);
+    }
+    const response = await manageUserProfileAPI(formDataToSend);
+    toast.success(response.message);
     editData.profile = imageUrl;
     setUserData(editData);
     setIsEditProfile(false);
+    dispatch(updateUserData(editData));
   };
 
   return (
-    <div className="about-section">
-      <h1 className="text-3xl mb-1">Manage Profile</h1>
+    <div className="about-section px-4">
+      <h1 className="text-2xl font-bold mb-1">Account Information</h1>
       <p className="font-thin text-sm pl-1 mb-6">
         user/ <span className="font-semibold">Manage profile</span>
       </p>
@@ -104,7 +112,7 @@ const UserProfile: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex lg:flex-row flex-col-reverse  gap-10 bg-white rounded-lg shadow-md p-6">
+      <div className="flex lg:flex-row flex-col-reverse  gap-10 bg-white rounded-lg p-6">
         <div className=" text-md w-10/12 font-light  ">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid lg:grid-cols-2  grid-cols-1 gap-x-7 gap-y-4 grid-rows-3">
