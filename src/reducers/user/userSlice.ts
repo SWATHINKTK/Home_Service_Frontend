@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IUser } from "../../@types/user";
 import { userAuth } from "./middlewares/userLoginThunk";
 import { toast } from "react-toastify";
+import { userLogout } from "./middlewares/userLogoutThunk";
 
 export interface IUserState{
     user:IUser | null,
@@ -47,8 +48,21 @@ const userSlice = createSlice({
             console.log("payload",action.payload)
             state.error = (action.payload as { errors?: { message: string }[] }).errors?.[0]?.message ?? "An error occurred";
             toast.error(state.error)
+        }),
+        
+        builder.addCase(userLogout.fulfilled, (state) =>{
+            state.loading = false;
+            state.error = null;
+            state.user = null;
+            localStorage.removeItem('userAuth');
         })
-    },
+
+        builder.addCase(userLogout.rejected, (state, action) => {
+            state.loading = false;
+            state.error = (action.payload as { errors?: { message: string }[] }).errors?.[0]?.message ?? "An error occurred";
+            toast.error(state.error)
+        })
+    }
 })
 
 export default userSlice.reducer;

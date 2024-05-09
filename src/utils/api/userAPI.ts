@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
-import { IUser } from "../../@types/user";
+import { IUser, IUserUpdateData } from "../../@types/user";
 
 export const userLogin = async (userCredential:{username:string, password:string}) => {
     try {
@@ -12,6 +12,16 @@ export const userLogin = async (userCredential:{username:string, password:string
     }
 };
 
+
+
+export const userLogoutAPI = async () => {
+    try {
+        const response = await axios.post('/api/user/logout');
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
 
 export const userVerification = async (otpCredentials:{email:string, firstname:string, lastname:string}) => {
     try {
@@ -43,6 +53,32 @@ export const registerUser = async (registerCredentials:IUser) => {
 export const blockUserAPI = async(userId:string) => {
     try {
         const response = await axios.patch(`/api/admin/${userId}/block`);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}
+
+
+export const userProfileAPI = async() => {
+    try {
+        const response = await axios.get('/api/user/profile');
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}
+
+
+export const manageUserProfileAPI = async(userUpdateData:IUserUpdateData) => {
+    try {
+        const response = await axios.put('/api/user/editProfile',userUpdateData);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {

@@ -9,4 +9,16 @@ export interface IUser {
     userEnteredOTP?:string;
     createdAt?:Date;
     updatedAt?:Date;
+    profile?:string;
 }
+
+
+export interface IUserUpdateData {
+    firstname: string;
+    lastname: string;
+    email: string;
+    phoneNumber: string;
+    district: string;
+    profile: File; 
+}
+

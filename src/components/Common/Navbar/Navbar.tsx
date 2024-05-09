@@ -3,6 +3,7 @@ import { BiUser } from "react-icons/bi";
 import { GrLocation } from "react-icons/gr";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { CiSearch } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 type NavbarProb = {
   user:boolean;
@@ -61,13 +62,13 @@ const Navbar:React.FC<NavbarProb> = ({ user }) => {
           >
             <ul className={`${user ? 'text-black' : 'text-white'} font-Montserrat text-[15px] font-[700] flex flex-col gap-2  p-4 md:p-0 mt-4  rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700`}>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to={user ? '/' : '/worker'}
                   className="block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0 dark:text-white md:dark:text-blue-500"
                   aria-current="page"
                 >
                   Home
-                </a>
+                </Link>
               </li>
               <li>
                 <a
@@ -87,15 +88,15 @@ const Navbar:React.FC<NavbarProb> = ({ user }) => {
               </li>
 
               <li>
-                <a
-                  href="#"
+                <Link
+                  to={user ? 'user/profile' : '/worker/profile'}
                   className="block py-2 px-3  rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   <BiUser size={22} className="hidden md:block" />{" "}
                   <span className="block md:hidden font-Montserrat text-[15px] font-[700]  text-gray-900 rounded">
                     Profile
                   </span>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

@@ -83,10 +83,6 @@ const UserRegisterForm: React.FC = () => {
                   value: 3,
                   message: "first name must be at least 3 characters.",
                 },
-                maxLength: {
-                  value: 18,
-                  message: "first name cannot exceed 18 characters.",
-                },
                 validate: createRequiredValidator("first name"),
               })}
             />
@@ -156,7 +152,7 @@ const UserRegisterForm: React.FC = () => {
               <FaLocationDot className="text-gray-500" />
             </div>
             <select
-              id="countries"
+              id="Districts"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[100%] w-full ps-10 p-2"
               {...register("district", {
                 required: "district is required.",

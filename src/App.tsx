@@ -36,6 +36,7 @@ function App() {
         <Routes>
           <Route element={<PrivateRouter />}>
             <Route path="/" element={<UserLanding />} />
+            <Route path="/user/profile" element={<UserProfile />} />
           </Route>
           <Route path="/otpVerification" element={<UserOTPPage />} />
           <Route path="/login" element={<UserLogin />} />
@@ -43,7 +44,6 @@ function App() {
           <Route element={<WorkerPrivateRouter />}>
             <Route path="/worker" element={<WorkerLanding />} />
           </Route>
-          <Route path="/user/profile" element={<UserProfile />} />
 
           <Route path="/worker/login" element={<WorkerLogin />} />
           <Route path="/worker/register" element={<WorkerRegister />} />
