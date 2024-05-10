@@ -22,3 +22,42 @@ export const workerLoginApi = async(workerCredentials: { phoneNumber: string, pa
         throw error;
    }
 };
+
+export const workerLogOutAPI = async() => {
+    try {
+         const response = await axios.post('/api/worker/logout');
+         return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+            throw error
+        }
+        toast.error('something went wrong.')
+    }
+ };
+
+
+export const workerProfileAPI = async() => {
+    try {
+        const response = await axios.get('/api/worker/profile');
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}
+
+
+export const workerProfileUpdateAPI = async(workerUpdateData:FormData) => {
+    try {
+        const response = await axios.put('/api/worker/editProfile',workerUpdateData);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}

@@ -5,7 +5,7 @@ import ProfileLayout from '../../components/User/ProfileLayout/ProfileLayout'
 const UserProfile:React.FC = () => {
   return (
     <>
-      <Navbar user={true} />
+      <Navbar user={true} special={false} />
       <ProfileLayout />
     </>
   );

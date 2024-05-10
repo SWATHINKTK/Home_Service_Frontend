@@ -16,4 +16,5 @@ export interface IWorker{
     _isBlocked?:boolean;
     _isVerified?:boolean;
     createdAt?:string;
+    profile?:string;
 }

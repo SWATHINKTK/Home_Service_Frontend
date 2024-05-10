@@ -21,6 +21,7 @@ import AdminWorkerPage from "./pages/admin/AdminWorkerPage";
 import WorkerPrivateRouter from "./utils/privateRouters/WorkerPrivateRouter";
 import UserProfile from "./pages/user/UserProfilePage";
 import ServicePage from "./pages/user/ServicePage";
+import WorkerProfilePage from "./pages/worker/WorkerProfilePage";
 
 
 
@@ -45,6 +46,7 @@ function App() {
           <Route path="/register" element={<UserRegistration />} />
           <Route element={<WorkerPrivateRouter />}>
             <Route path="/worker" element={<WorkerLanding />} />
+            <Route path="/worker/profile" element={<WorkerProfilePage />} />
           </Route>
 
           <Route path="/worker/login" element={<WorkerLogin />} />

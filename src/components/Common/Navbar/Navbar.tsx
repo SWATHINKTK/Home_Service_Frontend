@@ -7,9 +7,10 @@ import { Link } from "react-router-dom";
 
 type NavbarProb = {
   user:boolean;
+  special:boolean;
 }
 
-const Navbar:React.FC<NavbarProb> = ({ user }) => {
+const Navbar:React.FC<NavbarProb> = ({ user, special = false }) => {
   // State to control the visibility of the mobile menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -17,10 +18,9 @@ const Navbar:React.FC<NavbarProb> = ({ user }) => {
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
-
   return (
     <div>
-      <nav className={`${user ? 'bg-[#F8F8F8]' : 'bg-[#16185a]'} drop-shadow-md border-gray-200`}>
+      <nav className={`${user && !special ? 'bg-[#F8F8F8]' : 'bg-[#16185a]'} drop-shadow-md border-gray-200`}>
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto md:p-4  py-4 pr-2">
           <a
             href="#"

@@ -3,11 +3,12 @@ import { IWorker } from "../../@types/worker";
 import { ConfirmationResult } from "firebase/auth";
 import { workerAuth } from "./middlewares/workerLoginThunk";
 import { toast } from "react-toastify";
+import { workerLogout } from "./middlewares/workerLogoutThunk";
 
 interface IWorkerSlice{
     workerRegister:IWorker | null;
     confirmationResultFirebase:ConfirmationResult | null;
-    worker:string | null;
+    worker:IWorker | null;
     loading: boolean;
     success: boolean;
     error: boolean;
@@ -27,7 +28,7 @@ const INITIAL_STATE:IWorkerSlice = {
 const checkWorkerExist = () => {
     const workerAuth = localStorage.getItem('workerAuth');
     if (workerAuth) {
-        INITIAL_STATE.worker = workerAuth;
+        INITIAL_STATE.worker = JSON.parse(workerAuth);
     }
     return INITIAL_STATE
 }
@@ -49,6 +50,9 @@ const workerSlicer = createSlice({
         },
         storeConfirmationResultFirebase:(state, action) => {
             state.confirmationResultFirebase = action.payload;
+        },
+        updateWorkerData:(state,action) => {
+            state.worker = action.payload
         }
     },
     extraReducers:(builder) => {
@@ -60,7 +64,7 @@ const workerSlicer = createSlice({
             state.loading = false;
             state.error = false;
             state.worker = action.payload;
-            localStorage.setItem('workerAuth',action.payload);
+            localStorage.setItem('workerAuth', JSON.stringify(action.payload));
         })
 
         builder.addCase(workerAuth.rejected, (state, action) => {
@@ -69,8 +73,13 @@ const workerSlicer = createSlice({
             state.message = (action.payload as { errors?: { message: string }[] }).errors?.[0]?.message ?? "An error occurred";
             toast.error(state.message)
         })
+
+        builder.addCase(workerLogout.fulfilled, (state) => {
+            state.worker = null;
+            localStorage.removeItem('workerAuth');
+        })
     }
 })
 
-export const { storeWorkerRegisterData, storeUploadDocuments, storeConfirmationResultFirebase } = workerSlicer.actions;
+export const { storeWorkerRegisterData, storeUploadDocuments, storeConfirmationResultFirebase, updateWorkerData } = workerSlicer.actions;
 export default workerSlicer.reducer;

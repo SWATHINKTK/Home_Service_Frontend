@@ -10,7 +10,7 @@ import WorkerLandingPageService from '../../components/Worker/LandingPageSection
 const WorkerLanding = () => {
   return (
     <>
-    <Navbar user={false} />
+    <Navbar user={false} special={true} />
     <WorkerLandingPageBanner />
     <WorkerLandingPageProcessSection />
     <LandingPageBusiness />

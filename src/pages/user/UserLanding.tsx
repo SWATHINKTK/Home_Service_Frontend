@@ -9,7 +9,7 @@ import Footer from '../../components/User/Footer/Footer'
 const UserLanding = () => {
   return (
     <>
-       <Navbar user={true} />
+       <Navbar user={true} special={false} />
        <LandingPageBanner />
        <LandingPageServiceSection />
        <LandingPageBusiness />

@@ -6,7 +6,7 @@ import ServiceList from '../../components/User/Serivice/ServiceList';
 const ServicePage:React.FC = () => {
   return (
     <>
-    <Navbar user={true} />
+    <Navbar user={true} special={false} />
     <ServiceList />
     <Footer/>
     </>
