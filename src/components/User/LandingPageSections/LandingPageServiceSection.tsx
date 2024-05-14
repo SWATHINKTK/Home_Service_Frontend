@@ -10,8 +10,9 @@ const LandingPageServiceSection = () => {
     const navigate = useNavigate();
     const [services, setServices] = useState<IService[]>([]);
 
+
     const fetchServices = async () => {
-        const response = await serviceListAPI();
+        const response = await serviceListAPI(1);
         setServices(response.data.slice(0, 4))
     }
 
@@ -19,10 +20,11 @@ const LandingPageServiceSection = () => {
         console.log("UseEffect")
         fetchServices();
     }, []);
+
 console.log("services", services)
     return (
         <>
-            <div className="mt-[7%]">
+        <div className=" max-w-7xl mx-auto mt-[7%]">
                 {/* Searchbox Section */}
                 <div className="w-3/12 md:block hidden mx-auto">
                     <div className="relative w-full min-w-[200px] h-10">
@@ -40,16 +42,16 @@ console.log("services", services)
                 </div>
 
                 {/* Service Heading */}
-                <div className="lg:mx-32 md:mx-10 mx-5 mt-7 ">
+                <div className="mt-7 mx-3 lg:mx-0">
                     <h2 className="font-Montserrat font-[650] text-[1.6rem]">
                         Popular Services
                     </h2>
                 </div>
-            </div>
             {/* Service Section */}
-            <div className="lg:mx-44 my-6 grid grid-cols-4">
+            {/* <div className="my-6 flex flex-wrap justify-center items-center"> */}
+            <div className=" my-6 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 justify-items-center">
                 {services.map((service) => (
-                    <div key={service._id} className="h-auto bg-[#F8F8F8] md:w-[15rem] w-[85%]  py-6 rounded-sm">
+                    <div key={service._id} className="h-auto transition-transform duration-300 hover:drop-shadow-lg ease-in-out transform hover:-translate-y-1 bg-[#F8F8F8] md:w-[15rem] w-[80%]  py-6 rounded-sm drop-shadow-md">
                         <div className="flex flex-col place-items-center justify-center">
                             <div className="flex place-items-center justify-center h-24 w-24 rounded-[37%] bg-[#C3F4BE]">
                                 <img
@@ -68,21 +70,23 @@ console.log("services", services)
                     </div>
 
                 ))}
-
             </div>
+            {/* </div> */}
             <div className="flex justify-center">
                 <button
-                    className="flex items-center gap-2 px-5 py-2 font-sans text-xs font-bold text-center font-Montserrat border-2 text-gray-900 align-middle transition-all rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/10 active:bg-gray-900/20"
+                    className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 px-5 py-2 font-sans text-xs font-bold text-center font-Montserrat border-2 text-gray-900 align-middle  rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/10 active:bg-gray-900/20"
                     type="button"
                     onClick={() => navigate('/service')}
                     >
                     All Services
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                        className="w-5 h-5 animate-pulse">
+                        className="w-5 h-5 transition-transform  transform-gpu hover:translate-x-1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"></path>
                     </svg>
                 </button>
             </div>
+        </div>
+
         </>
     );
 };

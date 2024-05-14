@@ -5,7 +5,7 @@ const LandingPageBanner = () => {
     <>
       <div className="md:flex lg:h-[90vh]  lg:mx-32 md:mx-10">
         <div className="md:w-6/12  w-[100%] h-[100%] lg:my-16 my-10 px-4 lg:px-0 ">
-          <div className="relative lg:w-[80%]">
+          <div className="relative lg:w-[80%] flex items-center">
             <h2 className="w-[80%] font-Montserrat font-[500] lg:text-[89px] text-[50px] leading-none">
               Home services at your doorstep
             </h2>
