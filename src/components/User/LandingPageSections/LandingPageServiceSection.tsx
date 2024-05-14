@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const LandingPageServiceSection = () => {
 
-    const [services, setServices] = useState<IService[]>([]);
     const navigate = useNavigate();
+    const [services, setServices] = useState<IService[]>([]);
 
     const fetchServices = async () => {
         const response = await serviceListAPI();
@@ -16,9 +16,10 @@ const LandingPageServiceSection = () => {
     }
 
     useEffect(() => {
+        console.log("UseEffect")
         fetchServices();
     }, []);
-
+console.log("services", services)
     return (
         <>
             <div className="mt-[7%]">
@@ -48,7 +49,7 @@ const LandingPageServiceSection = () => {
             {/* Service Section */}
             <div className="lg:mx-44 my-6 grid grid-cols-4">
                 {services.map((service) => (
-                    <div className="h-auto bg-[#F8F8F8] md:w-[15rem] w-[85%]  py-6 rounded-sm">
+                    <div key={service._id} className="h-auto bg-[#F8F8F8] md:w-[15rem] w-[85%]  py-6 rounded-sm">
                         <div className="flex flex-col place-items-center justify-center">
                             <div className="flex place-items-center justify-center h-24 w-24 rounded-[37%] bg-[#C3F4BE]">
                                 <img

@@ -7,6 +7,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useTypedSelector";
 import { userAuth } from "../../../reducers/user/middlewares/userLoginThunk";
 import { ULCaseCheckRegex, emailRegex, specialCharacterCheckRegex } from "../../../constants/regex";
+import GoogleAuthButton from "../GoogleAuthentication/GoogleAuthButton";
 
 
 interface LoginData{
@@ -84,7 +85,7 @@ const UserLoginForm: React.FC = () => {
                             <RiLockPasswordFill className="text-gray-500" />
                         </div>
                         <input
-                            type="text"
+                            type="password"
                             id="input-group-1"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block lg:w-[100%] w-full ps-10 p-2.5  "
                             placeholder="Password"
@@ -120,17 +121,13 @@ const UserLoginForm: React.FC = () => {
                 <hr className="w-[45%]" />
             </div>
 
-            <button
-                className="align-middle select-none font-Montserrat font-[600] text-center  transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-sm py-2 px-6 rounded-lg border border-blue-gray-500 text-blue-gray-500 hover:opacity-75 focus:ring focus:ring-blue-gray-200 active:opacity-[0.85] flex items-center justify-center gap-3"
-                type="button"
-            >
-                <img
-                    src="https://docs.material-tailwind.com/icons/google.svg"
-                    alt="metamask"
-                    className="w-4 h-4"
-                />
-                Continue with Google
-            </button>
+            
+                <div className="mx-auto">
+                <GoogleAuthButton/>
+
+                </div>
+
+            
 
             <h6 className="my-3 font-Montserrat font-[400] text-[12px]">
                 Don't have an account ?

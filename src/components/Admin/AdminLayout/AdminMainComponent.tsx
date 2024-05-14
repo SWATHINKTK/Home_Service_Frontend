@@ -9,6 +9,8 @@ import { MdMessage } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 import "./adminMainComponent.css";
+import { useAppDispatch } from "../../../hooks/useTypedSelector";
+import { adminLogout } from "../../../reducers/admin/adminAuthSlicer";
 
 
 interface AdminMainComponentProb {
@@ -19,6 +21,7 @@ const AdminMainComponent: React.FC<AdminMainComponentProb> = ({ content }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isNavbarToggle, setIsNavbarToggle] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
@@ -87,9 +90,6 @@ const AdminMainComponent: React.FC<AdminMainComponentProb> = ({ content }) => {
               <button className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" onClick={() => navigate('/admin/service')}>
                 <GrServices className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
                 <span className="flex-1 ms-3 whitespace-nowrap">Services</span>
-                {/* <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                  3
-                </span> */}
               </button>
             </li>
             <hr />
@@ -115,13 +115,13 @@ const AdminMainComponent: React.FC<AdminMainComponentProb> = ({ content }) => {
             </li>
             <hr />
             <li>
-              <a
-                href="#"
+              <button
+                onClick={() => dispatch(adminLogout())}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <MdOutlineLogout className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
                 <span className="flex-1 ms-3 whitespace-nowrap">Log out</span>
-              </a>
+              </button>
             </li>
           </ul>
         </div>
@@ -129,7 +129,7 @@ const AdminMainComponent: React.FC<AdminMainComponentProb> = ({ content }) => {
       <div
         className={`${isNavbarToggle ? "ml-0" : "md:ml-64"} fixed w-full z-40`}
       >
-        <nav className="bg-[#FCFAFA] border-gray-200 dark:bg-gray-900">
+        <nav className="bg-[#FCFAFA] border-gray-200  dark:bg-gray-900">
           <div className="max-w-screen-xxl flex flex-wrap items-center justify-between mx-auto p-4">
             <button
               className="hidden md:block"
@@ -149,11 +149,12 @@ const AdminMainComponent: React.FC<AdminMainComponentProb> = ({ content }) => {
                 />
               </svg>
             </button>
+
           </div>
         </nav>
       </div>
       <div className={`${isNavbarToggle ? "ml-0" : "md:ml-64"} fixed w-full h-[100vh] p-6 bg-[#F5F5F5]`}>
-        {/* Right side Content loading */}
+       
         {content}
       </div>
     </>

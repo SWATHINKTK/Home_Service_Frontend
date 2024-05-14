@@ -31,7 +31,12 @@ const checkAdminExist = () => {
 const adminAuthSlice = createSlice({
     name:'adminAuth',
     initialState: checkAdminExist(),
-    reducers:{},
+    reducers:{
+        adminLogout:(state) => {
+            state.admin = null;
+            localStorage.removeItem('adminAuth');
+        }
+    },
     extraReducers:(builder) => {
         builder.addCase(adminAuthThunk.pending, (state) =>{
             state.loading = true;
@@ -52,5 +57,5 @@ const adminAuthSlice = createSlice({
     }
 })
 
-
+export const { adminLogout } = adminAuthSlice.actions;
 export default adminAuthSlice.reducer;

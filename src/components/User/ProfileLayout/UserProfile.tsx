@@ -74,11 +74,10 @@ const UserProfile: React.FC = () => {
     reset();
   };
 
-  const onSubmit = async(editData: IUser) => {
-    alert("hello");
+  const onSubmit = async (editData: IUser) => {
     const formDataToSend = new FormData();
-    Object.entries(editData).forEach(([key,value]) => formDataToSend.append(key, value));
-    if(imageFile){
+    Object.entries(editData).forEach(([key, value]) => formDataToSend.append(key, value));
+    if (imageFile) {
       formDataToSend.append("profile", imageFile as Blob);
     }
     const response = await manageUserProfileAPI(formDataToSend);

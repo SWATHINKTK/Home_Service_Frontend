@@ -51,7 +51,7 @@ const userSlice = createSlice({
         builder.addCase(userAuth.rejected, (state, action) => {
             state.loading = false;
             console.log("payload",action.payload)
-            state.error = (action.payload as { errors?: { message: string }[] }).errors?.[0]?.message ?? "An error occurred";
+            state.error = (action.payload as { errors?: { message: string }[] }).errors?.[0]?.message ?? "Server Error.";
             toast.error(state.error)
         }),
         
