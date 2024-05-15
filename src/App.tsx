@@ -22,6 +22,8 @@ import WorkerPrivateRouter from "./utils/privateRouters/WorkerPrivateRouter";
 import UserProfile from "./pages/user/UserProfilePage";
 import ServicePage from "./pages/user/ServicePage";
 import WorkerProfilePage from "./pages/worker/WorkerProfilePage";
+import ServiceDetailsPage from "./pages/user/serviceDetailsPage";
+
 
 
 
@@ -61,6 +63,8 @@ function App() {
             <Route path="/admin/addService" element={<AdminServiceAddPage />} />
             <Route path="/admin/worker" element={<AdminWorkerPage />} />
           </Route>
+        <Route path="/serviceDetails" element={<ServiceDetailsPage />} />
+
         </Routes>
       </Router>
     </>

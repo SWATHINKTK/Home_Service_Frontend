@@ -20,7 +20,7 @@ const Navbar:React.FC<NavbarProb> = ({ user, special = false }) => {
   };
   return (
     <div>
-      <nav className={`${user && !special ? 'bg-[#F8F8F8]' : 'bg-[#16185a]'} fixed w-full z-20 drop-shadow-md border-gray-200`}>
+      <nav className={`${user && !special ? 'bg-[#F8F8F8]' : 'bg-[#16185a]'} fixed w-full z-20  border-gray-200`}>
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto md:p-4  py-4 pr-2">
           <a
             href="#"
@@ -116,7 +116,7 @@ const Navbar:React.FC<NavbarProb> = ({ user, special = false }) => {
           </div>
         </div>
       </nav>
-      <div className="md:h-20 h-24"></div>
+      <div className="md:h-20 h-32"></div>
     </div>
   );
 };
