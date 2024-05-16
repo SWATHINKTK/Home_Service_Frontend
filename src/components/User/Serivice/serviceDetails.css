@@ -1,0 +1,25 @@
+.list-item {
+    list-style-type: none; 
+    padding-left: 0; 
+}
+
+.list-item li {
+    padding-left: 20px;
+    position: relative; 
+    margin-bottom: 10px; 
+}
+
+
+.included-list li::before {
+    content: "\2713";
+    color: green; 
+    position: absolute; 
+    left: 0; 
+}
+
+.excluded-list li::before {
+    content: "\2716";
+    color: red; 
+    position: absolute; 
+    left: 0; 
+}
