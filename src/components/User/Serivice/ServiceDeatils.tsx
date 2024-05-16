@@ -7,10 +7,12 @@ import { AiOutlineUser } from "react-icons/ai";
 
 
 import './serviceDetails.css'
+import { useNavigate } from 'react-router-dom';
 
 const ServiceDetails: React.FC = () => {
 
     const [bottom, setBottom] = useState('-150px');
+    const navigate = useNavigate();
 
     const handleScroll = () => {
         const threshold = 100;
@@ -264,7 +266,7 @@ const ServiceDetails: React.FC = () => {
 
                     </div>
 
-                    <button className='bg-[#1c1e5f] md:max-w-40 w-full px-4 rounded-md py-1 font-Montserrat text-white md:m-0 mt-3'>Book Service</button>
+                    <button className='bg-[#1c1e5f] md:max-w-40 w-full px-4 rounded-md py-1 font-Montserrat text-white md:m-0 mt-3' onClick={() => navigate('/currentLocation')}>Book Service</button>
 
                 </div>
             </div>
