@@ -34,7 +34,7 @@ const LocationSelecting: React.FC = () => {
                     <IoIosArrowDropleft size={30} />
                     <h5 className="mx-2 font-semibold text-lg">Back</h5>
                 </button>
-                <button className="flex justify-center items-center duration-200 transform hover:translate-x-2">
+                <button className="flex justify-center items-center duration-200 transform hover:translate-x-2" onClick={() => navigate('/booking')}>
                     <h5 className="mx-2 font-semibold text-lg">Next</h5>
                     <IoIosArrowDropleft className="rotate-180" size={30} />
                 </button>

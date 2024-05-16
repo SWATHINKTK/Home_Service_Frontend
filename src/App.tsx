@@ -24,6 +24,7 @@ import ServicePage from "./pages/user/ServicePage";
 import WorkerProfilePage from "./pages/worker/WorkerProfilePage";
 import ServiceDetailsPage from "./pages/user/serviceDetailsPage";
 import LocationSelectingPage from "./pages/user/LocationSelectingPage";
+import BookingPage from "./pages/user/BookingPage";
 
 
 
@@ -66,6 +67,7 @@ function App() {
           </Route>
         <Route path="/serviceDetails" element={<ServiceDetailsPage />} />
         <Route path="/currentLocation" element={<LocationSelectingPage />} />
+        <Route path="/booking" element={<BookingPage />} />
 
         </Routes>
       </Router>
