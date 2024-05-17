@@ -8,15 +8,15 @@ import { IService } from '../../../@types/service';
 
 const ServiceList: React.FC = () => {
     const [services, setServices] = useState<IService[]>([]);
-    const [ pageNumber, setPageNumber] = useState(1);
+    const [pageNumber, setPageNumber] = useState(1);
     const [loading, setLoading] = useState(false);
 
     const fetchServices = useCallback(async () => {
         setLoading(true);
         const response = await serviceListAPI(pageNumber);
         setLoading(false);
-        pageNumber == 1 ? setServices(response.data) : setServices((prev) => [...prev,...response.data])
-    },[pageNumber])
+        pageNumber == 1 ? setServices(response.data) : setServices((prev) => [...prev, ...response.data])
+    }, [pageNumber])
 
     useEffect(() => {
         fetchServices();
@@ -41,9 +41,9 @@ const ServiceList: React.FC = () => {
                     type="button"
                     onClick={() => setPageNumber(pageNumber + 1)}
                     disabled={loading}
-                    >
-                   {loading ? <FaSpinner className="animate-spin" /> : <> More <IoIosArrowDown /></>}
-                    
+                >
+                    {loading ? <FaSpinner className="animate-spin" /> : <> More <IoIosArrowDown /></>}
+
                 </button>
             </div>
         </div>

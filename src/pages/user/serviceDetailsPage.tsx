@@ -1,6 +1,6 @@
 import React from 'react'
 import Navbar from '../../components/Common/Navbar/Navbar'
-import ServiceDetails from '../../components/User/Serivice/ServiceDeatils'
+import ServiceDetails from '../../components/User/Services/ServiceDeatils'
 import Footer from '../../components/User/Footer/Footer'
 
 const ServiceDetailsPage:React.FC = () => {

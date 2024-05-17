@@ -10,3 +10,9 @@ export interface IService {
     createdAt?: Date;
     updatedAt?: Date;
 }
+
+
+
+export interface ServiceCardProps {
+    service: IService;
+}
