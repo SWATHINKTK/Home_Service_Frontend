@@ -1,14 +1,15 @@
 import React from 'react'
 import Navbar from '../../components/Common/Navbar/Navbar'
 import ProfileLayout from '../../components/User/ProfileLayout/ProfileLayout'
+import UserProfile from '../../components/User/ProfileLayout/UserProfile';
 
-const UserProfile:React.FC = () => {
+const UserProfilePage:React.FC = () => {
   return (
     <>
       <Navbar user={true} special={false} />
-      <ProfileLayout />
+      <ProfileLayout component={<UserProfile />} />
     </>
   );
 }
 
-export default UserProfile
+export default UserProfilePage;

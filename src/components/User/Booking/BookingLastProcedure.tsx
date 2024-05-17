@@ -1,11 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const BookingLastProcedure: React.FC = () => {
+    const navigate = useNavigate();
     return (
         <>
-            <div className='max-w-5xl mx-auto my-6 font-Montserrat'>
+            <div className='max-w-5xl mx-auto my-6 font-Montserrat px-3'>
                 <h1 className=' font-bold tracking-wide text-4xl text-center'>Booking</h1>
-                <p className='text-center my-5 text-sm text-[#2B2B2B]'>Select and book our free available slots; if a worker is available at your chosen time, they will be assigned to you. If not, your request will be automatically canceled after one hour.</p>
+                <p className='text-center my-5 md:text-sm text-xs   text-[#414141d8]'>Select and book our free available slots; if a worker is available at your chosen time, they will be assigned to you. If not, your request will be automatically canceled after one hour.</p>
             </div>
 
             <div className='max-w-6xl mx-auto my-16 flex md:flex-row flex-col justify-center gap-6 font-Montserrat'>
@@ -47,7 +49,7 @@ const BookingLastProcedure: React.FC = () => {
                 <svg className='w-10 h-[21rem] md:block hidden' viewBox="0 0 12 407" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 0.666667C3.05448 0.666667 0.666667 3.05448 0.666667 6C0.666667 8.94552 3.05448 11.3333 6 11.3333C8.94552 11.3333 11.3333 8.94552 11.3333 6C11.3333 3.05448 8.94552 0.666667 6 0.666667ZM6 395.667C3.05448 395.667 0.666667 398.054 0.666667 401C0.666667 403.946 3.05448 406.333 6 406.333C8.94552 406.333 11.3333 403.946 11.3333 401C11.3333 398.054 8.94552 395.667 6 395.667ZM5 6L5 401H7L7 6H5Z" fill="#CABFBF" />
                 </svg>
-                <div className='md:w-4/12 w-full border-2 py-5 rounded-md'>
+                <div className='md:w-4/12 mx-4 border-2 py-5 rounded-md '>
                     <h5 className='mb-4 mx-7 font-bold'>Summary Details</h5>
                     <div className='flex justify-between px-7 pb-2'>
                         <h6 className='text-sm font-semibold text-gray-700'>Service Amount</h6>
@@ -71,7 +73,7 @@ const BookingLastProcedure: React.FC = () => {
                             <span className="font-medium"></span>confirmation of booking pay <span className='font-bold'>₹ 60</span> rupees advance.
                         </div>
                     <div className='flex justify-center items-center px-5 my-2 '>
-                        <button className='bg-[#1c1e5f] w-full  rounded-md py-1  text-white' >Book Service</button>
+                        <button className='bg-[#1c1e5f] w-full  rounded-md py-1  text-white' onClick={() =>  navigate('/bookedServices')}>Book Service</button>
                     </div>
                 </div>
             </div>

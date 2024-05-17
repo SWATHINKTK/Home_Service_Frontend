@@ -10,12 +10,15 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import './profileLayout.css';
-import UserProfile from './UserProfile';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
 import { userLogout } from '../../../reducers/user/middlewares/userLogoutThunk';
 
+interface ProfileComponentProb{
+    component:React.ReactNode
+}
 
-const ProfileLayout: React.FC = () => {
+
+const ProfileLayout: React.FC<ProfileComponentProb> = ({component}) => {
   const url =
     "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg=";
   const menus = [
@@ -93,7 +96,7 @@ const ProfileLayout: React.FC = () => {
           />
         </div>
         <div className="profile-top-div  w-full md:px-4 py-4">
-          <div className="flex justify-center items-center">
+          <div className="flex md:justify-center md:mx-0 mx-8 items-center">
             <div
               style={{
                 backgroundImage: `url(${user?.profile ?? url})`,
@@ -183,9 +186,9 @@ const ProfileLayout: React.FC = () => {
         </div>
       </div>
       <div className=" w-full text-xl  overflow-scroll font-Montserrat">
-        <div className="overflow-y-scroll">
-          <UserProfile />
-        </div>
+        {/* <div className="overflow-y-scroll"> */}
+                  {component}
+        {/* </div> */}
       </div>
     </section>
   );

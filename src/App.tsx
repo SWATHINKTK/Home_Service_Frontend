@@ -19,12 +19,14 @@ import AdminPrivateRouter from "./utils/privateRouters/AdminPrivateRouter";
 import WorkerRegisterStep2 from "./pages/worker/WorkerRegisterStep2";
 import AdminWorkerPage from "./pages/admin/AdminWorkerPage";
 import WorkerPrivateRouter from "./utils/privateRouters/WorkerPrivateRouter";
-import UserProfile from "./pages/user/UserProfilePage";
+
 import ServicePage from "./pages/user/ServicePage";
 import WorkerProfilePage from "./pages/worker/WorkerProfilePage";
 import ServiceDetailsPage from "./pages/user/serviceDetailsPage";
 import LocationSelectingPage from "./pages/user/LocationSelectingPage";
 import BookingPage from "./pages/user/BookingPage";
+import BookedServicePage from "./pages/user/BookedServicePage";
+import UserProfilePage from "./pages/user/UserProfilePage";
 
 
 
@@ -42,7 +44,7 @@ function App() {
         <Routes>
           <Route element={<PrivateRouter />}>
             <Route path="/" element={<UserLanding />} />
-            <Route path="/user/profile" element={<UserProfile />} />
+            <Route path="/user/profile" element={<UserProfilePage />} />
             <Route path="/service" element={<ServicePage />} />
           </Route>
           <Route path="/otpVerification" element={<UserOTPPage />} />
@@ -68,6 +70,7 @@ function App() {
         <Route path="/serviceDetails" element={<ServiceDetailsPage />} />
         <Route path="/currentLocation" element={<LocationSelectingPage />} />
         <Route path="/booking" element={<BookingPage />} />
+        <Route path="/bookedServices" element={<BookedServicePage />} />
 
         </Routes>
       </Router>
