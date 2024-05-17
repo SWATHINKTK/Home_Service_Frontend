@@ -1,15 +1,15 @@
 import React from 'react'
 import Navbar from '../../components/Common/Navbar/Navbar'
-import BookedServices from '../../components/User/Booking/BookedServices'
+import BookedServices from '../../components/User/Bookings/BookedServices'
 import ProfileLayout from '../../components/User/ProfileLayout/ProfileLayout'
 
-const BookedServicePage: React.FC = () => {
+const BookingListing: React.FC = () => {
     return (
         <>
             <Navbar user={true} special={false} />
-            <ProfileLayout component={<BookedServices />} />
+            <ProfileLayout component={<BookedServices />}  head={'Booked Services'}/>
         </>
     )
 }
 
-export default BookedServicePage
+export default BookingListing

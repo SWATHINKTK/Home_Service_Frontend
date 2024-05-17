@@ -25,7 +25,7 @@ import WorkerProfilePage from "./pages/worker/WorkerProfilePage";
 import ServiceDetailsPage from "./pages/user/serviceDetailsPage";
 import LocationSelectingPage from "./pages/user/LocationSelectingPage";
 import BookingPage from "./pages/user/BookingPage";
-import BookedServicePage from "./pages/user/BookedServicePage";
+import BookingListing from "./pages/user/BookingListing";
 import UserProfilePage from "./pages/user/UserProfilePage";
 
 
@@ -70,7 +70,7 @@ function App() {
         <Route path="/serviceDetails" element={<ServiceDetailsPage />} />
         <Route path="/currentLocation" element={<LocationSelectingPage />} />
         <Route path="/booking" element={<BookingPage />} />
-        <Route path="/bookedServices" element={<BookedServicePage />} />
+        <Route path="/bookedServices" element={<BookingListing />} />
 
         </Routes>
       </Router>

@@ -90,11 +90,7 @@ const UserProfile: React.FC = () => {
 
   return (
     <div className="about-section px-4">
-      <h1 className="text-2xl font-bold mb-1">Account Information</h1>
-      <p className="font-thin text-sm pl-1 mb-6">
-        user/ <span className="font-semibold">Manage profile</span>
-      </p>
-      <hr className="border-t-2 border-black opacity-15" />
+      
 
       <div className="flex justify-between">
         <div className="head font-sans  text-bold pl-4 mt-5 mb-4">About Me</div>

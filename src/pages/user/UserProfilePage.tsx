@@ -7,7 +7,7 @@ const UserProfilePage:React.FC = () => {
   return (
     <>
       <Navbar user={true} special={false} />
-      <ProfileLayout component={<UserProfile />} />
+      <ProfileLayout component={<UserProfile />} head='Account Information' />
     </>
   );
 }

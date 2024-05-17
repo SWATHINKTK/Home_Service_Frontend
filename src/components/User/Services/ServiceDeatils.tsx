@@ -32,7 +32,7 @@ const ServiceDetails: React.FC = () => {
     return (
         <div className='relative'>
             <section className='relative p-4 '>
-                <div className='md:block hidden max-w-5xl mx-auto  min-h-[18rem] h-auto rounded-lg z-10' style={{ backgroundImage: "url('/public/AC-Repair.webp')", backgroundSize: "cover", backgroundRepeat: 'no-repeat', backgroundPositionY: 'center' }}> </div>
+                <div className='md:block hidden max-w-5xl mx-auto  min-h-[18rem] h-auto rounded-lg' style={{ backgroundImage: "url('/public/AC-Repair.webp')", backgroundSize: "cover", backgroundRepeat: 'no-repeat', backgroundPositionY: 'center' }}> </div>
                 <div className='md:hidden block mx-auto h-36'>
                     <img className='mx-auto rounded-lg object-cover h-full w-full' src="/public/AC-Repair.webp" loading="lazy" alt="AC Repair Image" />
                 </div>
