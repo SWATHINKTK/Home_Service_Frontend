@@ -107,8 +107,8 @@ const UserProfile: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex lg:flex-row flex-col-reverse  gap-10 bg-white rounded-lg p-6">
-        <div className=" text-md w-10/12 font-light  ">
+      <div className="flex lg:flex-row flex-col-reverse items-center gap-10 bg-white rounded-lg md:p-6 p-2">
+        <div className=" text-md md:w-10/12 font-light  ">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="grid lg:grid-cols-2  grid-cols-1 gap-x-7 gap-y-4 grid-rows-3">
               <div className=" bg-[#F2F2F2] py-1  px-5 rounded-xl flex items-center">
