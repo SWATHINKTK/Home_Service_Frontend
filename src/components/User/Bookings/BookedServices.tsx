@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BsChatText } from "react-icons/bs";
-import BookingViewSection from './BookingViewSection';
+import { IoIosArrowDown } from "react-icons/io";
+
+import BookingViewSection from './BookedServiceData';
 import PaymentSummary from './PaymentSummary';
+import './bookedServices.css'
 
 const BookedServices: React.FC = () => {
+    const [ isViewMore, setIsViewMore ] = useState(false);
     const payments = [
         {
             description: 'Service Amount',
@@ -52,6 +56,16 @@ const BookedServices: React.FC = () => {
                         </div>
                     </div> */}
 
+                    <div className="flex justify-center m">
+                        <button className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 font-Montserrat text-xs font-bold text-center  text-gray-900  select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none"
+                        onClick={() => setIsViewMore(!isViewMore) }
+                        >
+                            View More <IoIosArrowDown />
+                        </button>
+                    </div>
+                    <div className={`transition-height ${isViewMore ? 'expanded' : 'collapsed'}`}>
+                    { isViewMore && (
+                    <>
                     <div className='my-3 w-full'>
                         <h4 className='text-[1.2rem] font-semibold'>Billing Details</h4>
                         <div className='flex justify-center w-full my-2'>
@@ -68,12 +82,14 @@ const BookedServices: React.FC = () => {
 
                     <div className='mt-10'>
                         <div className='** border-2 py-5 rounded-md '>
-                            <PaymentSummary payments={payments}/>
+                            <PaymentSummary payments={payments} />
                             <div className='flex justify-center items-center px-5 mt-5 '>
                                 <button className='bg-[#1c1e5f] w-full  rounded-md py-1  text-white' >Completed</button>
                             </div>
                         </div>
 
+                    </div>
+                    </>)}
                     </div>
                 </div>
             </section>

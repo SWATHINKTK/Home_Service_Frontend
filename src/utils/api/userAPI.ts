@@ -2,7 +2,7 @@
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { IUser } from "../../@types/user";
-import  userAxiosInstance  from './instances/userInstance';
+import axiosInstance from "./instances/userInstance";
 
 
 // ! -------------------------------- USER API CALLING FUNCTIONS IN USER SIDE -------------------------------
@@ -93,7 +93,8 @@ export const registerUser = async (registerCredentials: IUser) => {
  */
 export const userProfileAPI = async () => {
     try {
-        const response = await userAxiosInstance.get('/user/profile', { withCredentials: true });
+        console.log('API')
+        const response = await axiosInstance.get('/user/profile', { withCredentials: true });
         return response.data;
     } catch (error) {
         console.log('hello error')
@@ -128,7 +129,8 @@ export const manageUserProfileAPI = async (userUpdateData: FormData) => {
  */
 export const serviceListAPI = async (pageNumber:number) => {
     try {
-        const response = await axios.get(`/api/user/service?page=${pageNumber}`);
+        const response = await axiosInstance.get(`/user/service?page=${pageNumber}`);
+        console.log(response)
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -138,6 +140,23 @@ export const serviceListAPI = async (pageNumber:number) => {
         toast.error('server Error please try again.')
     }
 }
+
+
+/**
+ ** Retrieve the Specified Service Data.
+ * @returns Promise<any> Promise resolving to service data
+ * @throws Error If retrieval fails
+ */
+ export const serviceDataRetrieveAPI = async (serviceId:string) => {
+    try {
+        const response = await axiosInstance.get(`/user/service/details/${serviceId}`);
+        return response.data;
+    } catch (error) {
+        console.log('hello error',error)
+        throw error
+    }
+}
+
 
 
 

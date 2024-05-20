@@ -1,12 +1,43 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { TiTick } from "react-icons/ti";
 import { FaLocationDot } from "react-icons/fa6";
 import { GoDotFill } from "react-icons/go";
 import { IoIosArrowDropleft } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import ReactMapGL, { GeolocateControl, MapRef, Marker, NavigationControl } from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import './map.css'
+import Geocoder from "./Geocoder";
+
 
 const LocationSelecting: React.FC = () => {
     const navigate = useNavigate();
+    const { serviceId } = useParams();
+    const mapRef = useRef<MapRef | null>(null);
+    const [viewport, setViewport] = useState({ latitude: 11.461311, longitude: 75.750370, });
+
+
+    const fetchLocation = () => {
+        navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
+            enableHighAccuracy: true
+        });
+
+        function successLocation(position: GeolocationPosition) {
+            console.log("position", position)
+            setViewport({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            });
+            mapRef.current?.flyTo({ center: [position.coords.longitude, position.coords.latitude] })
+        }
+        function errorLocation(){
+            alert('error')
+        }
+        
+
+    }
+
     return (
         <>
             <div className="max-w-7xl mx-auto my-6 px-3">
@@ -25,12 +56,50 @@ const LocationSelecting: React.FC = () => {
                 </div>
             </div>
 
-            <div className="max-w-5xl  mx-auto bg-slate-300 h-[60vh] px-3">
-
+            <div className="max-w-5xl  mx-auto  h-[60vh] px-3">
+                <ReactMapGL
+                    ref={mapRef}
+                    initialViewState={{
+                        latitude: viewport.latitude,
+                        longitude: viewport.longitude,
+                        zoom: 12
+                    }}
+                    attributionControl={false}
+                    mapboxAccessToken={process.env.MAP_BOX_ACCESS_TOKEN || ''}
+                    mapStyle='mapbox://styles/mapbox/streets-v12'
+                    onLoad={() => fetchLocation()}
+                    onDblClick={(e) => setViewport({ latitude: e.lngLat.lat, longitude: e.lngLat.lng })}
+                >
+                    <Marker
+                        latitude={viewport.latitude}
+                        longitude={viewport.longitude}
+                        draggable
+                        onDrag={(e) => setViewport({ latitude: e.lngLat.lat, longitude: e.lngLat.lng })}
+                        onClick={(e) => console.log("click", e)}
+                    >
+                        <FaLocationDot size={30} color='red' />
+                        <NavigationControl position="bottom-right" />
+                        <GeolocateControl
+                            position="top-left"
+                            trackUserLocation={true}
+                            onError={(error) => console.error("Geolocation error:", error)}
+                            onGeolocate={(position) => {
+                                if (position.coords) {
+                                    setViewport({
+                                        latitude: position.coords.latitude,
+                                        longitude: position.coords.longitude
+                                    });
+                                } else {
+                                    console.error("Geolocation position data not available");
+                                }
+                            }} />
+                    </Marker>
+                    <Geocoder />
+                </ReactMapGL>
             </div>
 
             <div className="max-w-5xl  mx-auto flex justify-between my-4 font-Montserrat px-3">
-                <button className="flex justify-center items-center duration-200 transform hover:-translate-x-2" onClick={() => navigate('/serviceDetails')}>
+                <button className="flex justify-center items-center duration-200 transform hover:-translate-x-2" onClick={() => navigate(`/service/${serviceId}`)}>
                     <IoIosArrowDropleft size={30} />
                     <h5 className="mx-2 font-semibold text-lg">Back</h5>
                 </button>

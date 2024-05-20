@@ -13,15 +13,13 @@ const LandingPageServiceSection = () => {
 
     const fetchServices = async () => {
         const response = await serviceListAPI(1);
-        setServices(response.data.slice(0, 4))
+        setServices(response.data)
     }
 
     useEffect(() => {
-        console.log("UseEffect")
         fetchServices();
     }, []);
 
-console.log("services", services)
     return (
         <>
         <div className=" max-w-7xl mx-auto mt-[7%]">
