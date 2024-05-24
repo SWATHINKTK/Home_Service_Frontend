@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
+import { Toaster } from 'react-hot-toast';
 
 
 import App from './App.tsx'
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Provider store={store}>
         <ToastContainer  autoClose={2500} theme="colored"/>
         <App />
+        <Toaster  gutter={8} toastOptions={{style:{backgroundColor:'#0e0e0e', color:'#fff'}}} />
       </Provider>
     </GoogleOAuthProvider>
   </React.StrictMode>,

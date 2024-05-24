@@ -158,6 +158,32 @@ export const serviceListAPI = async (pageNumber:number) => {
 }
 
 
+export const bookedDataRetrieveAPI = async() => {
+    try {
+        const response = await axiosInstance.get(`/user/bookings?history=${false}`);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+            throw error
+        }
+        toast.error('server Error please try again.')
+    }
+}
+
+export const cancelBookingUserAPI = async (cancelData:{bookingId:string, status:string}) => {
+    try {
+        const response = await axiosInstance.patch('/user/booking/cancel',cancelData);
+        return response.data;
+    } catch (error) {
+        console.log('error',error)
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+            throw error
+        }
+        toast.error('server Error please try again.')
+    }
+}
 
 
 

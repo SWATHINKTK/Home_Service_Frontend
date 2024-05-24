@@ -27,6 +27,8 @@ import LocationSelectingPage from "./pages/user/LocationSelectingPage";
 import BookingPage from "./pages/user/BookingPage";
 import BookingListing from "./pages/user/BookingListing";
 import UserProfilePage from "./pages/user/UserProfilePage";
+import Success from "./components/User/Bookings/Sucess";
+import Failed from "./components/User/Bookings/Failed";
 
 
 
@@ -46,6 +48,12 @@ function App() {
             <Route path="/" element={<UserLanding />} />
             <Route path="/user/profile" element={<UserProfilePage />} />
             <Route path="/service" element={<ServicePage />} />
+            <Route path="/service/:serviceId" element={<ServiceDetailsPage />} />
+            <Route path="/service/:serviceId/currentLocation" element={<LocationSelectingPage />} />
+            <Route path="/service/:serviceId/booking" element={<BookingPage />} />
+            <Route path="/bookedServices" element={<BookingListing />} />
+            <Route path="/success" element={<Success />} />
+            <Route path="/failed" element={<Failed />} />
           </Route>
           <Route path="/otpVerification" element={<UserOTPPage />} />
           <Route path="/login" element={<UserLogin />} />
@@ -67,10 +75,6 @@ function App() {
             <Route path="/admin/addService" element={<AdminServiceAddPage />} />
             <Route path="/admin/worker" element={<AdminWorkerPage />} />
           </Route>
-        <Route path="/service/:serviceId" element={<ServiceDetailsPage />} />
-        <Route path="/service/:serviceId/currentLocation" element={<LocationSelectingPage />} />
-        <Route path="/booking" element={<BookingPage />} />
-        <Route path="/bookedServices" element={<BookingListing />} />
 
         </Routes>
       </Router>

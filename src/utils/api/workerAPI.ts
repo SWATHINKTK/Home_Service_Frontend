@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import axiosInstance from './instances/workerInstance';
 
 export const workerRegisterAPI = async(registerData:unknown) => {
     try {
@@ -39,7 +40,7 @@ export const workerLogOutAPI = async() => {
 
 export const workerProfileAPI = async() => {
     try {
-        const response = await axios.get('/api/worker/profile');
+        const response = await axiosInstance.get('/worker/profile');
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
