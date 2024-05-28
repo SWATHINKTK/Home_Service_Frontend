@@ -19,9 +19,8 @@ const LocationSelecting: React.FC = () => {
     const mapRef = useRef<MapRef | null>(null);
     const { latitude, longitude } = useAppSelector((state) =>  state.location);
     const dispatch = useAppDispatch();
-    console.log(latitude,longitude,"hello")
 
-
+    console.log(latitude,longitude)
 
     const fetchLocation = () => {
         navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
@@ -33,7 +32,7 @@ const LocationSelecting: React.FC = () => {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
             }))
-            mapRef.current?.flyTo({ center: [position.coords.longitude, position.coords.latitude] })
+            mapRef.current?.flyTo({ center: [position.coords.longitude, position.coords.latitude], zoom:14 })
         }
         function errorLocation(){
             alert('error')
@@ -97,7 +96,7 @@ const LocationSelecting: React.FC = () => {
                                 }
                             }} />
                     </Marker>
-                    <Geocoder />
+                    <Geocoder mapRef={mapRef}/>
                 </ReactMapGL>
             </div>
 

@@ -1,13 +1,16 @@
 import axios, { AxiosError } from "axios";
+import moment from 'moment';
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { MdModeEditOutline } from "react-icons/md";
 import { IoSave } from "react-icons/io5";
-import { blockServiceAPI, editServiceAPI } from "../../../utils/api/adminAPI";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
+
+
+import { blockServiceAPI, editServiceAPI } from "../../../utils/api/adminAPI";
 
 export interface IService {
 	_id?: string;
@@ -224,8 +227,10 @@ const ServiceTable: React.FC = () => {
 										</span>
 									)}
 								</td>
-								<td className="px-3 py-2">2024-05-04T17:52:38.183Z</td>
-								<td>
+								<td className="px-1 py-2">
+									<span>{moment(service.createdAt).format('lll')}</span><br/>
+								</td>
+								<td className="px-1">
 									{editingIndex === index ? (
 										<button className="inline-flex items-center justify-center w-10 h-10 mr-2 text-gray-700 transition-colors duration-150 bg-green-200 rounded-full focus:shadow-outline hover:bg-gray-200"
 											onClick={() => handleSaveClick(editingIndex)}

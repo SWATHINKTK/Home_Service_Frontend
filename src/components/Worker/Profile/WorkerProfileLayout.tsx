@@ -13,6 +13,7 @@ import './profileLayout.css';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
 import WorkerProfile from './WorkerProfile';
 import { workerLogout } from '../../../reducers/worker/middlewares/workerLogoutThunk';
+import moment from 'moment';
 
 
 const ProfileLayout: React.FC = () => {
@@ -110,9 +111,9 @@ const ProfileLayout: React.FC = () => {
                 >
                   {worker?.username}
                 </h2>
-                {/* <p className="text-[11px] mx-3 ">
-                    Register On : <span>8/10/2008</span>
-                  </p> */}
+                <p className="text-[11px] mx-3 ">
+                    Register On : <span>{moment(worker?.createdAt).format('DD-MM-YYYY')}</span>
+                  </p>
               </div>
             )}
           </div>

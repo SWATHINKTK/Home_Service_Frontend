@@ -27,7 +27,7 @@ import LocationSelectingPage from "./pages/user/LocationSelectingPage";
 import BookingPage from "./pages/user/BookingPage";
 import BookingListing from "./pages/user/BookingListing";
 import UserProfilePage from "./pages/user/UserProfilePage";
-import Success from "./components/User/Bookings/Sucess";
+import Success from "./components/User/Bookings/PaymentSuccess";
 import Failed from "./components/User/Bookings/Failed";
 
 
@@ -52,9 +52,10 @@ function App() {
             <Route path="/service/:serviceId/currentLocation" element={<LocationSelectingPage />} />
             <Route path="/service/:serviceId/booking" element={<BookingPage />} />
             <Route path="/bookedServices" element={<BookingListing />} />
-            <Route path="/success" element={<Success />} />
             <Route path="/failed" element={<Failed />} />
           </Route>
+          <Route path="/success" element={<Success />} />
+
           <Route path="/otpVerification" element={<UserOTPPage />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/register" element={<UserRegistration />} />
