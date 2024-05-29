@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/components/User/BookingDetails/BookedServiceCard.tsx"],
+  "include": ["src", "src/components/User/BookingDetails/BookingCard.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

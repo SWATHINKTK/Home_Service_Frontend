@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import lottie from 'lottie-web';
 import { MdArrowForward } from "react-icons/md";
 
-import animationData from '../../../../public/successAnimation.json';
+import animationData from '../../../../public/sucessAnimation.json';
 import { useNavigate } from 'react-router-dom';
 
 const Success: React.FC = () => {

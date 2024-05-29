@@ -1,19 +1,20 @@
 import React from 'react';
 
-interface Payment{
+interface Payment {
     description: string,
     amount: number
 }
 
-interface PaymentSummaryProp{
+interface PaymentSummaryProp {
     payments: Payment[]
 }
 
-const PaymentSummary: React.FC<PaymentSummaryProp> = ({payments}) => {
-    
+const PaymentSummary: React.FC<PaymentSummaryProp> = ({ payments }) => {
+
     return (
         <>
-            <h5 className='mb-4 mx-7 font-bold text-center'>Summary Details</h5>
+            <h3 className='text-[17px] font-semibold text-center'>Payment Summary</h3>
+
             {payments.map((payment, index) => (
                 <div key={index} className='flex justify-between px-7 pb-2'>
                     <h6 className='text-sm font-semibold text-gray-700'>{payment.description}</h6>

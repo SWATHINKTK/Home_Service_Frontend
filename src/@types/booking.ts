@@ -1,12 +1,13 @@
 import { IService } from "./service";
+import { IUser } from "./user";
+import { IWorker } from "./worker";
 
 export interface IBooking {
     splice(arg0: number, index: number): IBooking[];
-    serviceInfo: IService;
     _id?:string;
-    userId:string;
-    workerId?:string;
-    serviceId:string;
+    userId:string | IUser;
+    workerId?:string | IWorker;
+    serviceId:string | IService;
     serviceMinimumAmount:number;
     serviceHourlyCharge:number;
     buildingName: string;

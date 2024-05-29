@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { PiDotsSixVerticalBold } from "react-icons/pi";
+import { LuPlusCircle } from "react-icons/lu";
 import PaymentSummary from '../Bookings/PaymentSummary';
 import './BookedServiceCard.css';
 
@@ -23,28 +24,17 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({isViewMore}) => {
         <div className={`transition-height ${isViewMore ? 'expanded' : 'collapsed'}`}>
             {isViewMore && (
                 <>
-                    <div className='my-3 w-full'>
-                        {/* <h4 className='text-[1.2rem] font-semibold'>Billing Details</h4> */}
-                        <div className='flex justify-center w-full my-2'>
-                            <span className='font-bold tracking-wider'>::</span>
-                            <input type="text" className='mx-1 px-2  rounded-lg border-2 w-5/12 text-sm' placeholder='Description' />
-                            <span>-</span>
-                            <input type="number" className='mx-1 px-2 rounded-lg border-2 w-2/12 text-sm' placeholder='Qty' min={1} />
-                            <span>-</span>
-                            <input type="text" className='mx-1 px-2 rounded-lg border-2 w-3/12 text-sm' placeholder='Price' />
-                        </div>
-                        <button className='text-sm font-bold bg-blue-600 px-3 rounded-lg float-end md:mx-4'>Add</button>
-                    </div>
-
-
-                    <div className='mt-10'>
-                        <div className='** border-2 py-5 rounded-md '>
-                            <PaymentSummary payments={payments} />
-                            <div className='flex justify-center items-center px-5 mt-5 '>
-                                <button className='bg-[#1c1e5f] w-full  rounded-md py-1  text-white' >Completed</button>
-                            </div>
+                    <div className='my-3 w-full font-Montserrat'>
+                        <h3 className='text-[17px] font-semibold text-center'>Billing Details</h3>
+                        <div className='flex w-full justify-center items-center mt-'>
+                            <PiDotsSixVerticalBold className='hidden md:block'/>
+                            <input type="text" className='bg-white w-6/12 rounded-lg border-2 h-7 px-2 outline-none text-sm' placeholder='Description' />-
+                            <input type="text" className='bg-white w-3/12  rounded-lg border-2 h-7 px-2 outline-none text-sm' placeholder='Qty' />-
+                            <input type="text" className='bg-white w-3/12 rounded-lg border-2 h-7 px-2 outline-none text-sm' placeholder='Price' />
+                            <LuPlusCircle className='mx-1'/>
                         </div>
                     </div>
+                    <PaymentSummary payments={payments}/>
                 </>
             )}
         </div>
