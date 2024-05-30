@@ -72,7 +72,7 @@ const Navbar:React.FC<NavbarProb> = ({ user, special = false }) => {
               </li>
               <li>
                 <Link
-                  to={user ? '/service' : '/booking'}
+                  to={user ? '/service' : '/worker/bookings'}
                   className="block py-2 px-3 rounded  hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >
                   { user ? 'Services' :'Bookings'}
@@ -100,7 +100,7 @@ const Navbar:React.FC<NavbarProb> = ({ user, special = false }) => {
               </li>
             </ul>
           </div>
-          <div className="w-full mx-5 ml-7 mt-4 md:hidden ">
+          <div className={`w-full mx-5 ml-7 mt-4 md:hidden ${!user && 'hidden'}`}>
             <div className="relative w-full min-w-[200px] h-10 ">
               <div className="absolute grid w-7 h-7 place-items-center text-blue-gray-500 top-2/4 right-3 -translate-y-2/4">
                 <CiSearch size={27} />

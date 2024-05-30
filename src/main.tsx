@@ -17,7 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Provider store={store}>
         <ToastContainer  autoClose={2500} theme="colored"/>
         <App />
-        <Toaster  gutter={8} toastOptions={{style:{backgroundColor:'#0e0e0e', color:'#fff'}}} />
+        <Toaster  gutter={8} toastOptions={{duration:2500,position:'bottom-center',style:{backgroundColor:'#0e0e0e', color:'#fff', minWidth: '20rem'}}} />
       </Provider>
     </GoogleOAuthProvider>
   </React.StrictMode>,

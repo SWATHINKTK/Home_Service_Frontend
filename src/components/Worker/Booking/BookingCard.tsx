@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BsHourglassSplit } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
 import { BsChatText } from "react-icons/bs";
+import { BsCheckAll } from "react-icons/bs";
 
 
 
@@ -17,7 +18,7 @@ interface BookingViewSectionProps {
     bookedService: IBooking;
     isExpanded: boolean;
     onExpandToggle: () => void;
-    handleCancelBooking: () => void;
+    handleCommitWork: () => void;
 }
 
 const statusIcon:{ [key: string]: JSX.Element } = {
@@ -25,7 +26,7 @@ const statusIcon:{ [key: string]: JSX.Element } = {
 }
 
 
-const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpanded, onExpandToggle, handleCancelBooking }) => {
+const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpanded, onExpandToggle, handleCommitWork }) => {
     const workStatusIcon = bookedService.workStatus ? statusIcon[bookedService.workStatus] : null;
     // const paymentStatusIcon = bookedService.paymentStatus ? statusIcon[bookedService.paymentStatus] : null;
 
@@ -82,17 +83,25 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                 <p className='text-sm font-semibold text-[#242156]'>{bookedService.description}</p>
             </div>
 
-            {bookedService.workStatus !== 'Completed' && bookedService.workStatus !== 'Cancelled' &&
-                (<div className='flex justify-between'>
-                    <button className='bg-red-800 text-white text-sm font-semibold px-4 py-1 rounded-md mt-3' onClick={handleCancelBooking} >Cancel</button>
-                    {bookedService.workStatus != 'Pending' && bookedService.workStatus !== 'Completed' && (
-                        <button className='bg-white px-4 py-1 rounded-md mt-3 flex items-center'>
-                            <BsChatText />
-                            <h5 className='text-sm font-bold mx-1'>Chat</h5>
-                        </button>
-                    )}
-                </div>
-            )}
+           <div className='flex justify-between'>
+                {bookedService.workStatus == 'Pending' &&
+                    <button className='bg-[#E0F4FF] drop-shadow-sm px-4 py-1 rounded-md mt-3 flex items-center' onClick={handleCommitWork}>
+                        <BsCheckAll />
+                        <h5 className='text-sm font-bold mx-1'>Accept</h5>
+                    </button>
+                }
+                {bookedService.workStatus == 'Accepted' &&
+                    <button className='bg-[#10A891]  drop-shadow-sm px-4 py-1 rounded-md mt-3 flex items-center' >
+                        <h5 className='text-sm font-bold mx-1'>Start Work</h5>
+                    </button>
+                }
+                {bookedService.workStatus != 'Pending' && bookedService.workStatus !== 'Completed' && (
+                    <button className='bg-white px-4 py-1 rounded-md mt-3 flex items-center'>
+                        <BsChatText />
+                        <h5 className='text-sm font-bold mx-1'>Chat</h5>
+                    </button>
+                )}
+            </div>
 
 
             {bookedService.workStatus == 'Completed' && (
