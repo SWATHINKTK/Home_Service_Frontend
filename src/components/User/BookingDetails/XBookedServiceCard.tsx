@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { BsHourglassSplit } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
+import { BsChatText } from "react-icons/bs";
 
 
 
 import { IBooking } from '../../../@types/booking';
 import BillingDetails from './BillingDetails';
+import { cancelBookingUserAPI } from '../../../utils/api/userAPI';
+import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
 
 
 
@@ -19,7 +23,27 @@ interface BookingViewSectionProps {
 const BookingCard: React.FC<BookingViewSectionProps> = ({ service }) => {
     const [isViewMore, setIsViewMore] = useState(false);
 
-     
+    const handleCancelBooking = async(bookingId:string) =>{
+        const updateStatus = {
+            bookingId,
+            status:'Cancelled'
+        }
+        Swal.fire({
+            title: "Cancel Booking",
+            text: "Are you sure you want to cancel this booking?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Confirm",
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+                await cancelBookingUserAPI(updateStatus);
+                toast.success(`Booking has been successfully canceled`);
+            }
+          });
+       
+    } 
 
     return (
         <section>
@@ -50,6 +74,40 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ service }) => {
                 <p className='text-sm font-semibold text-[#242156]'>{service.description}</p>
             </div>
 
+            {service.workStatus !== 'Completed' && service.workStatus !== 'Cancelled' ?
+                // {/* Chat and Cancel Button */}
+                (<div className='flex justify-between'>
+                    <button className='bg-red-800 text-white text-sm font-semibold px-4 py-1 rounded-md mt-3' onClick={() => handleCancelBooking(service._id!)} >Cancel</button>
+                    {service.workStatus != 'Pending' && service.workStatus !== 'Completed' && (
+                        <button className='bg-white px-4 py-1 rounded-md mt-3 flex items-center'>
+                            <BsChatText />
+                            <h5 className='text-sm font-bold mx-1'>Chat</h5>
+                        </button>
+                    )}
+                </div>)
+                :
+                // {/* Work Completion View Data */}
+                (
+                    <div className='flex justify-center'>
+                         <h6 className={` md:text-[1rem] text-sm font-semibold mx-1 ${service.workStatus == 'Cancelled' ? 'text-red-500' : 'text-green-900'}`}>{service.workStatus}</h6>
+                    </div>
+                // <div className='mt-3'>
+                //     <div className='flex justify-between w-full'>
+                //         <h5 className='text-sm font-semibold'>Payment Status</h5>
+                //         <h5 className='text-sm font-semibold'>Work Status</h5>
+                //     </div>
+                //     <div className='flex justify-between w-full'>
+                //         <div className='flex items-center text-red-800'>
+                //             <BsHourglassSplit className='w-4' />
+                //             <h6 className='md:text-[0.9rem] text-sm font-semibold mx-1'>Pending</h6>
+                //         </div>
+                //         <div className='flex items-center text-red-800'>
+                //             <BsHourglassSplit className='w-4' />
+                //             <h6 className='md:text-[0.9rem] text-sm font-semibold mx-1'>Pending</h6>
+                //         </div>
+                //     </div>
+                // </div>
+            )}
 
             {service.workStatus == 'Completed' && (
                 <>

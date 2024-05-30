@@ -7,7 +7,6 @@ import { BsChatText } from "react-icons/bs";
 
 
 import { IBooking } from '../../../@types/booking';
-import BillingDetails from './BillingDetails';
 import { IService } from '../../../@types/service';
 import axios from 'axios';
 
@@ -107,7 +106,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                             </button>
                         </div>
                     }
-                    <BillingDetails isViewMore={isExpanded} />
+                    {/* <BillingDetails isViewMore={isExpanded} /> */}
                 </>
             )}
 

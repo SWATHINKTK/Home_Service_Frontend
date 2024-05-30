@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import axiosInstance from './instances/workerInstance';
 
 export const workerRegisterAPI = async(registerData:unknown) => {
@@ -40,7 +40,7 @@ export const workerLogOutAPI = async() => {
 
 export const workerProfileAPI = async() => {
     try {
-        const response = await axiosInstance.get('/worker/profile');
+        const response = await axiosInstance.get('/profile');
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -54,6 +54,32 @@ export const workerProfileAPI = async() => {
 export const workerProfileUpdateAPI = async(workerUpdateData:FormData) => {
     try {
         const response = await axios.put('/api/worker/editProfile',workerUpdateData);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}
+
+
+export const allBookingViewOnWorkerAPI = async() => {
+    try {
+        const response = await axiosInstance.get('/booking');
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}
+
+
+export const acceptWorkAPI = async(bookingData:{bookingId:string}) => {
+    try {
+        const response = await axiosInstance.patch('/booking/acceptWork', bookingData);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {

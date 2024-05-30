@@ -160,7 +160,7 @@ export const serviceListAPI = async (pageNumber:number) => {
 
 export const bookedDataRetrieveAPI = async() => {
     try {
-        const response = await axiosInstance.get(`/user/bookings?history=${false}`);
+        const response = await axiosInstance.get(`/user/booking?history=${false}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {

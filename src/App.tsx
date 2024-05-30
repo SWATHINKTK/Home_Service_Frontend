@@ -29,6 +29,7 @@ import BookingListing from "./pages/user/BookingListing";
 import UserProfilePage from "./pages/user/UserProfilePage";
 import Success from "./components/User/Bookings/PaymentSuccess";
 import Failed from "./components/User/Bookings/Failed";
+import WorkListPage from "./pages/worker/WorkListPage";
 
 
 
@@ -62,6 +63,7 @@ function App() {
           <Route element={<WorkerPrivateRouter />}>
             <Route path="/worker" element={<WorkerLanding />} />
             <Route path="/worker/profile" element={<WorkerProfilePage />} />
+            <Route path="/worker/bookings" element={<WorkListPage />} />
           </Route>
 
           <Route path="/worker/login" element={<WorkerLogin />} />

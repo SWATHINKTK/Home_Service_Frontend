@@ -1,11 +1,11 @@
 import axios from "axios";
-import { BASE_API_URL } from "../../../constants/baseURL";
+import { BASE_WORKER_URL } from "../../../constants/baseURL";
 import { toast } from "react-toastify";
 
 
 // Create Axios instance with base URL and headers
 const axiosInstance = axios.create({
-    baseURL: BASE_API_URL,
+    baseURL: BASE_WORKER_URL,
     headers: {
         'Content-Type': 'application/json',
     },
