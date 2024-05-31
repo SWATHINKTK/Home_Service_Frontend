@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BsHourglassSplit } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
 import { BsChatText } from "react-icons/bs";
+import { BsCheckAll } from "react-icons/bs";
 
 
 
@@ -22,7 +23,8 @@ interface BookingViewSectionProps {
 }
 
 const statusIcon:{ [key: string]: JSX.Element } = {
-    Pending:<BsHourglassSplit />
+    Pending:<BsHourglassSplit />,
+    Accepted:<BsCheckAll />
 }
 
 
@@ -49,11 +51,11 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                     <h6 className='font-medium'>Date : <span>{bookedService.date}</span></h6>
                 </div>
                 <div className='border bg-white rounded-md py-1 px-4'>
-                    <div>
-                        <h6 className='text-xs font-semibold'>Work Status</h6>
-                        <div className='flex items-center text-red-800'>
+                    <div className='flex'>
+                        {/* <h6 className='text-xs font-semibold'>Work Status</h6> */}
+                        <div className={`flex items-center ${bookedService.workStatus == 'Pending' ? 'text-red-800' : 'text-[#0c0f46]'} `}>
                             {workStatusIcon}
-                            <h6 className='text-sm font-semibold mx-1'>{bookedService.workStatus}</h6>
+                            <h6 className='text-sm font-bold mx-1'>{bookedService.workStatus}</h6>
                         </div>
                     </div>
                 </div>
@@ -82,10 +84,12 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
             <div className='mt-1 px-2 py-1 w-full bg-white rounded-md shadow-sm'>
                 <p className='text-sm font-semibold text-[#242156]'>{bookedService.description}</p>
             </div>
-
-            {bookedService.workStatus !== 'Completed' && bookedService.workStatus !== 'Cancelled' &&
-                (<div className='flex justify-between'>
-                    <button className='bg-red-800 text-white text-sm font-semibold px-4 py-1 rounded-md mt-3' onClick={handleCancelBooking} >Cancel</button>
+            <BillingDetails isViewMore={isExpanded} />
+            
+                <div className='flex justify-between'>
+                    {bookedService.workStatus == 'Pending' &&
+                        <button className='bg-red-800 text-white text-sm font-semibold px-4 py-1 rounded-md mt-3' onClick={handleCancelBooking} >Cancel</button>
+                    }
                     {bookedService.workStatus != 'Pending' && bookedService.workStatus !== 'Completed' && (
                         <button className='bg-white px-4 py-1 rounded-md mt-3 flex items-center'>
                             <BsChatText />
@@ -93,12 +97,11 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                         </button>
                     )}
                 </div>
-            )}
 
 
             {bookedService.workStatus == 'Completed' && (
                 <>
-                    {!isExpanded &&
+                  
                         <div className="flex justify-center m">
                             <button className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 font-Montserrat text-xs font-bold text-center  text-gray-900  select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none"
                                 onClick={onExpandToggle}
@@ -106,8 +109,8 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                                 View More <IoIosArrowDown />
                             </button>
                         </div>
-                    }
-                    <BillingDetails isViewMore={isExpanded} />
+                    
+                   
                 </>
             )}
 
