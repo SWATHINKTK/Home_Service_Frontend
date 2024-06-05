@@ -7,9 +7,11 @@ import { BsCheckAll } from "react-icons/bs";
 
 
 
-import { IBooking } from '../../../@types/booking';
+import { IBooking, WorkStatus } from '../../../@types/booking';
 import { IService } from '../../../@types/service';
 import axios from 'axios';
+import OTPInputComponent from './OTPInputComponent';
+import BillingDetails from '../../User/BookingDetails/BillingDetails';
 
 
 
@@ -19,18 +21,23 @@ interface BookingViewSectionProps {
     isExpanded: boolean;
     onExpandToggle: () => void;
     handleCommitWork: () => void;
+    handleStartWork:() => void;
+    handleVerification:(otp:string, setError:React.Dispatch<React.SetStateAction<string>>) => void;
 }
 
 const statusIcon:{ [key: string]: JSX.Element } = {
-    Pending:<BsHourglassSplit />
+    Pending:<BsHourglassSplit />,
+    Accepted:<BsCheckAll size={20}/>
 }
 
 
-const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpanded, onExpandToggle, handleCommitWork }) => {
+const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpanded, onExpandToggle, handleCommitWork, handleStartWork, handleVerification }) => {
     const workStatusIcon = bookedService.workStatus ? statusIcon[bookedService.workStatus] : null;
     // const paymentStatusIcon = bookedService.paymentStatus ? statusIcon[bookedService.paymentStatus] : null;
 
     const [placeDetails, setPlaceDetails] = useState([]);
+    const [otp, setOTP] = useState("");
+    const [error, setError] = useState("");
     useEffect(() => {
         (async () => {
             const latitude = bookedService.location.latitude;
@@ -43,18 +50,16 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
 
     return (
         <section className={`bg-[#F2F2F2] md:p-4 p-2 mx-2 my-3 shadow-md rounded-md font-Montserrat ${isExpanded && 'row-span-2'}`}>
+            {bookedService.workStatus != WorkStatus.IN_PROGRESS && <>
             <div className='flex justify-between items-center text-[#252525e4] md:text-sm text-xs'>
                 <div>
-                    <h6 className='font-semibold'>Booking Id : <span>{bookedService._id?.slice(0, 12)}</span></h6>
+                    <h6 className='font-semibold'>Booking Id : <span>{bookedService.bookingId}</span></h6>
                     <h6 className='font-medium'>Date : <span>{bookedService.date}</span></h6>
                 </div>
                 <div className='border bg-white rounded-md py-1 px-4'>
-                    <div>
-                        <h6 className='text-xs font-semibold'>Work Status</h6>
-                        <div className='flex items-center text-red-800'>
-                            {workStatusIcon}
-                            <h6 className='text-sm font-semibold mx-1'>{bookedService.workStatus}</h6>
-                        </div>
+                    <div className={`flex items-center justify-center ${bookedService.workStatus == 'Pending' ? 'text-red-800' : 'text-[#192963]'}`}>
+                        {workStatusIcon}
+                        <h6 className='text-sm font-bold mx-1'>{bookedService.workStatus}</h6>
                     </div>
                 </div>
             </div>
@@ -83,6 +88,8 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                 <p className='text-sm font-semibold text-[#242156]'>{bookedService.description}</p>
             </div>
 
+            <BillingDetails isViewMore={isExpanded} />
+
            <div className='flex justify-between'>
                 {bookedService.workStatus == 'Pending' &&
                     <button className='bg-[#E0F4FF] drop-shadow-sm px-4 py-1 rounded-md mt-3 flex items-center' onClick={handleCommitWork}>
@@ -91,7 +98,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                     </button>
                 }
                 {bookedService.workStatus == 'Accepted' &&
-                    <button className='bg-[#10A891]  drop-shadow-sm px-4 py-1 rounded-md mt-3 flex items-center' >
+                    <button className='bg-[#10A891]  drop-shadow-sm px-4 py-1 rounded-md mt-3 flex items-center' onClick={handleStartWork}>
                         <h5 className='text-sm font-bold mx-1'>Start Work</h5>
                     </button>
                 }
@@ -104,21 +111,29 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
             </div>
 
 
-            {bookedService.workStatus == 'Completed' && (
+            {bookedService.workStatus == 'Started' && (
                 <>
-                    {!isExpanded &&
-                        <div className="flex justify-center m">
-                            <button className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 font-Montserrat text-xs font-bold text-center  text-gray-900  select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none"
-                                onClick={onExpandToggle}
-                            >
-                                View More <IoIosArrowDown />
-                            </button>
-                        </div>
-                    }
+                    <div className="flex justify-center m">
+                        <button className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 font-Montserrat text-xs font-bold text-center  text-gray-900  select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none"
+                            onClick={onExpandToggle}
+                        >
+                            {!isExpanded ? 'View More' : 'View Less'}
+                            <IoIosArrowDown className={`${isExpanded &&'rotate-180'}`} />
+                        </button>
+                    </div>
                     {/* <BillingDetails isViewMore={isExpanded} /> */}
                 </>
             )}
-
+            </>}
+            {bookedService.workStatus == WorkStatus.IN_PROGRESS &&
+                <div className='flex flex-col justify-center items-center h-[100%] py-6'>
+                    <form onSubmit={(e) =>{e.preventDefault(); handleVerification(otp, setError)}}>
+                        <h4 className='text-2xl mb-7 font-bold text-[#2a2066] text-center'>Verify Work</h4>
+                        <OTPInputComponent otp={otp} setOTP={setOTP} error={error} setError={setError}/>
+                        <button className='login-btn my-3 w-full font-Montserrat'>Verify</button>
+                    </form>
+                </div>
+            }
         </section>
     )
 }

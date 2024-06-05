@@ -88,3 +88,42 @@ export const acceptWorkAPI = async(bookingData:{bookingId:string}) => {
         throw error
     }
 }
+
+
+export const viewAcceptedWorkAPI = async() => {
+    try {
+        const response = await axiosInstance.get('/booking/viewAcceptWork');
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}
+
+
+
+
+export const startWorkAPI = async(bookingData:{bookingId:string,userEmail:string}) => {
+    try {
+        const response = await axiosInstance.patch('/booking/startWork', bookingData);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}
+
+
+export const workVerificationAPI = async(verificationData:{bookingId:string,otp:string}) => {
+    try {
+        const response = await axiosInstance.post('/booking/startWork/verification', verificationData);
+        return response.data;
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}

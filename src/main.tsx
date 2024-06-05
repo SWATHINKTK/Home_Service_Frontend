@@ -20,5 +20,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Toaster  gutter={8} toastOptions={{duration:2500,position:'bottom-center',style:{backgroundColor:'#0e0e0e', color:'#fff', minWidth: '20rem'}}} />
       </Provider>
     </GoogleOAuthProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )

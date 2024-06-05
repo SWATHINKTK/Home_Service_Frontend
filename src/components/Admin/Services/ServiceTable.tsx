@@ -1,6 +1,6 @@
-import axios, { AxiosError } from "axios";
+
 import moment from 'moment';
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { MdModeEditOutline } from "react-icons/md";
 import { IoSave } from "react-icons/io5";
@@ -10,7 +10,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 
 
-import { blockServiceAPI, editServiceAPI } from "../../../utils/api/adminAPI";
+import { blockServiceAPI, editServiceAPI, fetchServices } from "../../../utils/api/adminAPI";
 
 export interface IService {
 	_id?: string;
@@ -50,20 +50,24 @@ const ServiceTable: React.FC = () => {
 	const [search, setSearch] = useState<string>('');
 	const navigate = useNavigate();
 
-	const fetchServices = useCallback(async () => {
-		try {
-			const response = await axios.get(`/api/admin/service?page=${pageNumber}&search=${search}`);
-			setServices(response.data.data);
-			setTotalPages(response.data.page);
-		} catch (error) {
-			if (error instanceof AxiosError)
-				toast.error(error.response?.data.errors[0].message);
-		}
-	}, [pageNumber, search]);
+	// const fetchServices = useCallback(async () => {
+	// 	try {
+	// 		const response = await axios.get(`/api/admin/service?page=${pageNumber}&search=${search}`);
+	// 		setServices(response.data.data);
+	// 		setTotalPages(response.data.page);
+	// 	} catch (error) {
+	// 		if (error instanceof AxiosError)
+	// 			toast.error(error.response?.data.errors[0].message);
+	// 	}
+	// }, [pageNumber, search]);
 	
 	useEffect(() => {
-		fetchServices();
-	}, [pageNumber, fetchServices]);
+		(async() => {
+			const response = await fetchServices(pageNumber, search);
+			setServices(response.data);
+			setTotalPages(response.data);
+		})();
+	}, [pageNumber, search]);
 
 
 	useEffect(() => {

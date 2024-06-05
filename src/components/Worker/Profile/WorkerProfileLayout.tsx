@@ -46,7 +46,7 @@ const ProfileLayout: React.FC<WorkerProfileProb> = ({ component }) => {
             {
                 name: "My Booking",
                 description: "edit or add new address",
-                link: "/worker/bookings",
+                link: "/worker/committedWorks",
                 icon: FaRegRectangleList,
             },
             {

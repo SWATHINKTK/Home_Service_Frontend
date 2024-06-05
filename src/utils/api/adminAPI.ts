@@ -2,6 +2,7 @@ import axios, { AxiosError } from "axios";
 import { IService } from "../../components/Admin/Services/ServiceTable";
 import { toast } from "react-toastify";
 import { IAdminData } from "../../@types/admin";
+import adminInstance from './instances/adminInstance';
 
 export const adminAuthAPI = async(adminCredentials:IAdminData) => {
     try {
@@ -18,7 +19,7 @@ export const adminAuthAPI = async(adminCredentials:IAdminData) => {
 
 export const editServiceAPI = async(editServiceData:IService) => {
     try {
-        const response = await axios.put('/api/admin/service/edit', editServiceData);
+        const response = await adminInstance.put('/admin/service/edit', editServiceData);
         return response.data;
     } catch(error) {
         if (error instanceof AxiosError && error.response) {
@@ -30,7 +31,7 @@ export const editServiceAPI = async(editServiceData:IService) => {
 
 export const blockServiceAPI = async(serviceId:string) => {
     try {
-        const response = await axios.patch(`/api/admin/service/${serviceId}/blockService`);
+        const response = await adminInstance.patch(`/admin/service/${serviceId}/blockService`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -43,7 +44,7 @@ export const blockServiceAPI = async(serviceId:string) => {
 
 export const fetchAllWorkerAPI = async(status:boolean) => {
     try {
-        const response = await axios.get(`/api/admin/worker/${status}`);
+        const response = await adminInstance.get(`/admin/worker/${status}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -57,7 +58,7 @@ export const fetchAllWorkerAPI = async(status:boolean) => {
 
 export const blockWorkerAPI = async(workerId:string) => {
     try {
-        const response = await axios.patch(`/api/admin/worker/${workerId}/block`);
+        const response = await adminInstance.patch(`/admin/worker/${workerId}/block`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -69,7 +70,47 @@ export const blockWorkerAPI = async(workerId:string) => {
 
 export const verifyWorkerAPI = async (workerId: string) => {
     try {
-        const response = await axios.patch(`/api/admin/worker/${workerId}/verify`);
+        const response = await adminInstance.patch(`/admin/worker/${workerId}/verify`);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}
+
+
+
+
+export const fetchServices = async (pageNumber:number, search:string) => {
+    try {
+        const response = await adminInstance.get(`/admin/service?page=${pageNumber}&search=${search}`);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError){
+            toast.error(error.response?.data.errors[0].message);
+        }
+    }
+}
+
+
+
+export const userFetch = async () => {
+    try {
+        const response = await adminInstance.get("/admin/users");
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError){
+            toast.error(error.response?.data.errors[0].message);
+        }
+    }
+}
+
+
+export const blockUserAPI = async (userId: string) => {
+    try {
+        const response = await adminInstance.patch(`/admin/${userId}/block`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {

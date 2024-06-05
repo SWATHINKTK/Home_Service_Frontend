@@ -1,8 +1,8 @@
-import axios from "axios";
+
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Swal from 'sweetalert2'
-import { blockUserAPI } from "../../../utils/api/userAPI";
+import { blockUserAPI, userFetch } from "../../../utils/api/adminAPI";
 
 interface UserData {
     _id?: string;
@@ -21,13 +21,10 @@ interface UserData {
 const UserTable: React.FC = () => {
     const [users, setUsers] = useState<UserData[]>([]);
     useEffect(() => {
-        const userFetch = async () => {
-            const response = await axios.get("/api/admin/users");
-            console.log(response.data);
-            setUsers(response.data.data)
-        }
-        userFetch();
-
+        (async() => {
+            const response = await userFetch();
+            setUsers(response.data)
+        })();
     }, []);
     const heading = ["#", "Firstname", "Lastname", "Email", "Phn.No", "district", "Status", "createdAt", "Action"];
 

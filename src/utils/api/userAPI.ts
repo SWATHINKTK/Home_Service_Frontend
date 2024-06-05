@@ -189,24 +189,3 @@ export const cancelBookingUserAPI = async (cancelData:{bookingId:string, status:
 
 
 // !-------------------------------------- ADMIN SIDE USER APIS ----------------------------------------------
-
-/**
- ** Block a user by their ID In The Admin Side.
- * @param userId The ID of the user to be blocked
- * @returns Promise<any> Promise resolving to response data upon successful blocking
- * @throws Error If blocking fails
- */
- export const blockUserAPI = async (userId: string) => {
-    // if (!userId || typeof userId !== 'string') {
-    //     throw new Error("Invalid user ID.");
-    // }
-    try {
-        const response = await axios.patch(`/api/admin/${userId}/block`);
-        return response.data;
-    } catch (error) {
-        if (error instanceof AxiosError && error.response) {
-            toast.error(error.response.data.errors[0].message);
-        }
-        throw error
-    }
-}

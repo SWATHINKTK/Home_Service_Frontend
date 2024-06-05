@@ -47,7 +47,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
         <section className={`bg-[#F2F2F2] md:p-4 p-2 mx-2 my-3 shadow-md rounded-md font-Montserrat ${isExpanded && 'row-span-2'}`}>
             <div className='flex justify-between items-center text-[#252525e4] md:text-sm text-xs'>
                 <div>
-                    <h6 className='font-semibold'>Booking Id : <span>{bookedService._id?.slice(0, 12)}</span></h6>
+                    <h6 className='font-semibold'>Booking Id : <span>{bookedService.bookingId}</span></h6>
                     <h6 className='font-medium'>Date : <span>{bookedService.date}</span></h6>
                 </div>
                 <div className='border bg-white rounded-md py-1 px-4'>

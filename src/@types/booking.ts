@@ -6,6 +6,7 @@ export interface IBooking {
     splice(arg0: number, index: number): IBooking[];
     _id?:string;
     userId:string | IUser;
+    bookingId:string;
     workerId?:string | IWorker;
     serviceId:string | IService;
     serviceMinimumAmount:number;
@@ -31,4 +32,14 @@ export interface IBooking {
     }[];
     createdAt?:string;
     updatedAt?:string;
+}
+
+
+export enum WorkStatus {
+    PENDING = 'Pending',
+    ACCEPTED = 'Accepted',
+    IN_PROGRESS = 'InProgress',
+    COMPLETED = 'Completed',
+    CANCELLED = 'Cancelled',
+    STARTED = 'Started'
 }

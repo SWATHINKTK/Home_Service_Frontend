@@ -30,6 +30,7 @@ import UserProfilePage from "./pages/user/UserProfilePage";
 import Success from "./components/User/Bookings/PaymentSuccess";
 import Failed from "./components/User/Bookings/Failed";
 import WorkListPage from "./pages/worker/WorkListPage";
+import CommittedWorksPage from "./pages/worker/CommittedWorksPage";
 
 
 
@@ -64,6 +65,7 @@ function App() {
             <Route path="/worker" element={<WorkerLanding />} />
             <Route path="/worker/profile" element={<WorkerProfilePage />} />
             <Route path="/worker/bookings" element={<WorkListPage />} />
+            <Route path="/worker/committedWorks" element={<CommittedWorksPage />} />
           </Route>
 
           <Route path="/worker/login" element={<WorkerLogin />} />
