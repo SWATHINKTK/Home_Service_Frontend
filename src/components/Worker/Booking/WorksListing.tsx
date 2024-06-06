@@ -5,9 +5,9 @@ import toast from 'react-hot-toast';
 import BookingCard from './BookingCard';
 import { acceptWorkAPI, startWorkAPI, workVerificationAPI } from '../../../utils/api/workerAPI';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
-import { removeBooking, updateWorkStatus } from '../../../reducers/worker/bookingSlice';
+import { additionalChargeUpdate, removeBooking, updateWorkStatus } from '../../../reducers/worker/bookingSlice';
 import { IUser } from '../../../@types/user';
-import { WorkStatus } from '../../../@types/booking';
+import { IBillingInfo, WorkStatus } from '../../../@types/booking';
 import { numberRegex } from '../../../constants/regex';
 import { AxiosError } from 'axios';
 
@@ -111,13 +111,14 @@ const WorksListing: React.FC = () => {
                         },
                     }
                 )
-                console.log("+++++hai+++++")
-
-                console.log(response)
-
-        // setError('invalid')
 
     };
+
+    const handleCompleted = (bookingId: string, index: number) => (additionalCharges:IBillingInfo[]) => {
+        console.log(additionalCharges,bookingId,index);
+        dispatch(updateWorkStatus({index, status:WorkStatus.COMPLETED}));
+        dispatch(additionalChargeUpdate({index, additionalCharges}));
+    }
 
     return (
         <section className='mx-auto max-w-6xl'>
@@ -137,6 +138,7 @@ const WorksListing: React.FC = () => {
                         handleCommitWork={() => handleCommitWork(bookedService._id!, index)}
                         handleStartWork={() => handleStartWork(bookedService._id!, (bookedService.userId as IUser).email, index)}
                         handleVerification={handleVerification(bookedService._id!, index)}
+                        handleCompleted={handleCompleted(bookedService._id!, index)}
                     />
                 ))}
 

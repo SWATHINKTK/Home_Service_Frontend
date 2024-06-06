@@ -6,7 +6,7 @@ import { BsChatText } from "react-icons/bs";
 
 
 import { IBooking } from '../../../@types/booking';
-import BillingDetails from './BillingDetails';
+import BillingDetails from '../../Worker/Booking/BillingDetails';
 import { cancelBookingUserAPI } from '../../../utils/api/userAPI';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';

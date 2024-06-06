@@ -8,7 +8,7 @@ import { BsCheckAll } from "react-icons/bs";
 
 
 import { IBooking } from '../../../@types/booking';
-import BillingDetails from './BillingDetails';
+import BillingDetails from '../../Worker/Booking/BillingDetails';
 import { IService } from '../../../@types/service';
 import axios from 'axios';
 

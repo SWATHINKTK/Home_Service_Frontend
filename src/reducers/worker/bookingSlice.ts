@@ -23,9 +23,13 @@ const bookingSlice = createSlice({
         updateWorkStatus: (state, action:PayloadAction<{ index: number, status:string }>) => {
             const { index } = action.payload;
             state.booking[index].workStatus = action.payload.status;
+        },
+        additionalChargeUpdate: (state, action) => {
+            const { index } = action.payload;
+            state.booking[index].additionalCharges = action.payload.additionalCharges;
         }
     }
 })
 
-export const { addBooking, removeBooking, updateWorkStatus } = bookingSlice.actions;
+export const { addBooking, removeBooking, updateWorkStatus, additionalChargeUpdate } = bookingSlice.actions;
 export default bookingSlice.reducer

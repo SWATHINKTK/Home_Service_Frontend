@@ -43,3 +43,11 @@ export enum WorkStatus {
     CANCELLED = 'Cancelled',
     STARTED = 'Started'
 }
+
+
+
+export interface IBillingInfo {
+    description: string;
+    qty: number;
+    amount: number;
+}

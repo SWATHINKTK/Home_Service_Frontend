@@ -5,6 +5,13 @@ interface Payment {
     amount: number
 }
 
+// const payments = [
+//     { description: 'Service Amount', amount: 300 },
+//     { description: 'Tax Amount', amount: 30 },
+//     { description: 'Visiting Amount', amount: 300 },
+//     { description: 'Extra Amount', amount: 300 }
+// ]
+
 interface PaymentSummaryProp {
     payments: Payment[]
 }

@@ -3,15 +3,16 @@ import { BsHourglassSplit } from "react-icons/bs";
 import { IoIosArrowDown } from "react-icons/io";
 import { BsChatText } from "react-icons/bs";
 import { BsCheckAll } from "react-icons/bs";
+import { GiCheckMark } from "react-icons/gi";
 
 
 
 
-import { IBooking, WorkStatus } from '../../../@types/booking';
+import { IBillingInfo, IBooking, WorkStatus } from '../../../@types/booking';
 import { IService } from '../../../@types/service';
 import axios from 'axios';
 import OTPInputComponent from './OTPInputComponent';
-import BillingDetails from '../../User/BookingDetails/BillingDetails';
+import BillingDetails from './BillingDetails';
 
 
 
@@ -23,15 +24,17 @@ interface BookingViewSectionProps {
     handleCommitWork: () => void;
     handleStartWork:() => void;
     handleVerification:(otp:string, setError:React.Dispatch<React.SetStateAction<string>>) => void;
+    handleCompleted:(additionalCharges:IBillingInfo[]) => void;
 }
 
 const statusIcon:{ [key: string]: JSX.Element } = {
     Pending:<BsHourglassSplit />,
-    Accepted:<BsCheckAll size={20}/>
+    Accepted:<BsCheckAll size={20}/>,
+    Completed:<GiCheckMark/>
 }
 
 
-const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpanded, onExpandToggle, handleCommitWork, handleStartWork, handleVerification }) => {
+const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpanded, onExpandToggle, handleCommitWork, handleStartWork, handleVerification, handleCompleted }) => {
     const workStatusIcon = bookedService.workStatus ? statusIcon[bookedService.workStatus] : null;
     // const paymentStatusIcon = bookedService.paymentStatus ? statusIcon[bookedService.paymentStatus] : null;
 
@@ -88,7 +91,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                 <p className='text-sm font-semibold text-[#242156]'>{bookedService.description}</p>
             </div>
 
-            <BillingDetails isViewMore={isExpanded} />
+            <BillingDetails isViewMore={isExpanded} booking={bookedService}  handleComplete={handleCompleted}/>
 
            <div className='flex justify-between'>
                 {bookedService.workStatus == 'Pending' &&
