@@ -31,6 +31,7 @@ import Success from "./components/User/Bookings/PaymentSuccess";
 import Failed from "./components/User/Bookings/Failed";
 import WorkListPage from "./pages/worker/WorkListPage";
 import CommittedWorksPage from "./pages/worker/CommittedWorksPage";
+import ChatPage from "./pages/ChatPage";
 
 
 
@@ -57,6 +58,7 @@ function App() {
             <Route path="/failed" element={<Failed />} />
           </Route>
           <Route path="/success" element={<Success />} />
+          <Route path="/chat" element={<ChatPage />} />
 
           <Route path="/otpVerification" element={<UserOTPPage />} />
           <Route path="/login" element={<UserLogin />} />

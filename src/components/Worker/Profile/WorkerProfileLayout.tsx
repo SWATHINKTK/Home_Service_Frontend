@@ -83,7 +83,7 @@ const ProfileLayout: React.FC<WorkerProfileProb> = ({ component }) => {
     }
 
     return (
-        <section className="md:flex gap2 md:my-6  md:mx-11 h-[80vh]">
+        <section className="md:flex gap2 md:my-6  md:mx-11 h-[81vh]">
             <div
                 className={`min-h-[80vh] rounded-lg  ${isMenuOpen ? "md:w-[25rem]" : "w-16 bg-[#9e9e9e71] "} duration-500  text-[#0e0e0e]  md:px-4 px-2`}>
                 <div className="py-3 md:flex hidden justify-end ">
