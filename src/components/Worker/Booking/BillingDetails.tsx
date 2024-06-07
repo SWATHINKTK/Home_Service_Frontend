@@ -32,9 +32,11 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, han
             setBillingInfo([...booking.additionalCharges]);
         }
         if (booking.workStatus == 'Completed') {
+            const totalAmount = billingInfo.reduce((acc, curr) => (acc + (curr.amount * curr.qty)), booking.serviceMinimumAmount);
+            setTotalAmount(totalAmount)
             setIsBillDone(true);
         }
-    }, [booking.additionalCharges, booking.workStatus]);
+    }, [billingInfo, booking.additionalCharges, booking.serviceMinimumAmount, booking.workStatus]);
 
     const handleValidation = () => {
         if (isBilling.description.trim() == '') {
@@ -153,7 +155,7 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, han
                         }
                     </div>
                     {booking.workStatus == 'Completed' && booking.paymentStatus == 'Pending' &&
-                        <div className='flex justify-center gap-3 items-center pt-4 text-red-700'>
+                        <div className='flex justify-end gap-3 items-center py-4 text-red-700'>
                             <BsHourglassSplit size={15} />
                             <h6 className='font-semibold text-base'>Payment Pending</h6>
                         </div>

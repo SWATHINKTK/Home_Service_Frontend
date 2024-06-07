@@ -8,9 +8,9 @@ import { BsCheckAll } from "react-icons/bs";
 
 
 import { IBooking } from '../../../@types/booking';
-import BillingDetails from '../../Worker/Booking/BillingDetails';
 import { IService } from '../../../@types/service';
 import axios from 'axios';
+import BillingDetails from './BillingDetails';
 
 
 
@@ -20,6 +20,7 @@ interface BookingViewSectionProps {
     isExpanded: boolean;
     onExpandToggle: () => void;
     handleCancelBooking: () => void;
+    handlePayment: () => void;
 }
 
 const statusIcon:{ [key: string]: JSX.Element } = {
@@ -28,7 +29,7 @@ const statusIcon:{ [key: string]: JSX.Element } = {
 }
 
 
-const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpanded, onExpandToggle, handleCancelBooking }) => {
+const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpanded, onExpandToggle, handleCancelBooking, handlePayment }) => {
     const workStatusIcon = bookedService.workStatus ? statusIcon[bookedService.workStatus] : null;
     // const paymentStatusIcon = bookedService.paymentStatus ? statusIcon[bookedService.paymentStatus] : null;
 
@@ -84,7 +85,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
             <div className='mt-1 px-2 py-1 w-full bg-white rounded-md shadow-sm'>
                 <p className='text-sm font-semibold text-[#242156]'>{bookedService.description}</p>
             </div>
-            <BillingDetails isViewMore={isExpanded} />
+            <BillingDetails isViewMore={isExpanded} booking={bookedService}  handlePayment={handlePayment}/>
             
                 <div className='flex justify-between'>
                     {bookedService.workStatus == 'Pending' &&

@@ -114,7 +114,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
             </div>
 
 
-            {bookedService.workStatus == 'Started' && (
+            {bookedService.workStatus == 'Started' || bookedService.workStatus == 'Completed' && (
                 <>
                     <div className="flex justify-center m">
                         <button className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 font-Montserrat text-xs font-bold text-center  text-gray-900  select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none"

@@ -54,7 +54,6 @@ const BookingLastProcedure: React.FC = () => {
     };
 
     const handleBooking: SubmitHandler<IBookingData> = async (data) => {
-        console.log(data, process.env.STRIPE_PUBLIC_KEY);
         const stripe = await loadStripe(process.env.STRIPE_PUBLIC_KEY || '');
         data.serviceId = serviceId;
         data.location = location;

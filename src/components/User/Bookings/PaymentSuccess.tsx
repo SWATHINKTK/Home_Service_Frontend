@@ -4,10 +4,15 @@ import { MdArrowForward } from "react-icons/md";
 
 import animationData from '../../../../public/sucessAnimation.json';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '../../../hooks/useQuery';
 
 const Success: React.FC = () => {
     const animationContainer = useRef<HTMLDivElement | null>(null);
     const navigate = useNavigate();
+    const query = useQuery();
+    const serviceId = query.get('completed');
+    console.log("{{{{{{{{{{{{{{",serviceId)
+
     useEffect(() => {
         const animationInstance = lottie.loadAnimation({
             container: animationContainer.current!,
@@ -20,12 +25,13 @@ const Success: React.FC = () => {
             animationInstance.destroy();
         };
     }, []);
+    
     return (
         <div className='flex flex-col justify-center items-center w-full'>
             <div className='relative flex flex-col justify-center items-center'>
                 <div ref={animationContainer} className='h-[65vh]'></div>
                 <div className='absolute md:bottom- bottom-7 flex flex-col items-center justify-center font-Montserrat'>
-                    <h1 className='font-bold text-xl text-center'>Your Appointment Booked Successfully</h1>
+                    <h1 className='font-bold text-xl text-center'>{serviceId ? 'Payment Successful' : 'Your Appointment Booked Successfully'}</h1>
                     <h2 className='text-sm mt-3 animate-pulse'>Thank You For Booking ...</h2>
                 </div>
             </div>

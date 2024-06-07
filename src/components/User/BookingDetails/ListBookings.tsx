@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 
 
-import { IBooking } from '../../../@types/booking';
-import { bookedDataRetrieveAPI } from '../../../utils/api/userAPI';
+import { WorkStatus } from '../../../@types/booking';
 import BookingCard from './BookingCard';
-import { cancelBookingUserAPI } from '../../../utils/api/userAPI';
+import { cancelBookingUserAPI, paymentAPI } from '../../../utils/api/userAPI';
+import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
+import { updateWorkStatus } from '../../../reducers/worker/bookingSlice';
+import { loadStripe } from '@stripe/stripe-js';
+import { IService } from '../../../@types/service';
 
 
 const BookedServices: React.FC = () => {
-    const [bookedServices, setBookedServices] = useState<IBooking[]>([]);
     const [expandedCardId, setExpandedCardId] = useState<string | undefined>();
+    const {booking} = useAppSelector(state => state.booking);
+    const dispatch = useAppDispatch();
 
     const handleExpandToggle = (cardId:string | undefined) => {
         if (cardId == expandedCardId) {
@@ -21,15 +25,6 @@ const BookedServices: React.FC = () => {
 
         }
       };
-    
-
-    useEffect(() => {
-        (async () => {
-            const response = await bookedDataRetrieveAPI();
-            console.log(response.data)
-            setBookedServices(response.data);
-        })()
-    }, []);
 
 
     const handleCancelBooking = async(bookingId:string, index:number) =>{
@@ -49,27 +44,41 @@ const BookedServices: React.FC = () => {
             if (result.isConfirmed) {
                 await cancelBookingUserAPI(updateStatus);
                 toast.success(`Booking has been successfully canceled`);
-                const newData = [...bookedServices];
-                newData[index].workStatus = 'Cancelled'
-                newData[index].paymentStatus = 'Cancelled'
-                setBookedServices(newData)
-                console.log(bookedServices)
+                dispatch(updateWorkStatus({index, status:WorkStatus.CANCELLED}));
             }
           });
        
+    }
+
+    const handlePayment = async(bookingId:string, serviceName:string) => {
+        const stripe = await loadStripe(process.env.STRIPE_PUBLIC_KEY || '');
+        
+        const response = await paymentAPI(bookingId, serviceName);
+        console.log("kkk",response)
+        if (stripe) {
+            const result = await stripe.redirectToCheckout({
+                sessionId: response.data,
+            });
+            if (result.error) {
+                console.error(result.error.message);
+            }
+        } else {
+            console.error('Stripe failed to initialize.');
+        }
     }
 
     return (
         <>
             {/* Services View Div Section */}
             <section className='grid md:grid-cols-2'>
-                {bookedServices.map((bookedService, index) => (
+                {booking.map((bookedService, index) => (
                             <BookingCard 
                                 key={index}
                                 bookedService={bookedService}
                                 isExpanded={expandedCardId === bookedService._id}
                                 onExpandToggle={() => handleExpandToggle(bookedService._id)}
                                 handleCancelBooking = {() => handleCancelBooking(bookedService._id!, index)}
+                                handlePayment = {() => handlePayment(bookedService._id!, (bookedService.serviceId as IService).serviceName)}
                             />
                 ))}
 

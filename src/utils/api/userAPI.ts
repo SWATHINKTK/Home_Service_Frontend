@@ -187,5 +187,19 @@ export const cancelBookingUserAPI = async (cancelData:{bookingId:string, status:
 
 
 
+export const paymentAPI = async (bookingId:string, serviceName:string) => {
+    try {
+        const response = await axiosInstance.post('/user/payment',{bookingId, serviceName});
+        return response.data;
+    } catch (error) {
+        console.log('error',error)
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+            throw error
+        }
+        toast.error('server Error please try again.')
+    }
+}
+
 
 // !-------------------------------------- ADMIN SIDE USER APIS ----------------------------------------------

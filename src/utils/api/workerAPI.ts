@@ -1,12 +1,14 @@
 import axios, { AxiosError } from "axios";
 import { toast } from "react-hot-toast";
 import axiosInstance from './instances/workerInstance';
+import { IBillingInfo } from "../../@types/booking";
 
 export const workerRegisterAPI = async(registerData:unknown) => {
     try {
         const response = await axios.post('/api/worker/register', registerData);
         return response.data
     } catch (error) {
+        console.log(error)
         if (error instanceof AxiosError && error.response) {
             toast.error(error.response.data.errors[0].message);
         }
@@ -124,6 +126,18 @@ export const workVerificationAPI = async(verificationData:{bookingId:string,otp:
         return response.data;
     } catch (error) {
         console.log(error)
+        throw error
+    }
+}
+
+export const completedWorkAPI = async(completeData:{bookingId:string,additionalCharges:IBillingInfo[]}) => {
+    try {
+        const response = await axiosInstance.patch('/booking/completeWork', completeData);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
         throw error
     }
 }
