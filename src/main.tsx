@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <GoogleOAuthProvider clientId={process.env.GOOGLE_ACCESS_ID!}>
       <Provider store={store}>
         <ToastContainer  autoClose={2500} theme="colored"/>
@@ -20,5 +20,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Toaster  gutter={8} toastOptions={{duration:2500,position:'bottom-center',style:{backgroundColor:'#0e0e0e', color:'#fff', minWidth: '20rem'}}} />
       </Provider>
     </GoogleOAuthProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 )

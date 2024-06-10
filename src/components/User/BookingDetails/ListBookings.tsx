@@ -7,30 +7,34 @@ import { WorkStatus } from '../../../@types/booking';
 import BookingCard from './BookingCard';
 import { cancelBookingUserAPI, paymentAPI } from '../../../utils/api/userAPI';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
-import { updateWorkStatus } from '../../../reducers/worker/bookingSlice';
+import { removeBooking } from '../../../reducers/worker/bookingSlice';
 import { loadStripe } from '@stripe/stripe-js';
 import { IService } from '../../../@types/service';
+import Conversation from '../../Common/Chat/Conversation';
+import { useParams } from 'react-router-dom';
 
 
 const BookedServices: React.FC = () => {
     const [expandedCardId, setExpandedCardId] = useState<string | undefined>();
-    const {booking} = useAppSelector(state => state.booking);
+    const { booking } = useAppSelector(state => state.booking);
     const dispatch = useAppDispatch();
+    const { conversationId } = useParams();
 
-    const handleExpandToggle = (cardId:string | undefined) => {
+
+    const handleExpandToggle = (cardId: string | undefined) => {
         if (cardId == expandedCardId) {
-          setExpandedCardId('');
+            setExpandedCardId('');
         } else {
-          setExpandedCardId(cardId);
+            setExpandedCardId(cardId);
 
         }
-      };
+    };
 
 
-    const handleCancelBooking = async(bookingId:string, index:number) =>{
+    const handleCancelBooking = async (bookingId: string, index: number) => {
         const updateStatus = {
             bookingId,
-            status:'Cancelled'
+            status: WorkStatus.CANCELLED
         }
         Swal.fire({
             title: "Cancel Booking",
@@ -40,21 +44,21 @@ const BookedServices: React.FC = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Confirm",
-          }).then(async (result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 await cancelBookingUserAPI(updateStatus);
                 toast.success(`Booking has been successfully canceled`);
-                dispatch(updateWorkStatus({index, status:WorkStatus.CANCELLED}));
+                dispatch(removeBooking({ index }));
             }
-          });
-       
+        });
+
     }
 
-    const handlePayment = async(bookingId:string, serviceName:string) => {
+    const handlePayment = async (bookingId: string, serviceName: string) => {
         const stripe = await loadStripe(process.env.STRIPE_PUBLIC_KEY || '');
-        
+
         const response = await paymentAPI(bookingId, serviceName);
-        console.log("kkk",response)
+        console.log("kkk", response)
         if (stripe) {
             const result = await stripe.redirectToCheckout({
                 sessionId: response.data,
@@ -69,20 +73,20 @@ const BookedServices: React.FC = () => {
 
     return (
         <>
-            {/* Services View Div Section */}
-            <section className='grid md:grid-cols-2'>
-                {booking.map((bookedService, index) => (
-                            <BookingCard 
-                                key={index}
-                                bookedService={bookedService}
-                                isExpanded={expandedCardId === bookedService._id}
-                                onExpandToggle={() => handleExpandToggle(bookedService._id)}
-                                handleCancelBooking = {() => handleCancelBooking(bookedService._id!, index)}
-                                handlePayment = {() => handlePayment(bookedService._id!, (bookedService.serviceId as IService).serviceName)}
-                            />
-                ))}
-
-            </section>
+            {conversationId ? <Conversation /> :
+                <section className='grid md:grid-cols-2'>
+                    {booking.map((bookedService, index) => (
+                        <BookingCard
+                            key={index}
+                            bookedService={bookedService}
+                            isExpanded={expandedCardId === bookedService._id}
+                            onExpandToggle={() => handleExpandToggle(bookedService._id)}
+                            handleCancelBooking={() => handleCancelBooking(bookedService._id!, index)}
+                            handlePayment={() => handlePayment(bookedService._id!, (bookedService.serviceId as IService).serviceName)}
+                        />
+                    ))}
+                </section>
+            }
         </>
     )
 }

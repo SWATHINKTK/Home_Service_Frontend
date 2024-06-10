@@ -7,8 +7,7 @@ const ChatPage = () => {
   return (
     <>
         <Navbar user={false} special={false} />
-        {/* <ProfileLayout component={<Conversation/>}/> */}
-        <Conversation/>
+        <ProfileLayout component={<Conversation/>}/>
     </>
   )
 }

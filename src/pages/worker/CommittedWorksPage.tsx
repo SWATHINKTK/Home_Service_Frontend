@@ -16,6 +16,7 @@ const CommittedWorksPage: React.FC = () => {
             dispatch(addBooking(response.data));
         })()
     }, [dispatch]);
+    console.log("main")
     return (
         <>
             <Navbar user={false} special={false} />

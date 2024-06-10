@@ -29,7 +29,6 @@ axiosInstance.interceptors.response.use(
         if (error.response.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
             try {
-                alert('refres')
                 // refresh token api is calling
                 await axios.post('/api/worker/refreshToken');
                 return axiosInstance(originalRequest);

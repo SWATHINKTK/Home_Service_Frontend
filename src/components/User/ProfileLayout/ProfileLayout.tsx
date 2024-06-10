@@ -14,11 +14,10 @@ import { userLogout } from '../../../reducers/user/middlewares/userLogoutThunk';
 
 interface ProfileComponentProb {
   component: React.ReactNode,
-  head:string
 }
 
 
-const ProfileLayout: React.FC<ProfileComponentProb> = ({ component, head }) => {
+const ProfileLayout: React.FC<ProfileComponentProb> = ({ component }) => {
   const url =
     "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg=";
   const menus = [
@@ -131,13 +130,6 @@ const ProfileLayout: React.FC<ProfileComponentProb> = ({ component, head }) => {
         </div>
       </div>
       <section className=" w-full text-xl  overflow-scroll font-Montserrat">
-        <div className='sticky md:top-0 top-0 pb-3 mx-4 font-Montserrat bg-white'>
-          <h1 className="md:text-2xl font-bold text-3xl mb-1 md:text-left text-center">{head}</h1>
-          <p className="md:block hidden font-thin text-sm pl-1 mb-6">
-            profile/ <span className="font-semibold">{head}</span>
-          </p>
-          <hr className="border-t-2 border-black opacity-15" />
-        </div>
         {component}
       </section>
     </section>

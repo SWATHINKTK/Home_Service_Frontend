@@ -10,12 +10,16 @@ import { IUser } from '../../../@types/user';
 import { IBillingInfo, WorkStatus } from '../../../@types/booking';
 import { numberRegex } from '../../../constants/regex';
 import { AxiosError } from 'axios';
+import Conversation from '../../Common/Chat/Conversation';
+import { useParams } from 'react-router-dom';
 
 
 const WorksListing: React.FC = () => {
     const [expandedCardId, setExpandedCardId] = useState<string | undefined>();
-    const {booking} = useAppSelector(state => state.booking);
+    const { booking } = useAppSelector(state => state.booking);
     const dispatch = useAppDispatch();
+    const { conversationId } = useParams();
+    console.log(1)
 
     const handleExpandToggle = (cardId: string | undefined) => {
         if (cardId == expandedCardId) {
@@ -25,7 +29,7 @@ const WorksListing: React.FC = () => {
 
         }
     };
-    
+
 
 
     const handleCommitWork = async (bookingId: string, index: number) => {
@@ -45,7 +49,7 @@ const WorksListing: React.FC = () => {
                         loading: 'Loading',
                         success: () => {
                             setTimeout(() => {
-                                dispatch(removeBooking({index}));
+                                dispatch(removeBooking({ index }));
                             }, 1900);
                             return `Great! You have accepted the Work`
                         },
@@ -53,14 +57,14 @@ const WorksListing: React.FC = () => {
                     }
                 )
                 console.log('updated', response)
-                
+
             }
         });
 
     }
 
 
-    const handleStartWork = async (bookingId: string, userEmail:string, index: number) => {
+    const handleStartWork = async (bookingId: string, userEmail: string, index: number) => {
 
         Swal.fire({
             text: "Are you sure to start work?",
@@ -71,81 +75,83 @@ const WorksListing: React.FC = () => {
             confirmButtonText: "Start",
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const response = startWorkAPI({ bookingId,userEmail })
+                const response = startWorkAPI({ bookingId, userEmail })
                 toast.promise(response,
                     {
                         loading: 'Loading',
-                        success: () => { 
-                            dispatch(updateWorkStatus({index, status:WorkStatus.IN_PROGRESS}));
+                        success: () => {
+                            dispatch(updateWorkStatus({ index, status: WorkStatus.IN_PROGRESS }));
                             return `OTP Send To Worker.`
                         },
                         error: 'Error when Updating',
                     }
                 )
-            
-                
+
+
             }
         });
     }
 
-    const handleVerification = (bookingId: string, index: number) => (otp: string, setError:React.Dispatch<React.SetStateAction<string>>) => {
+    const handleVerification = (bookingId: string, index: number) => (otp: string, setError: React.Dispatch<React.SetStateAction<string>>) => {
         console.log(bookingId, index, otp);
         if (!numberRegex.test(otp)) {
             setError("Enter valid OTP");
             return;
         }
 
-        const response = workVerificationAPI({ bookingId,otp })
-                toast.promise( response,
-                    {
-                        loading: 'Loading',
-                        success: () => {
-                            dispatch(updateWorkStatus({index, status:WorkStatus.STARTED}));
-                            return `OTP Verification Successful.`
-                        },
-                        error: (error) => {
-                            if (error instanceof AxiosError && error.response) {
-                                setError(error.response.data.errors[0].message);
-                            }
-                            return `OTP Verification Failed`
-                        },
+        const response = workVerificationAPI({ bookingId, otp })
+        toast.promise(response,
+            {
+                loading: 'Loading',
+                success: () => {
+                    dispatch(updateWorkStatus({ index, status: WorkStatus.STARTED }));
+                    return `OTP Verification Successful.`
+                },
+                error: (error) => {
+                    if (error instanceof AxiosError && error.response) {
+                        setError(error.response.data.errors[0].message);
                     }
-                )
+                    return `OTP Verification Failed`
+                },
+            }
+        )
 
     };
 
-    const handleCompleted = (bookingId: string, index: number) => async(additionalCharges:IBillingInfo[]) => {
-        console.log(additionalCharges,bookingId,index);
-        const response = await completedWorkAPI({bookingId,additionalCharges});
+    const handleCompleted = (bookingId: string, index: number) => async (additionalCharges: IBillingInfo[]) => {
+        console.log(additionalCharges, bookingId, index);
+        const response = await completedWorkAPI({ bookingId, additionalCharges });
         toast.success(response.data.message);
-        dispatch(updateWorkStatus({index, status:WorkStatus.COMPLETED}));
-        dispatch(additionalChargeUpdate({index, additionalCharges}));
+        dispatch(updateWorkStatus({ index, status: WorkStatus.COMPLETED }));
+        dispatch(additionalChargeUpdate({ index, additionalCharges }));
     }
 
     return (
         <section className='mx-auto max-w-6xl'>
-            <div className='flex justify-center  my-6'>
-                <h1 className='font-Montserrat font-semibold text-3xl'>Bookings</h1>
-            </div>
-            <hr className="border-t-2 border-black opacity-15 mt-3 mb-5" />
 
-            {/* <div className='overflow-y-scroll h-[80vh]'> */}
-            <div className='grid md:grid-cols-2'>
-                {booking.map((bookedService, index) => (
-                    <BookingCard
-                        key={index}
-                        bookedService={bookedService}
-                        isExpanded={expandedCardId === bookedService._id}
-                        onExpandToggle={() => handleExpandToggle(bookedService._id)}
-                        handleCommitWork={() => handleCommitWork(bookedService._id!, index)}
-                        handleStartWork={() => handleStartWork(bookedService._id!, (bookedService.userId as IUser).email, index)}
-                        handleVerification={handleVerification(bookedService._id!, index)}
-                        handleCompleted={handleCompleted(bookedService._id!, index)}
-                    />
-                ))}
 
-            </div>
-            {/* </div> */}
+            {conversationId ? <Conversation /> :
+                <>
+                    <div className='flex justify-center  my-6'>
+                        <h1 className='font-Montserrat font-semibold text-3xl'>Bookings</h1>
+                    </div>
+                    <hr className="border-t-2 border-black opacity-15 mt-3 mb-5" />
+                    <div className='grid md:grid-cols-2'>
+                        {booking.map((bookedService, index) => (
+                            <BookingCard
+                                key={index}
+                                bookedService={bookedService}
+                                isExpanded={expandedCardId === bookedService._id}
+                                onExpandToggle={() => handleExpandToggle(bookedService._id)}
+                                handleCommitWork={() => handleCommitWork(bookedService._id!, index)}
+                                handleStartWork={() => handleStartWork(bookedService._id!, (bookedService.userId as IUser).email, index)}
+                                handleVerification={handleVerification(bookedService._id!, index)}
+                                handleCompleted={handleCompleted(bookedService._id!, index)}
+                            />
+                        ))}
+                    </div>
+                </>
+            }
         </section>
     )
 }

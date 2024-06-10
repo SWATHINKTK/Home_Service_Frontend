@@ -11,6 +11,9 @@ import { IBooking } from '../../../@types/booking';
 import { IService } from '../../../@types/service';
 import axios from 'axios';
 import BillingDetails from './BillingDetails';
+import { IUser } from '../../../@types/user';
+import { createConversationAPI } from '../../../utils/api/chatAPI';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -34,15 +37,42 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
     // const paymentStatusIcon = bookedService.paymentStatus ? statusIcon[bookedService.paymentStatus] : null;
 
     const [placeDetails, setPlaceDetails] = useState([]);
+    const [ conversationId, setConversationId] = useState('');
+    const navigate = useNavigate();
+
     useEffect(() => {
         (async () => {
             const latitude = bookedService.location.latitude;
             const longitude = bookedService.location.longitude;
             console.log(latitude, longitude)
-            const details = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${process.env.MAP_BOX_ACCESS_TOKEN}`);
-            setPlaceDetails(details.data.features[0].place_name.split(','))
+            const response = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${process.env.MAP_BOX_ACCESS_TOKEN}`);
+            if (response.data.features.length > 0) {
+                setPlaceDetails(response.data.features[0].place_name.split(','));
+            }
         })();
     }, [bookedService.location.latitude, bookedService.location.longitude]);
+
+    useEffect(() => {
+            const createConversation = async () => {
+                try {
+                    const senderId = (bookedService.userId as IUser)._id as string;
+                    const receiverId = bookedService.workerId as string
+                    const response = await createConversationAPI(senderId, receiverId);
+                    setConversationId(response.data._id);
+                } catch (error) {
+                    console.error('Error creating conversation:', error);
+                }
+            };
+            createConversation();
+    },[bookedService.userId, bookedService.workerId]);
+
+    const handleChat = () => {
+        const data = {
+            senderId:(bookedService.userId as IUser)._id,
+            receiverId:bookedService.workerId as string,
+        }
+        navigate(`/chat/${conversationId}`, {state:{data}})
+    }
 
     return (
         <section className={`bg-[#F2F2F2] md:p-4 p-2 mx-2 my-3 shadow-md rounded-md font-Montserrat ${isExpanded && 'row-span-2'}`}>
@@ -92,7 +122,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                         <button className='bg-red-800 text-white text-sm font-semibold px-4 py-1 rounded-md mt-3' onClick={handleCancelBooking} >Cancel</button>
                     }
                     {bookedService.workStatus != 'Pending' && bookedService.workStatus !== 'Completed' && (
-                        <button className='bg-white px-4 py-1 rounded-md mt-3 flex items-center'>
+                        <button className='bg-white px-4 py-1 rounded-md mt-3 flex items-center' onClick={handleChat}>
                             <BsChatText />
                             <h5 className='text-sm font-bold mx-1'>Chat</h5>
                         </button>
