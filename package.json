@@ -20,6 +20,7 @@
     "@stripe/react-stripe-js": "^2.7.1",
     "@stripe/stripe-js": "^3.4.1",
     "@types/react-transition-group": "^4.4.10",
+    "apexcharts": "^3.49.1",
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
     "firebase": "^10.11.1",
