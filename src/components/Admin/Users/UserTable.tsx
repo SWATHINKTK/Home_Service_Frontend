@@ -56,14 +56,14 @@ const UserTable: React.FC = () => {
     }
 
     return (
-        <div className="mt-20 ">
+        <div className="mt-20 px-6">
             <div className="flex">
                 <h1 className="font-Montserrat font-[700] text-[1.9rem] tracking-wider mb-4">
                     Users
                 </h1>
             </div>
             <div className={`relative overflow-scroll hide-scrollbar sm:rounded-lg `}>
-                <table className="w-[80%]  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-scroll">
+                <table className="w-full  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-scroll">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             {heading.map((title) => (

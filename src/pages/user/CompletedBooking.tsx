@@ -7,11 +7,11 @@ import { bookedDataRetrieveAPI } from '../../utils/api/userAPI'
 import { addBooking } from '../../reducers/worker/bookingSlice'
 import { Helmet } from 'react-helmet-async'
 
-const BookingListing: React.FC = () => {
+const CompletedBooking: React.FC = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         (async () => {
-            const response = await bookedDataRetrieveAPI(false);
+            const response = await bookedDataRetrieveAPI(true);
             console.log(response)
             dispatch(addBooking(response.data));
         })()
@@ -19,7 +19,7 @@ const BookingListing: React.FC = () => {
     return (
         <>
             <Helmet>
-                <title>Bookings</title>
+                <title>History</title>
             </Helmet>
             <Navbar user={true} special={false} />
             <ProfileLayout component={<BookedServices />} />
@@ -27,4 +27,4 @@ const BookingListing: React.FC = () => {
     )
 }
 
-export default BookingListing
+export default CompletedBooking

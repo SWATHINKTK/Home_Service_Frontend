@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { IoIosArrowDropright } from "react-icons/io";
 import { LuUser2 } from "react-icons/lu";
-import { MdPayment } from "react-icons/md";
+// import { MdPayment } from "react-icons/md";
 import { FaRegRectangleList } from "react-icons/fa6";
 import { FaQuestion } from "react-icons/fa6";
 import { VscChecklist } from "react-icons/vsc";
@@ -28,12 +28,12 @@ const ProfileLayout: React.FC<ProfileComponentProb> = ({ component }) => {
         link: "/user/profile",
         icon: LuUser2,
       },
-      {
-        name: "Payment Method",
-        description: "add your credit card and debit card",
-        link: "/bookedservices",
-        icon: MdPayment,
-      },
+      // {
+      //   name: "Payment Method",
+      //   description: "add your credit card and debit card",
+      //   link: "/bookedservices",
+      //   icon: MdPayment,
+      // },
       // {
       //   name: "Address",
       //   description: "edit or add new address",

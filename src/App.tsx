@@ -31,6 +31,7 @@ import Success from "./components/User/Bookings/PaymentSuccess";
 import Failed from "./components/User/Bookings/Failed";
 import WorkListPage from "./pages/worker/WorkListPage";
 import CommittedWorksPage from "./pages/worker/CommittedWorksPage";
+import CompletedBooking from "./pages/user/CompletedBooking";
 
 
 
@@ -56,6 +57,7 @@ function App() {
             <Route path="/service/:serviceId/booking" element={<BookingPage />} />
             <Route path="/bookedServices" element={<BookingListing />} />
             <Route path="/failed" element={<Failed />} />
+            <Route path="/history" element={<CompletedBooking />} />
             <Route path="/chat/:conversationId" element={<BookingListing />} />
           </Route>
           <Route path="/success" element={<Success />} />

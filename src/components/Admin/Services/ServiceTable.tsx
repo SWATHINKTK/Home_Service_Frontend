@@ -125,7 +125,7 @@ const ServiceTable: React.FC = () => {
 	};
 
 	return (
-		<div className="mt-20 w-[82%]">
+		<div className="mt-20 w-full px-6">
 			<div className="flex justify-between mb-3">
 				<h1 className="font-Montserrat font-[700] text-[1.9rem] tracking-wider ">
 					Services
@@ -288,7 +288,6 @@ const ServiceTable: React.FC = () => {
 								</div>
 							</td>)
 							:(<td className="text-center bg-red-500 text-black font-bold py-3" colSpan={11}>Data Not Found</td>)
-
 }
 						</tr>
 					</tbody>
