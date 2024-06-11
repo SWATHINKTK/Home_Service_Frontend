@@ -70,6 +70,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
         const data = {
             senderId:(bookedService.userId as IUser)._id,
             receiverId:bookedService.workerId as string,
+            user:true
         }
         navigate(`/chat/${conversationId}`, {state:{data}})
     }

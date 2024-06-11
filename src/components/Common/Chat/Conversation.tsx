@@ -1,34 +1,43 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import io, { Socket } from 'socket.io-client';
 import { IoIosSend } from "react-icons/io";
 import { IoArrowBack } from "react-icons/io5";
 
 import './chat.css'
 import Message from './Message';
-import { sendMessageAPI, viewMessageAPI } from '../../../utils/api/chatAPI';
+import { sendMessageAPI, viewMessageAPI, viewReceiverAPI } from '../../../utils/api/chatAPI';
 import { IMessage } from '../../../@types/message';
+
+interface IReceiver{
+    username:string;
+    profile:string;
+}
 
 const Conversation = () => {
     const { conversationId } = useParams<{ conversationId: string }>();
     const [messages, setMessages] = useState<IMessage[]>([]);
     const [newMessage, setNewMessage] = useState('');
+    const [ receiverData , setReceiverData] = useState<IReceiver>();
     const socket = useRef<Socket>();
     const location = useLocation();
+    const navigate = useNavigate();
     const scrollRef = useRef<HTMLDivElement>(null);
     const data = location.state?.data || {};
-    console.log('sender', data.senderId)
-    console.log('receiver', data.receiverId)
-    console.log("--------------------------------------------------------")
-    console.log('message', messages)
 
     useEffect(() => {
         socket.current = io("ws://localhost:3000")
-    },[])
+    },[]);
+
+    useEffect(() => {
+        (async () => {
+            const receiver = await viewReceiverAPI(data.receiverId, !data.user);
+            setReceiverData(receiver.data);
+        })();
+    },[data.receiverId, data.user, receiverData]);
 
 
     useEffect(() => {
-        console.log('effect')
         if (data.senderId && socket.current) {
             socket.current.emit('addUser', data.senderId)
             socket.current.on('getUsers', users => {
@@ -75,7 +84,6 @@ const Conversation = () => {
             createdAt: new Date()
         }
         socket.current && socket.current.emit('sendMessage',newData);
-        console.log('sendData', newData)
         await sendMessageAPI(newData);
         setMessages([...messages, newData]);
         setNewMessage('');
@@ -88,13 +96,13 @@ const Conversation = () => {
 
     return (
         <section className='mx-auto max-w-6xl flex flex-col justify-end'>
-            {/* <div className='h-14 w-full bg-[#c0c0c067] flex px-4 rounded-t-md'>
+            <div className='h-14 w-full bg-[#c0c0c067] flex px-4 rounded-t-md'>
                 <div className='flex justify-center items-center'>
-                    <IoArrowBack className='cursor-pointer' />
-                    <img className='h-10 w-10 mx-3 object-cover rounded-full border-2 drop-shadow-md' src="https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg=" alt="" />
-                    <h6 className='font-semibold -mt-3 text-[1rem]'>Swathin</h6>
+                    <IoArrowBack className='cursor-pointer' onClick={() => navigate(`${data.user ? '/bookedServices' :'/worker/committedWorks'}`)}/>
+                    <img className='h-10 w-10 mx-3 object-cover rounded-full border-2 drop-shadow-md' src={receiverData?.profile || 'https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg='} alt="" />
+                    <h6 className='font-semibold -mt-3 text-[1rem]'>{receiverData?.username}</h6>
                 </div>
-            </div> */}
+            </div>
             <div className='h-[64vh] overflow-y-auto px-3'>
                 {messages.map((msg, index) => (
                     <div key={index} ref={scrollRef}>

@@ -26,7 +26,7 @@ const BookingLastProcedure: React.FC = () => {
         { description: 'Tax Amount', amount: 30 },
         { description: 'Visiting Amount', amount: 300 }
     ];
-    const { register, handleSubmit, formState: { errors } } = useForm<IBookingData>();
+    const { register, handleSubmit, setError, formState: { errors } } = useForm<IBookingData>();
     const location = useAppSelector((state) => state.location);
     const { serviceId } = useParams();
 
@@ -46,14 +46,39 @@ const BookingLastProcedure: React.FC = () => {
     const validateStartTime = (value: string) => {
         const currentTime = new Date();
         const selectedTime = value.split(':')
-        console.log();
+        if(+selectedTime[0] < 9 || +selectedTime[0] > 17){
+            return "Work hour is 9:00Am to 6:00PM.";
+        }
         if (currentTime.getHours() > +selectedTime[0] || currentTime.getMinutes() > +selectedTime[1]) {
             return "Start time must be greater than current time.";
         }
         return true;
     };
 
+    const validateEndTime = (startTym:string, endTym:string) => {
+        const endTime = endTym.split(':');
+        const startTime = startTym.split(':');
+        if(+endTime[0] > 17){
+            setError('endTime', {
+                type:'manual',
+                message:"Work hour is 9:00Am to 6:00PM."
+            })
+            return false;
+        }
+        if(+startTime[1] + 30 > +endTime[1] || +startTime[0 ]> +endTime[0]){
+            setError('endTime', {
+                type:'manual',
+                message:"minimum 30min gap."
+            })
+            return false;
+        }
+        return true;
+    }
+
     const handleBooking: SubmitHandler<IBookingData> = async (data) => {
+        if(!validateEndTime(data.startTime, data.endTime)){
+            return;
+        }
         const stripe = await loadStripe(process.env.STRIPE_PUBLIC_KEY || '');
         data.serviceId = serviceId;
         data.location = location;

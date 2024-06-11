@@ -36,3 +36,21 @@ export const sendMessageAPI = async(messageData:IMessage) => {
         throw error
     }
 }
+
+
+
+export const viewReceiverAPI = async(receiverId:string, user:boolean) => {
+    try {
+        let response;
+        if(user){
+            response = await axios.get(`/api/chat/user/${receiverId}`);
+        }else{
+            response = await axios.get(`/api/chat/worker/${receiverId}`);
+        }
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError)
+            toast.error(error.response?.data.errors[0].message);
+        throw error
+    }
+}
