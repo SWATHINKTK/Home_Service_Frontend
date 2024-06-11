@@ -5,6 +5,7 @@ import { viewAcceptedWorkAPI } from '../../utils/api/workerAPI';
 import { addBooking } from '../../reducers/worker/bookingSlice';
 import ProfileLayout from '../../components/Worker/Profile/WorkerProfileLayout';
 import WorksListing from '../../components/Worker/Booking/WorksListing';
+import { Helmet } from 'react-helmet-async';
 
 const CommittedWorksPage: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -19,8 +20,11 @@ const CommittedWorksPage: React.FC = () => {
     console.log("main")
     return (
         <>
+            <Helmet>
+                <title>Committed Works</title>
+            </Helmet>
             <Navbar user={false} special={false} />
-            <ProfileLayout component={<WorksListing/>} />
+            <ProfileLayout component={<WorksListing />} />
         </>
     )
 }

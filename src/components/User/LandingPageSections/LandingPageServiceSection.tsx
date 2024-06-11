@@ -9,16 +9,27 @@ const LandingPageServiceSection = () => {
 
     const navigate = useNavigate();
     const [services, setServices] = useState<IService[]>([]);
+    const [searchTerm, setSearchTerm] = useState<string | null>(null);
+	const [search, setSearch] = useState<string>('');
 
+ 
+    useEffect(() => {
+		const debounce = setTimeout(() => {
+			if(searchTerm != null){
+				setSearch(searchTerm);
+			}
+		}, 600);
+		return () => clearTimeout(debounce)
+	},[searchTerm])
 
-    const fetchServices = async () => {
-        const response = await serviceListAPI(1);
-        setServices(response.data)
-    }
 
     useEffect(() => {
+        const fetchServices = async () => {
+            const response = await serviceListAPI(1,search);
+            setServices(response.data)
+        }
         fetchServices();
-    }, []);
+    }, [ search]);
 
     return (
         <>
@@ -32,6 +43,7 @@ const LandingPageServiceSection = () => {
                         <input
                             className="peer shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] px-5 w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline-none focus:outline-none disabled:bg-blue-gray-50 disabled:border-0 transition-all border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 text-sm py-2.5 rounded-full !pr-9 border-blue-gray-200"
                             placeholder=" "
+                            onChange={(e) => setSearchTerm(e.target.value)} 
                         />
                         <label className="absolute left-3 top-1/2 transform -translate-y-1/2 peer-placeholder-shown:text-blue-gray-500 peer-focus:-top-2 peer-focus:text-gray-900 peer-focus:text-[11px] text-sm px-1 transition-all pointer-events-none bg-white">
                             Search Services

@@ -5,6 +5,7 @@ import ProfileLayout from '../../components/User/ProfileLayout/ProfileLayout'
 import { useAppDispatch } from '../../hooks/useTypedSelector'
 import { bookedDataRetrieveAPI } from '../../utils/api/userAPI'
 import { addBooking } from '../../reducers/worker/bookingSlice'
+import { Helmet } from 'react-helmet-async'
 
 const BookingListing: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -17,8 +18,11 @@ const BookingListing: React.FC = () => {
     }, [dispatch]);
     return (
         <>
+            <Helmet>
+                <title>Bookings</title>
+            </Helmet>
             <Navbar user={true} special={false} />
-            <ProfileLayout component={<BookedServices />}  head={'Booked Services'}/>
+            <ProfileLayout component={<BookedServices />} />
         </>
     )
 }

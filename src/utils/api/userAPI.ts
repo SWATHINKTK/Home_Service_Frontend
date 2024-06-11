@@ -127,9 +127,9 @@ export const manageUserProfileAPI = async (userUpdateData: FormData) => {
  * @returns Promise<any[]> Promise resolving to an array of services
  * @throws Error If retrieval fails
  */
-export const serviceListAPI = async (pageNumber:number) => {
+export const serviceListAPI = async (pageNumber:number, search:string) => {
     try {
-        const response = await axiosInstance.get(`/user/service?page=${pageNumber}`);
+        const response = await axiosInstance.get(`/user/service?page=${pageNumber}&search=${search}`);
         console.log(response)
         return response.data;
     } catch (error) {

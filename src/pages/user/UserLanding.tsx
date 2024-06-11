@@ -5,6 +5,7 @@ import LandingPageServiceSection from '../../components/User/LandingPageSections
 import LandingPageBusiness from '../../components/User/LandingPageSections/LandingPageBusiness'
 import LandingPageProcessSection from '../../components/User/LandingPageSections/LandingPageProcessSection'
 import Footer from '../../components/User/Footer/Footer'
+import { Helmet } from 'react-helmet-async'
 
 
 const UserLanding:React.FC = () => {
@@ -12,6 +13,9 @@ console.log("user landing")
   
   return (
     <>
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
        <Navbar user={true} special={false} />
        <LandingPageBanner />
        <LandingPageServiceSection />
