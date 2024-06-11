@@ -49,9 +49,9 @@ const ProfileLayout: React.FC<ProfileComponentProb> = ({ component }) => {
         icon: FaRegRectangleList,
       },
       {
-        name: "Service History",
+        name: "Booking History",
         description: "edit or add new address",
-        link: "/bookedServices",
+        link: "/bookingHistory",
         icon: VscChecklist,
       },
     ],

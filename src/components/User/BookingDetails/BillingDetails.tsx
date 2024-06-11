@@ -51,12 +51,14 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, han
                             </tbody>
                         </table>
                     </div>
+                    {booking.paymentStatus == 'Pending' && 
                     <div className='flex justify-end'>
                         <button className="bg-[#071809] text-white border border-emerald-400 border-b-4 font-semibold overflow-hidden relative px-3 py-1 text-sm rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group" onClick={handlePayment}>
                             <span className="bg-emerald-400 shadow-emerald-400 absolute -top-[150%] left-0 inline-flex w-80 rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]" />
                             Pay  ₹ {booking.totalAmount}
                         </button>
                     </div>
+                    }
                 </>
             )}
         </div>

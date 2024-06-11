@@ -34,7 +34,7 @@ const Conversation = () => {
             const receiver = await viewReceiverAPI(data.receiverId, !data.user);
             setReceiverData(receiver.data);
         })();
-    },[data.receiverId, data.user, receiverData]);
+    },[]);
 
 
     useEffect(() => {

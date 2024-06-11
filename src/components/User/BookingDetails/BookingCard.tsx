@@ -57,8 +57,10 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                 try {
                     const senderId = (bookedService.userId as IUser)._id as string;
                     const receiverId = bookedService.workerId as string
-                    const response = await createConversationAPI(senderId, receiverId);
-                    setConversationId(response.data._id);
+                    if(senderId  && receiverId){
+                        const response = await createConversationAPI(senderId, receiverId);
+                        setConversationId(response.data._id);
+                    }
                 } catch (error) {
                     console.error('Error creating conversation:', error);
                 }
@@ -76,6 +78,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
     }
 
     return (
+        
         <section className={`bg-[#F2F2F2] md:p-4 p-2 mx-2 my-3 shadow-md rounded-md font-Montserrat ${isExpanded && 'row-span-2'}`}>
             <div className='flex justify-between items-center text-[#252525e4] md:text-sm text-xs'>
                 <div>
@@ -85,7 +88,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                 <div className='border bg-white rounded-md py-1 px-4'>
                     <div className='flex'>
                         {/* <h6 className='text-xs font-semibold'>Work Status</h6> */}
-                        <div className={`flex items-center ${bookedService.workStatus == 'Pending' ? 'text-red-800' : 'text-[#0c0f46]'} `}>
+                        <div className={`flex items-center ${bookedService.workStatus == 'Pending' || bookedService.workStatus == 'Cancelled'  ? 'text-red-800' : 'text-[#0c0f46]'} `}>
                             {workStatusIcon}
                             <h6 className='text-sm font-bold mx-1'>{bookedService.workStatus}</h6>
                         </div>
@@ -122,7 +125,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                     {bookedService.workStatus == 'Pending' &&
                         <button className='bg-red-800 text-white text-sm font-semibold px-4 py-1 rounded-md mt-3' onClick={handleCancelBooking} >Cancel</button>
                     }
-                    {bookedService.workStatus != 'Pending' && bookedService.workStatus !== 'Completed' && (
+                    {bookedService.workStatus != 'Pending' && bookedService.workStatus !== 'Completed' && bookedService.workStatus !== 'Cancelled' && (
                         <button className='bg-white px-4 py-1 rounded-md mt-3 flex items-center' onClick={handleChat}>
                             <BsChatText />
                             <h5 className='text-sm font-bold mx-1'>Chat</h5>
@@ -138,7 +141,8 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                             <button className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 font-Montserrat text-xs font-bold text-center  text-gray-900  select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none"
                                 onClick={onExpandToggle}
                             >
-                                View More <IoIosArrowDown />
+                               {!isExpanded ? 'View More' : 'View Less'}
+                               <IoIosArrowDown className={`${isExpanded && 'rotate-180'}`} />
                             </button>
                         </div>
                     

@@ -57,7 +57,7 @@ function App() {
             <Route path="/service/:serviceId/booking" element={<BookingPage />} />
             <Route path="/bookedServices" element={<BookingListing />} />
             <Route path="/failed" element={<Failed />} />
-            <Route path="/history" element={<CompletedBooking />} />
+            <Route path="/bookingHistory" element={<CompletedBooking />} />
             <Route path="/chat/:conversationId" element={<BookingListing />} />
           </Route>
           <Route path="/success" element={<Success />} />
