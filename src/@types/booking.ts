@@ -32,6 +32,7 @@ export interface IBooking {
     }[];
     createdAt?:string;
     updatedAt?:string;
+    transactionId?:string;
 }
 
 

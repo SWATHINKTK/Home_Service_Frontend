@@ -119,3 +119,16 @@ export const blockUserAPI = async (userId: string) => {
         throw error
     }
 }
+
+
+export const salesReportAPI = async()=> {
+    try {
+        const response = await adminInstance.get(`/admin/salesReport`);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}

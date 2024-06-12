@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Swal from 'sweetalert2'
 import { blockUserAPI, userFetch } from "../../../utils/api/adminAPI";
+import moment from "moment";
 
 interface UserData {
     _id?: string;
@@ -99,7 +100,7 @@ const UserTable: React.FC = () => {
                                         )}
                                     </td>
                                     <td className="px-3 py-2">
-                                        {user.createdAt.toLocaleString()}
+                                        {moment(user.createdAt).format('lll')}
                                     </td>
                                     <td className="px-3 py-2">
                                         <button

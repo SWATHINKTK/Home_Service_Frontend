@@ -32,6 +32,7 @@ import Failed from "./components/User/Bookings/Failed";
 import WorkListPage from "./pages/worker/WorkListPage";
 import CommittedWorksPage from "./pages/worker/CommittedWorksPage";
 import CompletedBooking from "./pages/user/CompletedBooking";
+import SalesReportPage from "./pages/admin/SalesReportPage";
 
 
 
@@ -84,6 +85,7 @@ function App() {
             <Route path="/admin/service" element={<AdminServiceViewPage />} />
             <Route path="/admin/addService" element={<AdminServiceAddPage />} />
             <Route path="/admin/worker" element={<AdminWorkerPage />} />
+            <Route path="/admin/salesReport" element={<SalesReportPage />} />
           </Route>
 
         </Routes>

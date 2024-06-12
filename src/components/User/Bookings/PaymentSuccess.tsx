@@ -35,7 +35,7 @@ const Success: React.FC = () => {
                     <h2 className='text-sm mt-3 animate-pulse'>Thank You For Booking ...</h2>
                 </div>
             </div>
-            <button className="flex items-center mt-10 transition-transform transform hover:scale-x-105 gap-2 px-4 py-2 font-sans text-xs font-bold text-center font-Montserrat border-2 text-gray-900 align-middle  rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/10 active:bg-gray-900/20" onClick={() => navigate('/bookedServices')}>
+            <button className="flex items-center mt-10 transition-transform transform hover:scale-x-105 gap-2 px-4 py-2 font-sans text-xs font-bold text-center font-Montserrat border-2 text-gray-900 align-middle  rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/10 active:bg-gray-900/20" onClick={() => navigate(serviceId ?'/bookedServices' : '/bookingHistory')}>
                     View Bookings
                 <MdArrowForward className="w-5 h-5 transition-transform  transform-gpu hover:translate-x-1"/>
             </button> 

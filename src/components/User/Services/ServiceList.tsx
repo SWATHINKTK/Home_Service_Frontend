@@ -13,13 +13,13 @@ const ServiceList: React.FC = () => {
     const [pageNumber, setPageNumber] = useState(1);
     const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState<string | null>(null);
-	const [search, setSearch] = useState<string>('');
+    const [search, setSearch] = useState<string>('');
 
-    
+
 
     const fetchServices = useCallback(async () => {
         setLoading(true);
-        const response = await serviceListAPI(pageNumber,search);
+        const response = await serviceListAPI(pageNumber, search);
         setLoading(false);
         pageNumber == 1 ? setServices(response.data) : setServices((prev) => [...prev, ...response.data])
     }, [pageNumber, search])
@@ -29,14 +29,14 @@ const ServiceList: React.FC = () => {
     }, [pageNumber, fetchServices]);
 
     useEffect(() => {
-		const debounce = setTimeout(() => {
-			if(searchTerm != null){
-				setSearch(searchTerm);
+        const debounce = setTimeout(() => {
+            if (searchTerm != null) {
+                setSearch(searchTerm);
                 setPageNumber(1)
-			}
-		}, 600);
-		return () => clearTimeout(debounce)
-	},[searchTerm])
+            }
+        }, 600);
+        return () => clearTimeout(debounce)
+    }, [searchTerm])
 
     return (
         <div className="mx-auto max-w-6xl my-16">
@@ -53,7 +53,7 @@ const ServiceList: React.FC = () => {
                         <input
                             className="peer shadow-md px-5 w-full h-full bg-transparent text-blue-gray-700 font-sans font-normal outline-none focus:outline-none disabled:bg-blue-gray-50 disabled:border-0 transition-all border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 text-sm py-2.5 rounded-full !pr-9 border-blue-gray-200"
                             placeholder=" "
-                            onChange={(e) => setSearchTerm(e.target.value)} 
+                            onChange={(e) => setSearchTerm(e.target.value)}
                         />
                         <label className="absolute left-3 top-1/2 transform -translate-y-1/2 peer-placeholder-shown:text-blue-gray-500 peer-focus:-top-2 peer-focus:text-gray-900 peer-focus:text-[11px] text-sm px-1 transition-all pointer-events-none bg-white">
                             Search Services
@@ -66,24 +66,24 @@ const ServiceList: React.FC = () => {
                     <ServiceCard key={service._id} service={service} />
                 ))}
             </div>
-            {services.length == 0 ?
-                    <div className=''>
-                        <img className=' mx-auto' src="/public/notfound.png" alt="" />
-                        <h3 className='text-center font-bold font-Montserrat tracking-widest mt-2 text-[#150f3e]'>No Data Found</h3>
-                    </div>
-            :
-            <div className="flex justify-center mt-6">
-                <button
-                    className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 px-5 py-2 font-sans text-xs font-bold text-center font-Montserrat border-2 text-gray-900 align-middle  rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/10 active:bg-gray-900/20"
-                    type="button"
-                    onClick={() => setPageNumber(pageNumber + 1)}
-                    disabled={loading}
-                >
-                    {loading ? <FaSpinner className="animate-spin" /> : <> More <IoIosArrowDown /></>}
+            {services.length == 0 && !loading ?
+                <div className=''>
+                    <img className=' mx-auto' src="/public/notfound.png" alt="" />
+                    <h3 className='text-center font-bold font-Montserrat tracking-widest mt-2 text-[#150f3e]'>No Data Found</h3>
+                </div>
+                :
+                <div className="flex justify-center mt-6">
+                    <button
+                        className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 px-5 py-2 font-sans text-xs font-bold text-center font-Montserrat border-2 text-gray-900 align-middle  rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/10 active:bg-gray-900/20"
+                        type="button"
+                        onClick={() => setPageNumber(pageNumber + 1)}
+                        disabled={loading}
+                    >
+                        {loading ? <FaSpinner className="animate-spin" /> : <> More <IoIosArrowDown /></>}
 
-                </button>
-            </div>
-}
+                    </button>
+                </div>
+            }
         </div>
     )
 }

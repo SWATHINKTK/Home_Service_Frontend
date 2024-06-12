@@ -6,7 +6,7 @@ import { MdEngineering } from "react-icons/md";
 import { MdOutlineLogout } from "react-icons/md";
 import { FaUsersCog } from "react-icons/fa";
 import { MdFormatListBulleted } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./adminMainComponent.css";
 import { useAppDispatch } from "../../../hooks/useTypedSelector";
@@ -68,24 +68,22 @@ const AdminMainComponent: React.FC<AdminMainComponentProb> = ({ content }) => {
             </li>
             <hr />
             <li>
-              <a
-                href="#"
+              <Link to={'/admin'}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <MdEngineering className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
                 <span className="flex-1 ms-3 whitespace-nowrap">
                   New Worker
                 </span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+            <Link to={'/admin/salesReport'}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <MdFormatListBulleted className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
-                <span className="flex-1 ms-3 whitespace-nowrap">Bookings</span>
-              </a>
+                <span className="flex-1 ms-3 whitespace-nowrap">Sales Report</span>
+              </Link>
             </li>
             <hr />
             <li>

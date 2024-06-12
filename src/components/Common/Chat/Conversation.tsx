@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import io, { Socket } from 'socket.io-client';
 import { IoIosSend } from "react-icons/io";
@@ -29,12 +29,15 @@ const Conversation = () => {
         socket.current = io("ws://localhost:3000")
     },[]);
 
+    const fetchReceiverData = useCallback(async () => {
+        const receiver = await viewReceiverAPI(data.receiverId, !data.user);
+        setReceiverData(receiver.data);
+    }, [data.receiverId, data.user]);
+
     useEffect(() => {
-        (async () => {
-            const receiver = await viewReceiverAPI(data.receiverId, !data.user);
-            setReceiverData(receiver.data);
-        })();
-    },[]);
+        fetchReceiverData();
+    }, [fetchReceiverData]);
+
 
 
     useEffect(() => {

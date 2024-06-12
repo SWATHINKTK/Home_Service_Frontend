@@ -7,6 +7,7 @@ import Swal from 'sweetalert2'
 import { IWorker } from "../../../@types/worker";
 import WorkerMoreInfoModal from "./WorkerMoreInfoModal";
 import { blockWorkerAPI, fetchAllWorkerAPI, verifyWorkerAPI } from "../../../utils/api/adminAPI";
+import moment from "moment";
 
 
 const WorkerTable: React.FC = () => {
@@ -153,7 +154,7 @@ const WorkerTable: React.FC = () => {
                       )}
                     </td>
                     <td className="px-3 py-2">
-                      {worker.createdAt?.toLocaleString()}
+                      {moment(worker.createdAt).format('lll')}
                     </td>
                     <td className="px-5 py-2">
                       <CgMoreO

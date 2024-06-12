@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GiCash } from "react-icons/gi";
 import { FaUsersLine } from "react-icons/fa6";
 // import { FaUsersGear } from "react-icons/fa6";
@@ -29,8 +29,17 @@ const data = [
         data:27,
     }
 ]
+interface ICardData{
+    icon:React.ComponentType,
+    heading:string,
+    data:number;
+    amount?:boolean
+}
 const Card: React.FC = () => {
-    const [cardData, setCardData] = useState(data)
+    const [cardData, setCardData] = useState<ICardData[]>([]);
+    useEffect(() => {
+        setCardData([...data])
+    },[])
     return (
         <>
             {cardData.map((card, index) => (
@@ -40,7 +49,7 @@ const Card: React.FC = () => {
                         <h1 className='text-3xl font-bold my-3'>{card.amount && <span>₹</span>} {card.data}</h1>
                     </div>
                     {/* <div className='bg-gradient-to-tl from-purple-700 to-pink-500 px-3 py-2 rounded-xl'> */}
-                    {React.createElement(card.icon, { className: 'text-black', size: 40 })}
+                    {React.createElement(card.icon, { className: 'text-black', size: 40 } as React.ComponentProps<typeof card.icon>)}
                     {/* </div> */}
                 </div>
             ))}

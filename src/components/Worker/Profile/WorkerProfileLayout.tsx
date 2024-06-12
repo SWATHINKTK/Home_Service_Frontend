@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { IoIosArrowDropright } from "react-icons/io";
 import { LuUser2 } from "react-icons/lu";
 import { MdPayment } from "react-icons/md";
-import { ImLocation } from "react-icons/im";
+// import { ImLocation } from "react-icons/im";
 import { FaRegRectangleList } from "react-icons/fa6";
 import { FaQuestion } from "react-icons/fa6";
 import { VscChecklist } from "react-icons/vsc";
@@ -35,12 +35,12 @@ const ProfileLayout: React.FC<WorkerProfileProb> = ({ component }) => {
                 link: "/",
                 icon: MdPayment,
             },
-            {
-                name: "Address",
-                description: "edit or add new address",
-                link: "/",
-                icon: ImLocation,
-            },
+            // {
+            //     name: "Address",
+            //     description: "edit or add new address",
+            //     link: "/",
+            //     icon: ImLocation,
+            // },
         ],
         [
             {
@@ -50,9 +50,9 @@ const ProfileLayout: React.FC<WorkerProfileProb> = ({ component }) => {
                 icon: FaRegRectangleList,
             },
             {
-                name: "Service History",
+                name: "Booking History",
                 description: "edit or add new address",
-                link: "/",
+                link: "/worker/booking/history",
                 icon: VscChecklist,
             },
         ],
