@@ -141,3 +141,16 @@ export const completedWorkAPI = async(completeData:{bookingId:string,additionalC
         throw error
     }
 }
+
+
+export const workHistoryAPI = async() => {
+    try {
+        const response = await axiosInstance.get('/history');
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}

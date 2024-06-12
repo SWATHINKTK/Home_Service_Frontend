@@ -5,7 +5,7 @@ import { IService } from '../Services/ServiceTable';
 import { IUser } from '../../../@types/user';
 import { WorkStatus } from '../../../@types/booking';
 
-const BookingHistory = () => {
+const BookingHistory:React.FC = () => {
   const { booking } = useAppSelector((state) => state.booking);
     const heading = ["#", "Booking Id", "Worker Id", "User Id","Service Name","worker Status", "Booking Date", "Payment", "Payment Status"];
   return (

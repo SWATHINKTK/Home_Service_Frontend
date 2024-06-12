@@ -3,16 +3,17 @@ import React, { useEffect } from 'react';
 
 import Navbar from '../../components/Common/Navbar/Navbar';
 import WorksListing from '../../components/Worker/Booking/WorksListing';
-import { allBookingViewOnWorkerAPI } from '../../utils/api/workerAPI';
+import { workHistoryAPI } from '../../utils/api/workerAPI';
 import { useAppDispatch } from '../../hooks/useTypedSelector';
 import { addBooking } from '../../reducers/worker/bookingSlice';
+import ProfileLayout from '../../components/Worker/Profile/WorkerProfileLayout';
 
-const WorkListPage: React.FC = () => {
+const WorkHistoryPage: React.FC = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         (async () => {
-            const response = await allBookingViewOnWorkerAPI();
+            const response = await workHistoryAPI();
             console.log(response)
             dispatch(addBooking(response.data));
         })()
@@ -21,12 +22,12 @@ const WorkListPage: React.FC = () => {
     return (
         <>
             <Helmet>
-        <title>Bookings</title>
-      </Helmet>
+        <title>History</title>
+        </Helmet>
             <Navbar user={false} special={false} />
-            <WorksListing history={false} />
+            <ProfileLayout component={<WorksListing history={true}/>} />
         </>
     )
 }
 
-export default WorkListPage
+export default WorkHistoryPage

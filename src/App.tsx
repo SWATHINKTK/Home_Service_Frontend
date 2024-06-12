@@ -34,6 +34,7 @@ import CommittedWorksPage from "./pages/worker/CommittedWorksPage";
 import CompletedBooking from "./pages/user/CompletedBooking";
 import SalesReportPage from "./pages/admin/SalesReportPage";
 import BookingHistoryPage from "./pages/admin/BookingHistory";
+import WorkHistoryPage from "./pages/worker/WorkHistoryPage";
 
 
 
@@ -73,6 +74,7 @@ function App() {
             <Route path="/worker/bookings" element={<WorkListPage />} />
             <Route path="/worker/committedWorks" element={<CommittedWorksPage />} />
             <Route path="/worker/chat/:conversationId" element={<CommittedWorksPage />} />
+            <Route path="/worker/booking/history" element={<WorkHistoryPage />} />
           </Route>
 
           <Route path="/worker/login" element={<WorkerLogin />} />
