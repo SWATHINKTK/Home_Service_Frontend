@@ -132,3 +132,16 @@ export const salesReportAPI = async()=> {
         throw error
     }
 }
+
+
+export const bookingHistoryAPI = async()=> {
+    try {
+        const response = await adminInstance.get(`/admin/viewBookings`);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}

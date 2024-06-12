@@ -33,6 +33,7 @@ import WorkListPage from "./pages/worker/WorkListPage";
 import CommittedWorksPage from "./pages/worker/CommittedWorksPage";
 import CompletedBooking from "./pages/user/CompletedBooking";
 import SalesReportPage from "./pages/admin/SalesReportPage";
+import BookingHistoryPage from "./pages/admin/BookingHistory";
 
 
 
@@ -86,6 +87,7 @@ function App() {
             <Route path="/admin/addService" element={<AdminServiceAddPage />} />
             <Route path="/admin/worker" element={<AdminWorkerPage />} />
             <Route path="/admin/salesReport" element={<SalesReportPage />} />
+            <Route path="/admin/bookings" element={<BookingHistoryPage />} />
           </Route>
 
         </Routes>

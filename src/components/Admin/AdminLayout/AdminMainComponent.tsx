@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { MdSpaceDashboard } from "react-icons/md";
 import { PiUsersBold } from "react-icons/pi";
 import { GrServices } from "react-icons/gr";
-import { MdEngineering } from "react-icons/md";
+// import { MdEngineering } from "react-icons/md";
 import { MdOutlineLogout } from "react-icons/md";
 import { FaUsersCog } from "react-icons/fa";
 import { MdFormatListBulleted } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
+import { FaListCheck } from "react-icons/fa6";
 
 import "./adminMainComponent.css";
 import { useAppDispatch } from "../../../hooks/useTypedSelector";
@@ -68,12 +69,12 @@ const AdminMainComponent: React.FC<AdminMainComponentProb> = ({ content }) => {
             </li>
             <hr />
             <li>
-              <Link to={'/admin'}
+              <Link to={'/admin/bookings'}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
-                <MdEngineering className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+                <FaListCheck className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
                 <span className="flex-1 ms-3 whitespace-nowrap">
-                  New Worker
+                  Bookings
                 </span>
               </Link>
             </li>
