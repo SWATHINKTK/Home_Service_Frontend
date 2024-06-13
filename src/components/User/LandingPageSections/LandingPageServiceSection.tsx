@@ -61,7 +61,7 @@ const LandingPageServiceSection = () => {
             {/* <div className="my-6 flex flex-wrap justify-center items-center"> */}
             <div className=" my-6 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 justify-items-center">
                 {services.map((service) => (
-                    <div key={service._id} className="h-auto transition-transform duration-300 hover:drop-shadow-lg ease-in-out transform hover:-translate-y-1 bg-[#F8F8F8] md:w-[15rem] w-[80%]  py-6 rounded-sm drop-shadow-md">
+                    <div key={service._id} className="h-auto transition-transform duration-300 hover:drop-shadow-lg ease-in-out transform hover:-translate-y-1 bg-[#F8F8F8] md:w-[15rem] w-[80%]  py-6 rounded-sm drop-shadow-md" onClick={() => navigate(`/service/${service._id}`)}>
                         <div className="flex flex-col place-items-center justify-center">
                             <div className="flex place-items-center justify-center h-24 w-24 rounded-[37%] bg-[#C3F4BE]">
                                 <img

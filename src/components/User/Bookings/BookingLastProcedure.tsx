@@ -43,12 +43,14 @@ const BookingLastProcedure: React.FC = () => {
     };
 
     const validateStartTime = (value: string) => {
-        const currentTime = new Date();
+        const { date } = getValues();
+        const selectedDateTime = new Date(`${date}T${value}`);
+        const currentDateTime = new Date();
         const selectedTime = value.split(':')
         if(+selectedTime[0] < 9 || +selectedTime[0] > 17){
             return "Work hour is 9:00Am to 6:00PM.";
         }
-        if (currentTime.getHours() > +selectedTime[0] || currentTime.getMinutes() > +selectedTime[1]) {
+        if (selectedDateTime < currentDateTime) {
             return "Start time must be greater than current time.";
         }
         return true;
@@ -162,7 +164,6 @@ const BookingLastProcedure: React.FC = () => {
                             })}
                         />
                         {errors.description && (<p className="mx-3 mt-0.5 text-red-500 text-xs"> * {errors.description.message?.toString()}</p>)}
-
                     </div>
                     <svg className='w-10 h-[21rem] md:block hidden' viewBox="0 0 12 407" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6 0.666667C3.05448 0.666667 0.666667 3.05448 0.666667 6C0.666667 8.94552 3.05448 11.3333 6 11.3333C8.94552 11.3333 11.3333 8.94552 11.3333 6C11.3333 3.05448 8.94552 0.666667 6 0.666667ZM6 395.667C3.05448 395.667 0.666667 398.054 0.666667 401C0.666667 403.946 3.05448 406.333 6 406.333C8.94552 406.333 11.3333 403.946 11.3333 401C11.3333 398.054 8.94552 395.667 6 395.667ZM5 6L5 401H7L7 6H5Z" fill="#CABFBF" />

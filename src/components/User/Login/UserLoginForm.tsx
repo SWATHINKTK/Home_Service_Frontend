@@ -7,7 +7,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useTypedSelector";
 import { userAuth } from "../../../reducers/user/middlewares/userLoginThunk";
 import { ULCaseCheckRegex, emailRegex, specialCharacterCheckRegex } from "../../../constants/regex";
-import GoogleAuthButton from "../GoogleAuthentication/GoogleAuthButton";
+// import GoogleAuthButton from "../GoogleAuthentication/GoogleAuthButton";
 
 
 interface LoginData{
@@ -123,7 +123,7 @@ const UserLoginForm: React.FC = () => {
 
             
                 <div className="mx-auto">
-                <GoogleAuthButton/>
+                {/* <GoogleAuthButton/> */}
 
                 </div>
 

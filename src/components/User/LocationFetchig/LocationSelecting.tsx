@@ -20,8 +20,6 @@ const LocationSelecting: React.FC = () => {
     const { latitude, longitude } = useAppSelector((state) =>  state.location);
     const dispatch = useAppDispatch();
 
-    console.log(latitude,longitude)
-
     const fetchLocation = () => {
         navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
             enableHighAccuracy: true
