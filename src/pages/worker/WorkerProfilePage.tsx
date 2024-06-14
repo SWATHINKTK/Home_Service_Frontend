@@ -12,7 +12,7 @@ const WorkerProfilePage: React.FC = () => {
         <title>Profile</title>
         </Helmet>
         <Navbar user={false} special={false}/>
-        <ProfileLayout component={<WorkerProfile />}/>
+        <ProfileLayout component={<WorkerProfile />} pageName='Account Information'/>
     </>
   )
 }

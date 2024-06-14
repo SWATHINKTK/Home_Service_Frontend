@@ -33,7 +33,7 @@ const LandingPageServiceSection = () => {
 
     return (
         <>
-        <div className=" max-w-7xl mx-auto mt-[7%]">
+        <div className="max-w-7xl mx-auto mt-[7%] md:px-12">
                 {/* Searchbox Section */}
                 <div className="w-3/12 md:block hidden mx-auto">
                     <div className="relative w-full min-w-[200px] h-10">

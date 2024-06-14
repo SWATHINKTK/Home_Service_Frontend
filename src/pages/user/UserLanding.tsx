@@ -17,11 +17,13 @@ console.log("user landing")
         <title>Home</title>
       </Helmet>
        <Navbar user={true} special={false} />
+       <div className='pt-24'>
        <LandingPageBanner />
        <LandingPageServiceSection />
        <LandingPageBusiness />
        <LandingPageProcessSection />
        <Footer />
+       </div>
     </>
   )
 }

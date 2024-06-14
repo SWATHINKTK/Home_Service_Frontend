@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { IBillingInfo, IBooking } from '../../../@types/booking';
 
 
@@ -9,14 +9,10 @@ interface BillingDetailsProb {
 }
 
 const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, handlePayment }) => {
-    const [billingInfo, setBillingInfo] = useState<IBillingInfo[]>([]);
+    const [billingInfo] = useState<IBillingInfo[]>(booking?.additionalCharges || []);
 
 
-    useEffect(() => {
-        if (booking?.additionalCharges) {
-            setBillingInfo([...booking.additionalCharges]);
-        }
-    }, [billingInfo, booking.additionalCharges, booking.serviceMinimumAmount]);
+    
     return (
         <div className={`transition-height ${isViewMore ? 'expanded' : 'collapsed'}`}>
             {isViewMore && (

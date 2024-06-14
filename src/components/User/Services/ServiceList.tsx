@@ -39,7 +39,7 @@ const ServiceList: React.FC = () => {
     }, [searchTerm])
 
     return (
-        <div className="mx-auto max-w-6xl my-16">
+        <div className="mx-auto max-w-6xl">
             <div className='flex flex-col items-center'>
                 <h1 className='font-Montserrat font-semibold tracking-wide text-4xl'>Services</h1>
                 <div className='w-11/12 my-3'>

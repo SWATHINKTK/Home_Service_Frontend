@@ -76,8 +76,8 @@ const ProfileLayout: React.FC<ProfileComponentProb> = ({ component }) => {
   }
 
   return (
-    <section className="md:flex gap2 md:my-6  md:mx-11 h-[80vh]">
-      <div className={`min-h-[80vh] rounded-lg  ${isMenuOpen ? "md:w-[25rem]" : "w-16 bg-[#9e9e9e71] "} duration-500  text-[#0e0e0e]  md:px-4 px-2`}>
+    <section className="md:flex gap-x-2 md:mx-11 h-[100vh] pt-24 font-Montserrat">
+    <div className={`rounded-lg m  ${isMenuOpen ? "md:w-[25rem]" : "w-16 bg-[#9e9e9e71] "} duration-500  text-[#0e0e0e]  md:px-4 px-2`}>
         <div className="py-3 md:flex hidden justify-end ">
           <IoIosArrowDropright size={26} className="cursor-pointer" onClick={() => setIsMenuOpen(!isMenuOpen)} />
         </div>
@@ -129,9 +129,18 @@ const ProfileLayout: React.FC<ProfileComponentProb> = ({ component }) => {
           </button>
         </div>
       </div>
-      <section className=" w-full text-xl  overflow-scroll font-Montserrat">
-        {component}
-      </section>
+      <div className="w-full h-full overflow-y-auto">
+                    {/* {!conversationId && 
+                        <div className='h-1/12'>
+                            <h1 className="text-2xl font-bold mb-1">{pageName}</h1>
+                            <p className="font-thin text-sm pl-1 mb-6">
+                                worker/ <span className="font-semibold">{pageName}</span>
+                            </p>
+                            <hr className="border-t-2 border-black opacity-15" />
+                        </div>
+                    } */}
+                {component}
+            </div>
     </section>
   );
 }

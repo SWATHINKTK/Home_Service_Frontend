@@ -39,6 +39,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
     const [placeDetails, setPlaceDetails] = useState([]);
     const [ conversationId, setConversationId] = useState('');
     const navigate = useNavigate();
+    console.log('hello')
 
     useEffect(() => {
         (async () => {

@@ -3,6 +3,8 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import io, { Socket } from 'socket.io-client';
 import { IoIosSend } from "react-icons/io";
 import { IoArrowBack } from "react-icons/io5";
+import EmojiPicker from 'emoji-picker-react';
+import { MdOutlineEmojiEmotions } from "react-icons/md";
 
 import './chat.css'
 import Message from './Message';
@@ -19,11 +21,13 @@ const Conversation = () => {
     const [messages, setMessages] = useState<IMessage[]>([]);
     const [newMessage, setNewMessage] = useState('');
     const [ receiverData , setReceiverData] = useState<IReceiver>();
+    const [ isEmojiOpen , setIsEmojiOpen ] = useState(false);
     const socket = useRef<Socket>();
     const location = useLocation();
     const navigate = useNavigate();
     const scrollRef = useRef<HTMLDivElement>(null);
     const data = location.state?.data || {};
+
 
     useEffect(() => {
         socket.current = io("ws://localhost:3000")
@@ -77,7 +81,7 @@ const Conversation = () => {
     }, [messages])
 
     const handleSendMessage = async () => {
-        if (!conversationId) return;
+        if (!conversationId || newMessage == '') return;
         const newData: IMessage = {
             conversationId,
             senderId: data.senderId,
@@ -98,31 +102,38 @@ const Conversation = () => {
 
 
     return (
-        <section className='mx-auto max-w-6xl flex flex-col justify-end'>
-            <div className='h-14 w-full bg-[#c0c0c067] flex px-4 rounded-t-md'>
+        <div>
+            <div className='h-14 w-full bg-[#f0f2f5] flex px-4 rounded-t-md'>
                 <div className='flex justify-center items-center'>
                     <IoArrowBack className='cursor-pointer' onClick={() => navigate(`${data.user ? '/bookedServices' :'/worker/committedWorks'}`)}/>
                     <img className='h-10 w-10 mx-3 object-cover rounded-full border-2 drop-shadow-md' src={receiverData?.profile || 'https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg='} alt="" />
                     <h6 className='font-semibold -mt-3 text-[1rem]'>{receiverData?.username}</h6>
                 </div>
             </div>
-            <div className='h-[64vh] overflow-y-auto px-3'>
-                {messages.map((msg, index) => (
-                    <div key={index} ref={scrollRef}>
-                        {/* <p className='tex-xs'>{"sender : "+data.senderId}<br></br>{"message.sender : "+msg.senderId}</p> */}
-                        <Message sender={data.senderId == msg.senderId} msg={msg} />
-                    </div>
-                ))}
+           <div className='overflow-hidden'>
+                <div className='overflow-y-auto h-[64vh] px-3'>
+                        {messages.map((msg, index) => (
+                            <div key={index} ref={scrollRef}>
+                                <Message sender={data.senderId == msg.senderId} msg={msg} />
+                            </div>
+                        ))}
+                </div>
             </div>
-            <div className='px-2'>
-                <div className="flex justify-between border-2 border-[#6f6f6f] h-10 rounded-lg font-Montserrat text-sm px-3 hover:border-[#000]">
-                    <input placeholder="Message..." type="text" className='outline-none w-full' value={newMessage} onChange={(e) => setNewMessage(e.target.value)} onKeyDown={handleEnterButton} />
-                    <button className='hover:rotate-45 transition-transform duration-500 hover:text-teal-700' onClick={handleSendMessage}>
+
+            <div className='px-4 relative'>
+                <div className='absolute bottom-[100%]'><EmojiPicker open={isEmojiOpen} /></div>
+
+                <div className="flex justify-between gap-2 items-center">
+                    <button className='flex justify-center items-center bg-[#f0f2f5] h-10 w-10 rounded-full' onClick={() => setIsEmojiOpen(!isEmojiOpen)}>
+                        <MdOutlineEmojiEmotions size={25} color='#576872'/> 
+                    </button>
+                    <input placeholder="Message..." type="text" className='outline-none w-full border-2 border-[#6f6f6f] h-10 rounded-lg font-Montserrat text-sm px-3 hover:border-[#000]' value={newMessage} onChange={(e) => setNewMessage(e.target.value)} onKeyDown={handleEnterButton} />
+                    <button className='rotate-45 hover:text-white bg-blue-800 rounded-full h-10 w-10 flex justify-center items-center' onClick={handleSendMessage}>
                         <IoIosSend size={25} />
                     </button>
                 </div>
             </div>
-        </section>
+        </div>
     )
 }
 

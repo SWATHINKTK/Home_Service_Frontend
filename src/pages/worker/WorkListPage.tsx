@@ -21,10 +21,12 @@ const WorkListPage: React.FC = () => {
     return (
         <>
             <Helmet>
-        <title>Bookings</title>
-      </Helmet>
+                <title>Bookings</title>
+            </Helmet>
             <Navbar user={false} special={false} />
-            <WorksListing history={false} />
+            <div className='pt-20'>
+                <WorksListing />
+            </div>
         </>
     )
 }

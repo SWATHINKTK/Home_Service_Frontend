@@ -43,7 +43,7 @@ const Navbar: React.FC<NavbarProb> = ({ user, special = false }) => {
     };
 
     return (
-        <div>
+        <>
             <nav className={`${user && !special ? 'bg-[#F8F8F8]' : 'bg-[#16185a]'} fixed w-full z-20  border-gray-200 font-Montserrat`}>
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto md:p-4  py-4 pr-2">
                     <div className="flex items-center gap-3 space-x-3 rtl:space-x-reverse">
@@ -103,8 +103,8 @@ const Navbar: React.FC<NavbarProb> = ({ user, special = false }) => {
                     </div>
                 </div>
             </nav>
-            <div className="md:h-20 h-32"></div>
-        </div>
+            {/* <div className="pt-20"></div> */}
+            </>
     );
 };
 

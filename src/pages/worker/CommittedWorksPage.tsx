@@ -24,7 +24,7 @@ const CommittedWorksPage: React.FC = () => {
                 <title>Committed Works</title>
             </Helmet>
             <Navbar user={false} special={false} />
-            <ProfileLayout component={<WorksListing history={false} />} />
+            <ProfileLayout component={<WorksListing/>} pageName='Committed Works' />
         </>
     )
 }

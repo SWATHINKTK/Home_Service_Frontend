@@ -11,7 +11,9 @@ const ServicePage:React.FC = () => {
       <title>Services</title>
     </Helmet>
     <Navbar user={true} special={false} />
+    <div className='pt-28'>
     <ServiceList />
+    </div>
     <Footer/>
     </>
   )

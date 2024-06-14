@@ -25,7 +25,7 @@ const WorkHistoryPage: React.FC = () => {
         <title>History</title>
         </Helmet>
             <Navbar user={false} special={false} />
-            <ProfileLayout component={<WorksListing history={true}/>} />
+            <ProfileLayout component={<WorksListing/>} pageName='Works History'/>
         </>
     )
 }

@@ -13,11 +13,9 @@ import { AxiosError } from 'axios';
 import Conversation from '../../Common/Chat/Conversation';
 import { useParams } from 'react-router-dom';
 
-interface WorkLIstingProb{
-    history:boolean
-}
 
-const WorksListing: React.FC<WorkLIstingProb> = ({history}) => {
+
+const WorksListing: React.FC = () => {
     const [expandedCardId, setExpandedCardId] = useState<string | undefined>();
     const { booking } = useAppSelector(state => state.booking);
     const dispatch = useAppDispatch();
@@ -132,14 +130,10 @@ const WorksListing: React.FC<WorkLIstingProb> = ({history}) => {
     return (
         <section className='mx-auto max-w-6xl'>
 
-
             {conversationId ? <Conversation /> :
                 <>
-                    <div className='flex justify-center  my-6'>
-                        <h1 className='font-Montserrat font-semibold text-3xl'>{history? 'History': 'Bookings'}</h1>
-                    </div>
-                    <hr className="border-t-2 border-black opacity-15 mt-3 mb-5" />
-                    <div className='grid md:grid-cols-2'>
+
+                    <div className='grid lg:grid-cols-2'>
                         {booking.map((bookedService, index) => (
                             <BookingCard
                                 key={index}
