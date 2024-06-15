@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import io, { Socket } from 'socket.io-client';
 import { IoIosSend } from "react-icons/io";
 import { IoArrowBack } from "react-icons/io5";
-import EmojiPicker from 'emoji-picker-react';
+import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import { MdOutlineEmojiEmotions } from "react-icons/md";
 
 import './chat.css'
@@ -80,6 +80,10 @@ const Conversation = () => {
         }
     }, [messages])
 
+    const handleEmojiClick = (emojiData: EmojiClickData) => {
+        setNewMessage(prev => prev + emojiData.emoji);
+    }
+
     const handleSendMessage = async () => {
         if (!conversationId || newMessage == '') return;
         const newData: IMessage = {
@@ -121,7 +125,7 @@ const Conversation = () => {
             </div>
 
             <div className='px-4 relative'>
-                <div className='absolute bottom-[100%]'><EmojiPicker open={isEmojiOpen} /></div>
+                <div className='absolute bottom-[100%]'><EmojiPicker open={isEmojiOpen} onEmojiClick={handleEmojiClick} /></div>
 
                 <div className="flex justify-between gap-2 items-center">
                     <button className='flex justify-center items-center bg-[#f0f2f5] h-10 w-10 rounded-full' onClick={() => setIsEmojiOpen(!isEmojiOpen)}>
