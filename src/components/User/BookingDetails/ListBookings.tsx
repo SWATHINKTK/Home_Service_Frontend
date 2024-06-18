@@ -73,14 +73,14 @@ const BookedServices: React.FC = () => {
 
     return (
         <>
-            {conversationId ? <Conversation /> :<>
-             <div className='sticky md:top-0 top-0 pb-3 mx-4 font-Montserrat bg-white'>
-             <h1 className="md:text-2xl font-bold text-3xl mb-1 md:text-left text-center">Bookings</h1>
-             <p className="md:block hidden font-thin text-sm pl-1 mb-6">
-                 profile/ <span className="font-semibold">Bookings</span>
-             </p>
-             <hr className="border-t-2 border-black opacity-15" />
-         </div>
+            {conversationId ? <Conversation /> : <>
+                <div className='sticky md:top-0 top-0 pb-3 px-4 font-Montserrat bg-white'>
+                    <h1 className="md:text-2xl font-bold text-3xl mb-1 md:text-left text-center">Bookings</h1>
+                    <p className="md:block hidden font-thin text-sm pl-1 mb-6">
+                        user/ <span className="font-semibold">Bookings</span>
+                    </p>
+                    <hr className="border-t-2 border-black opacity-15" />
+                </div>
                 <section className='grid md:grid-cols-2'>
                     {booking.map((bookedService, index) => (
                         <BookingCard
@@ -93,7 +93,7 @@ const BookedServices: React.FC = () => {
                         />
                     ))}
                 </section>
-                </>
+            </>
             }
         </>
     )

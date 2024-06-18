@@ -78,7 +78,7 @@ const Navbar: React.FC<NavbarProb> = ({ user, special = false }) => {
                                 </a>
                             </li>
                             <li>
-                                <Link to={user ? '/user/profile' : '/worker/profile'} className="block py-2 px-3 rounded-lg hover:text-blue-800 md:p-0">
+                                <Link to={user ? '/user/accountInformation' : '/worker/profile'} className="block py-2 px-3 rounded-lg hover:text-blue-800 md:p-0">
                                     <BiUser size={22} className="hidden md:block" />{" "}
                                     <span className="block md:hidden font-Montserrat text-[15px] font-[700]  text-gray-900 rounded">
                                         Profile
