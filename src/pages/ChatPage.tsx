@@ -1,5 +1,5 @@
 import React from 'react'
-import ProfileLayout from '../components/Worker/Profile/WorkerProfileLayout'
+import ProfileLayout from '../components/Common/ProfileLayout/WorkerProfileLayout'
 import Conversation from '../components/Common/Chat/Conversation'
 import Navbar from '../components/Common/Navbar/Navbar'
 

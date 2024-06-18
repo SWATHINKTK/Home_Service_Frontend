@@ -13,8 +13,8 @@ import Success from '../components/User/Bookings/PaymentSuccess'
 import UserOTPPage from '../pages/user/UserOTPPage'
 import UserLogin from '../pages/user/UserLogin'
 import UserRegistration from '../pages/user/UserRegistration'
-import ProfileLayout from '../components/User/ProfileLayout/ProfileLayout'
-import UserProfile from '../components/User/ProfileLayout/UserProfile'
+import ProfileLayout from '../components/Common/ProfileLayout/UserProfileLayout'
+import UserProfile from '../components/User/Profile/UserProfile'
 import Conversation from '../components/Common/Chat/Conversation'
 
 const UserRouter: React.FC = () => {
