@@ -76,14 +76,14 @@ const ProfileLayout: React.FC<ProfileComponentProb> = ({ component }) => {
   }
 
   return (
-    <section className="md:flex gap-x-2 md:mx-11 h-[100vh] pt-24 font-Montserrat">
-    <div className={`rounded-lg m  ${isMenuOpen ? "md:w-[25rem]" : "w-16 bg-[#9e9e9e71] "} duration-500  text-[#0e0e0e]  md:px-4 px-2`}>
+    <section className="md:flex gap-x-2 md:mx-11 h-[100vh] md:pt-24 font-Montserrat">
+      <div className={`rounded-lg m  ${isMenuOpen ? "md:w-[25rem]" : "w-16 bg-[#9e9e9e71] "} duration-500  text-[#0e0e0e]  md:px-4 px-2`}>
         <div className="py-3 md:flex hidden justify-end ">
           <IoIosArrowDropright size={26} className="cursor-pointer" onClick={() => setIsMenuOpen(!isMenuOpen)} />
         </div>
         <div className="profile-top-div  w-full md:px-4 py-4">
-          <div className="flex md:justify-center md:mx-0 mx-8 items-center">
-            <div style={{ backgroundImage: `url(${user?.profile ?? url})` }} className={`profile-img ${isMenuOpen ? "w-[6rem] h-[6rem]" : "hidden"} `}></div>
+          <div className="flex justify-center md:flex-row flex-col md:mx-0 mx-8 items-center">
+            <div style={{ backgroundImage: `url(${user?.profile ?? url})` }} className={`profile-img ${isMenuOpen ? "md:w-[6rem] w-[10rem] md:h-[6rem] h-[10rem]" : "hidden"} `}></div>
             {isMenuOpen && (
               <div>
                 <h2 style={{ transitionDelay: `300ms` }} className={` whitespace-pre  mt-6 mx-3 font-Montserrat font-[700]`}>{user?.firstname + " " + user?.lastname}</h2>
@@ -129,18 +129,9 @@ const ProfileLayout: React.FC<ProfileComponentProb> = ({ component }) => {
           </button>
         </div>
       </div>
-      <div className="w-full h-full overflow-y-auto">
-                    {/* {!conversationId && 
-                        <div className='h-1/12'>
-                            <h1 className="text-2xl font-bold mb-1">{pageName}</h1>
-                            <p className="font-thin text-sm pl-1 mb-6">
-                                worker/ <span className="font-semibold">{pageName}</span>
-                            </p>
-                            <hr className="border-t-2 border-black opacity-15" />
-                        </div>
-                    } */}
-                {component}
-            </div>
+      <div className="w-full h-full overflow-y-auto hidden md:block">
+        {component}
+      </div>
     </section>
   );
 }
