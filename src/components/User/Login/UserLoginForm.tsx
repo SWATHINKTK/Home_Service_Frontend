@@ -53,8 +53,8 @@ const UserLoginForm: React.FC = () => {
     };
     return (
         <>
-            <form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
-                <div className="my-6">
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="my-4">
                     <div className="relative">
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                             <MdEmail className="text-gray-500" />
