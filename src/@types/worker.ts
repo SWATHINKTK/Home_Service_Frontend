@@ -1,9 +1,11 @@
+import { IService } from "../components/Admin/Services/ServiceTable";
+
 export interface IWorker{
     _id?:string,
     username: string;
     email: string;
     phoneNumber: string;
-    service: string;
+    service: string | IService;
     district: string;
     location: string;
     qualification: string;

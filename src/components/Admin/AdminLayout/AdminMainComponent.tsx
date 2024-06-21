@@ -32,7 +32,7 @@ const AdminMainComponent: React.FC<AdminMainComponentProb> = ({ content }) => {
     <>
     <div className="flex">
       <div className={` top-0 left-0 w-64 h-screen transition-transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } ${isNavbarToggle ? "hidden" : ""} -translate-x-full sm:translate-x-0`}>
+          } ${isNavbarToggle ? "hidden" : ""} -translate-x-full sm:translate-x-0 md:block hidden`}>
         <div className="h-full px-3 py-4 overflow-y-auto bg-[#F8F8F8] dark:bg-gray-800 shadow-md  ">
           <div className="flex items-center justify-center mb-10 mt-2">
             <img

@@ -7,10 +7,10 @@ import { IService } from '../Services/ServiceTable';
 import moment from 'moment';
 
 const SalesReport: React.FC = () => {
-    const { booking } = useAppSelector((state) => state.booking);
+    const { bookings } = useAppSelector((state) => state.booking);
     const heading = ["#", "Booking Id", "Transaction Id", "Service Name", "Payment", "Status", "Booking Date"];
     const exportToExcel = () => {
-        const data = booking.map((data, index) => ({
+        const data = bookings.map((data, index) => ({
             "#": index + 1,
             "Booking Id": data.bookingId,
             "User Id": (data.userId as IUser)._id,
@@ -53,7 +53,7 @@ const SalesReport: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {booking.map((data, index) => {
+                        {bookings.map((data, index) => {
 
                             return (
                                 <tr

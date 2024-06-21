@@ -15,7 +15,7 @@ const AdminDashboard: React.FC = () => {
                 <Card />
             </div>
             <AreaChart />
-            <div className='grid grid-cols-3 gap-10 mt-10'>
+            <div className='grid lg:grid-cols-3 grid-cols-1 gap-10 mt-10'>
                 <div className=' p-4 bg-[#c1c1c12f] rounded-sm drop-shadow-sm'>
                     <h4 className='font-semibold text-md mb-3 text-[#192757]'>Recent Booking...</h4>
                     <RecentCard worker={false} />
@@ -23,16 +23,13 @@ const AdminDashboard: React.FC = () => {
                     <RecentCard worker={false} />
                     <RecentCard worker={false} />
                 </div>
+                <PieChart />
                 <div className='p-4 bg-[#c1c1c12f] rounded-sm drop-shadow-sm'>
-                    <PieChart />
-                </div>
-
-                <div className='p-4 bg-[#c1c1c12f] rounded-sm drop-shadow-sm'>
-                <h4 className='font-semibold text-md mb-3 text-[#192757]'>New Worker...</h4>
-                    <RecentCard worker={true}/>
-                    <RecentCard worker={true}/>
-                    <RecentCard worker={true}/>
-                    <RecentCard worker={true}/>
+                    <h4 className='font-semibold text-md mb-3 text-[#192757]'>New Worker...</h4>
+                        <RecentCard worker={true}/>
+                        <RecentCard worker={true}/>
+                        <RecentCard worker={true}/>
+                        <RecentCard worker={true}/>
                 </div>
             </div>
         </div>

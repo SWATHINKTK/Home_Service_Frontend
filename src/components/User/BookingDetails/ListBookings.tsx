@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { IoIosArrowDown } from "react-icons/io";
+
 
 
 import { WorkStatus } from '../../../@types/booking';
 import BookingCard from './BookingCard';
 import { cancelBookingUserAPI, paymentAPI } from '../../../utils/api/userAPI';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
-import { removeBooking } from '../../../reducers/worker/bookingSlice';
+import { nextPage, removeBooking } from '../../../reducers/worker/bookingSlice';
 import { loadStripe } from '@stripe/stripe-js';
 import { IService } from '../../../@types/service';
 import Conversation from '../../Common/Chat/Conversation';
-import { useParams } from 'react-router-dom';
 
+interface BookedServiceProb {
+    heading: string
+}
 
-const BookedServices: React.FC = () => {
+const BookedServices: React.FC<BookedServiceProb> = ({ heading }) => {
     const [expandedCardId, setExpandedCardId] = useState<string | undefined>();
-    const { booking } = useAppSelector(state => state.booking);
+    const { bookings, currentPage, totalPages } = useAppSelector(state => state.booking);
     const dispatch = useAppDispatch();
     const { conversationId } = useParams();
 
@@ -75,15 +80,15 @@ const BookedServices: React.FC = () => {
     return (
         <>
             {conversationId ? <Conversation /> : <>
-                <div className='sticky md:top-0 top-0 pb-3 px-4 font-Montserrat bg-white'>
-                    <h1 className="md:text-2xl font-bold text-3xl mb-1 md:text-left text-center">Bookings</h1>
-                    <p className="md:block hidden font-thin text-sm pl-1 mb-6">
-                        user/ <span className="font-semibold">Bookings</span>
+                <div className='sticky top-0 pb-3 px-4 md:pt-0 pt-3 font-Montserrat bg-white'>
+                    <h1 className="md:text-2xl font-bold text-3xl md:mb-1 mb-5 md:text-left text-center">{heading}</h1>
+                    <p className="md:block hidden font-thin text-sm pl-1 mb-4">
+                        user/ <span className="font-semibold">{heading}</span>
                     </p>
                     <hr className="border-t-2 border-black opacity-15" />
                 </div>
                 <section className='grid md:grid-cols-2'>
-                    {booking.map((bookedService, index) => (
+                    {bookings.map((bookedService, index) => (
                         <BookingCard
                             key={index}
                             bookedService={bookedService}
@@ -94,11 +99,18 @@ const BookedServices: React.FC = () => {
                         />
                     ))}
                 </section>
-                {booking.length <= 0 &&
+                {bookings.length <= 0 ?
                     <div className=''>
-                    <img className=' mx-auto' src="/public/notfound.png" alt="" />
-                    <h3 className='text-center font-bold font-Montserrat tracking-widest mt-2 text-[#150f3e]'>No Booking Found</h3>
-                </div>
+                        <img className=' mx-auto' src="/public/notfound.png" alt="" />
+                        <h3 className='text-center font-bold font-Montserrat tracking-widest mt-2 text-[#150f3e]'>No Booking Found</h3>
+                    </div>
+                :
+                    <div className='flex justify-center ite font-bold text-sm my-7'>
+                        <button className={`flex justify-center items-end border-2 drop-shadow-lg rounded-md border-[#a5a9a5bc] px-3 py-0.5 hover:scale-105 transition transform duration-300 ${currentPage == totalPages && 'hidden'}`} onClick={() => dispatch(nextPage())}>
+                            View More 
+                            <IoIosArrowDown className='ml-1 animate-bounce '/>
+                        </button>
+                    </div>
                 }
             </>
             }

@@ -158,9 +158,9 @@ export const serviceListAPI = async (pageNumber:number, search:string) => {
 }
 
 
-export const bookedDataRetrieveAPI = async(history:boolean) => {
+export const bookedDataRetrieveAPI = async(page:number, history:boolean) => {
     try {
-        const response = await axiosInstance.get(`/user/booking?history=${history}`);
+        const response = await axiosInstance.get(`/user/booking?history=${history}&page=${page}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {

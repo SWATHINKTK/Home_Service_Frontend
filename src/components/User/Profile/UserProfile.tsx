@@ -93,8 +93,8 @@ const UserProfile: React.FC = () => {
 
     return (
         <>
-            <div className='sticky md:top-0 top-0 pb-3 px-4 font-Montserrat bg-white'>
-                <h1 className="md:text-2xl font-bold text-3xl mb-1 md:text-left text-center">Account Information</h1>
+            <div className='sticky top-0 pb-3 px-4 md:pt-0 pt-4 font-Montserrat bg-white'>
+                <h1 className="md:text-2xl font-bold text-3xl md:mb-1 mb-3 md:text-left text-center">Account Information</h1>
                 <p className="md:block hidden font-thin text-sm pl-1 mb-6">
                     profile/ <span className="font-semibold">Account Information</span>
                 </p>
@@ -117,7 +117,7 @@ const UserProfile: React.FC = () => {
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className="grid lg:grid-cols-2  grid-cols-1 gap-x-7 gap-y-4 grid-rows-3">
                                 <div className=" bg-[#F2F2F2] py-1  px-5 rounded-xl flex items-center">
-                                    <div className="flex justify-center flex-col mx-2 ">
+                                    <div className="flex justify-center flex-col mx-2 w-full">
                                         <h5 className="text-sm font-semibold">Firstname</h5>
                                         {isEditProfile ? (
                                             <input
@@ -139,7 +139,7 @@ const UserProfile: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className=" bg-[#F2F2F2] py-1  px-5 rounded-xl flex items-center">
-                                    <div className="flex justify-center flex-col mx-2 ">
+                                    <div className="flex justify-center flex-col mx-2 w-full">
                                         <h5 className="text-sm font-semibold">Lastname</h5>
                                         {isEditProfile ? (
                                             <input
@@ -167,7 +167,7 @@ const UserProfile: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className=" bg-[#F2F2F2] py-1  px-5 rounded-xl flex items-center">
-                                    <div className="flex justify-center flex-col mx-2 ">
+                                    <div className="flex justify-center flex-col mx-2 w-full">
                                         <h5 className="text-sm font-semibold">PhoneNumber</h5>
                                         {isEditProfile ? (
                                             <input
@@ -190,7 +190,7 @@ const UserProfile: React.FC = () => {
                                 </div>
 
                                 <div className=" bg-[#F2F2F2] py-1  px-5 rounded-xl flex items-center">
-                                    <div className="flex justify-center flex-col mx-2 ">
+                                    <div className="flex justify-center flex-col mx-2 w-full">
                                         <h5 className="text-sm font-semibold">District</h5>
                                         {isEditProfile ? (
                                             <select

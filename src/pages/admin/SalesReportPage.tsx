@@ -11,8 +11,6 @@ const SalesReportPage = () => {
     useEffect(() => {
         (async () => {
             const response = await salesReportAPI();
-            console.log('777777777777777777777777777777')
-            console.log(response.data)
             dispatch(addBooking(response.data));
         })()
     }, [dispatch]);

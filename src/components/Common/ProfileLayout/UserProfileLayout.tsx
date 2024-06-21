@@ -70,7 +70,7 @@ const UserProfileLayout: React.FC = () => {
         return (
             <>
                 <section className="w-full h-[100vh] overflow-y-auto md:pt-24 font-Montserrat">
-                    {!conversationId && <button className="mb-4 md:hidden flex items-center px-3 py-2 font-bold" onClick={() => { setShowLayout(true);}}>
+                    {!conversationId && <button className="mb-2 md:hidden flex items-center px-3 py-2 font-bold" onClick={() => { setShowLayout(true);}}>
                         <IoIosArrowDropleft className='mr-1 size-6' />Back
                     </button>}
                     <Outlet />
