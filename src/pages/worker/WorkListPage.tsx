@@ -12,7 +12,7 @@ const WorkListPage: React.FC = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await allBookingViewOnWorkerAPI();
+            const response = await allBookingViewOnWorkerAPI(1);
             console.log(response)
             dispatch(addBooking(response.data));
         })()

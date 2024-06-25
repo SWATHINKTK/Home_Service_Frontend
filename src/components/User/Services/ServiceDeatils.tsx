@@ -47,7 +47,7 @@ const ServiceDetails: React.FC = () => {
 
     return (
         <div className='relative'>
-            <section className='relative p-4 '>
+            <section className='relative p-4'>
                 <div className='md:block hidden max-w-5xl mx-auto  min-h-[18rem] h-auto rounded-lg' style={{ backgroundImage: `url('${serviceData?.image}')`, backgroundSize: "cover", backgroundRepeat: 'no-repeat', backgroundPositionY: 'center' }}> </div>
                 <div className='md:hidden block mx-auto h-36'>
                     <img className='mx-auto rounded-lg object-cover h-full w-full' src={serviceData?.image} loading="lazy" alt="AC Repair Image" />

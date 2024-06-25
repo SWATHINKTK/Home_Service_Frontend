@@ -34,7 +34,7 @@ const AdminLogin:React.FC = () => {
             <div className="md:w-[26%] w-[100%] h-auto flex flex-col place-items-center p-5 py-8 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-xl ">
                 <div className="mt-3 mb-8">
                     <img
-                        src="/public/logo.svg"
+                        src="/public/logo.png"
                         className="md:h-10 h-8 hidden md:block"
                         alt=" Logo"
                     />

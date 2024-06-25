@@ -48,7 +48,7 @@ const Navbar: React.FC<NavbarProb> = ({ user, special = false }) => {
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto md:p-4  py-4 pr-2">
                     <div className="flex items-center gap-3 space-x-3 rtl:space-x-reverse">
                         <Link to={user ? '/' : '/worker'} >
-                            <img src="/public/logo.svg" className="md:h-10 h-8 hidden md:block" alt=" Logo" />
+                            <img src="/public/logo.png" className="md:h-10 h-8 hidden md:block" alt=" Logo" />
                         </Link>
                         <div className="relative ">
                             <div className="absolute inset-y-0 start-0 flex items-center ps-2 md:ps-3.5 pointer-events-none">
@@ -73,9 +73,9 @@ const Navbar: React.FC<NavbarProb> = ({ user, special = false }) => {
                                 </Link>
                             </li>
                             <li>
-                                <a href="#" className="block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0">
+                                <Link to={user ? '/about' : '/worker/about'} className="block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0">
                                     About
-                                </a>
+                                </Link>
                             </li>
                             <li>
                                 <Link to={user ? '/user/accountInformation' : '/worker/profile'} className="block py-2 px-3 rounded-lg hover:text-blue-800 md:p-0">

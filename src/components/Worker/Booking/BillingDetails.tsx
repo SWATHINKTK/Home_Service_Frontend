@@ -36,7 +36,7 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, han
             setTotalAmount(totalAmount)
             setIsBillDone(true);
         }
-    }, [billingInfo, booking.additionalCharges, booking.serviceMinimumAmount, booking.workStatus]);
+    }, []);
 
     const handleValidation = () => {
         if (isBilling.description.trim() == '') {

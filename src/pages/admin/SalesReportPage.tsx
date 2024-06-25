@@ -2,18 +2,19 @@ import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import AdminMainComponent from '../../components/Admin/AdminLayout/AdminMainComponent'
 import SalesReport from '../../components/Admin/SalesReport/SalesReport'
-import { useAppDispatch } from '../../hooks/useTypedSelector'
+import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector'
 import { salesReportAPI } from '../../utils/api/adminAPI'
 import { addBooking } from '../../reducers/worker/bookingSlice'
 
 const SalesReportPage = () => {
+    const { filterDate, currentPage } = useAppSelector((state) =>  state.booking);
     const dispatch = useAppDispatch();
     useEffect(() => {
         (async () => {
-            const response = await salesReportAPI();
+            const response = await salesReportAPI(filterDate.startDate, filterDate.endDate, currentPage);
             dispatch(addBooking(response.data));
         })()
-    }, [dispatch]);
+    }, [currentPage, dispatch, filterDate.endDate, filterDate.startDate]);
   return (
     <>
     <Helmet>

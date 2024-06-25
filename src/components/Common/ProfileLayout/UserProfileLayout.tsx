@@ -29,7 +29,7 @@ const UserProfileLayout: React.FC = () => {
             { name: "Booking History", description: "edit or add new address", link: "/user/bookingHistory", icon: VscChecklist },
         ],
         [
-            { name: "Helps", description: "edit or add new address", link: "/", icon: FaQuestion }
+            { name: "About", description: "edit or add new address", link: "/about", icon: FaQuestion }
         ],
     ];
 

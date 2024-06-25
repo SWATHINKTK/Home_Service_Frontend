@@ -44,7 +44,7 @@ const BookingHistory: React.FC = () => {
                     <tbody className='text-center'>
                         {bookings.map((data, index) => (
                             <tr key={data._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                <td className="px-3 py-2">{(index + 1) * currentPage}</td>
+                                <td className="px-3 py-2">{(index + 1) + ((currentPage - 1) * 4)}</td>
                                 <td className="px-3 py-2">{data.bookingId}</td>
                                 <td className="px-3 py-2">{data.workerId?.toString() || '-'}</td>
                                 <td className="px-3 py-2">{(data.userId as IUser)._id}</td>

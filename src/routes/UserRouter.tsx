@@ -16,6 +16,7 @@ import UserRegistration from '../pages/user/UserRegistration'
 import ProfileLayout from '../components/Common/ProfileLayout/UserProfileLayout'
 import UserProfile from '../components/User/Profile/UserProfile'
 import Conversation from '../components/Common/Chat/Conversation'
+import About from '../components/Common/About/About'
 
 const UserRouter: React.FC = () => {
     return (
@@ -38,6 +39,7 @@ const UserRouter: React.FC = () => {
             <Route path="/otpVerification" element={<UserOTPPage />} />
             <Route path="/login" element={<UserLogin />} />
             <Route path="/register" element={<UserRegistration />} />
+            <Route path="/about" element={<About user={true} />} />
         </Routes>)
 }
 

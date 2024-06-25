@@ -42,9 +42,9 @@ export const blockServiceAPI = async(serviceId:string) => {
 }
 
 
-export const fetchAllWorkerAPI = async(status:boolean) => {
+export const fetchAllWorkerAPI = async(pageNumber:number, status:boolean) => {
     try {
-        const response = await adminInstance.get(`/admin/worker/${status}`);
+        const response = await adminInstance.get(`/admin/worker/${status}?pageNumber=${pageNumber}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -55,6 +55,18 @@ export const fetchAllWorkerAPI = async(status:boolean) => {
     }
 }
 
+
+export const fetchWorkerExtraInfoAPI = async(workerId:string) => {
+    try {
+        const response = await adminInstance.get(`/admin/worker/extraInformation/${workerId}`);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+            throw error
+        }
+    }
+}
 
 export const blockWorkerAPI = async(workerId:string) => {
     try {
@@ -121,9 +133,9 @@ export const blockUserAPI = async (userId: string) => {
 }
 
 
-export const salesReportAPI = async()=> {
+export const salesReportAPI = async(startDate:string, endDate:string, currentPage:number)=> {
     try {
-        const response = await adminInstance.get(`/admin/salesReport`);
+        const response = await adminInstance.get(`/admin/salesReport?startDate=${startDate}&endDate=${endDate}&page=${currentPage}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -133,6 +145,17 @@ export const salesReportAPI = async()=> {
     }
 }
 
+export const salesReportDownloadAPI = async(startDate:string, endDate:string)=> {
+    try {
+        const response = await adminInstance.get(`/admin/salesReport/download?startDate=${startDate}&endDate=${endDate}&page=${1}`);
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}
 
 export const bookingHistoryAPI = async(currentPage:number)=> {
     try {
@@ -149,6 +172,32 @@ export const bookingHistoryAPI = async(currentPage:number)=> {
 export const dashboardCardDataFetchAPI = async() =>{
     try {
         const response = await adminInstance.get('/admin/dashboard/totalData');
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}
+
+
+export const dashboardRecentDataFetchingAPI = async() => {
+    try {
+        const response = await adminInstance.get('/admin/dashboard/recentData');
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}
+
+
+export const dashboardChartDataFetchingAPI = async() => {
+    try {
+        const response = await adminInstance.get('/admin/dashboard/chart');
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {

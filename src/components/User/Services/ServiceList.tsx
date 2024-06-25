@@ -11,6 +11,7 @@ import { IService } from '../../../@types/service';
 const ServiceList: React.FC = () => {
     const [services, setServices] = useState<IService[]>([]);
     const [pageNumber, setPageNumber] = useState(1);
+    const [totalPages, setTotalPages] = useState(0)
     const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState<string | null>(null);
     const [search, setSearch] = useState<string>('');
@@ -20,6 +21,8 @@ const ServiceList: React.FC = () => {
     const fetchServices = useCallback(async () => {
         setLoading(true);
         const response = await serviceListAPI(pageNumber, search);
+        console.log(response,"================")
+        setTotalPages(response.page)
         setLoading(false);
         pageNumber == 1 ? setServices(response.data) : setServices((prev) => [...prev, ...response.data])
     }, [pageNumber, search])
@@ -75,9 +78,8 @@ const ServiceList: React.FC = () => {
                 <div className="flex justify-center mt-6">
                     <button
                         className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 px-5 py-2 font-sans text-xs font-bold text-center font-Montserrat border-2 text-gray-900 align-middle  rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/10 active:bg-gray-900/20"
-                        type="button"
                         onClick={() => setPageNumber(pageNumber + 1)}
-                        disabled={loading}
+                        disabled={loading || totalPages == pageNumber}
                     >
                         {loading ? <FaSpinner className="animate-spin" /> : <> More <IoIosArrowDown /></>}
 

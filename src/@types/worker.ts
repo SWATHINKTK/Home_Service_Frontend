@@ -20,3 +20,16 @@ export interface IWorker{
     createdAt?:string;
     profile?:string;
 }
+
+
+export interface IWorkerExtraInfo{
+    certificate: string;
+    createdAt: string;
+    experience: number;
+    idProof: string;
+    qualification: string;
+    updatedAt: string;
+    workerId: string;
+    __v: number;
+    _id: string;
+}

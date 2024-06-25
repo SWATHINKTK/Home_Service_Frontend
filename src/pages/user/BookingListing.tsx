@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import BookedServices from '../../components/User/BookingDetails/ListBookings'
 import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector'
 import { bookedDataRetrieveAPI } from '../../utils/api/userAPI'
-import { updateBookingData } from '../../reducers/worker/bookingSlice'
+import { addBooking, updateBookingData } from '../../reducers/worker/bookingSlice'
 import { Helmet } from 'react-helmet-async'
 
 const BookingListing: React.FC = () => {
@@ -10,11 +10,19 @@ const BookingListing: React.FC = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         (async () => {
-            const response = await bookedDataRetrieveAPI(currentPage, false);
-            console.log(response)
-            dispatch(updateBookingData(response.data));
+            console.log(1)
+            const response = await bookedDataRetrieveAPI(1, false);
+            dispatch(addBooking(response.data));
         })()
-    },[currentPage, dispatch]);
+    },[dispatch]);
+
+    // useEffect(() => {
+    //     (async () => {
+    //         console.log(2)
+    //         const response = await bookedDataRetrieveAPI(currentPage, false);
+    //         dispatch(updateBookingData(response.data));
+    //     })()
+    // },[currentPage]);
     return (
         <>
             <Helmet>

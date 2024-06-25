@@ -41,7 +41,7 @@ const LocationSelecting: React.FC = () => {
 
     return (
         <>
-            <div className="max-w-7xl mx-auto my-6 px-3">
+            <div className="max-w-7xl mx-auto  px-3 pt-28 pb-5">
                 <div className="flex items-center justify-center">
                     <div className="h-8 w-8 rounded-full flex items-center justify-center border-2 border-green-800 bg-slate-200">
                         <TiTick size={30} color='green' />

@@ -1,16 +1,31 @@
 import { ApexOptions } from 'apexcharts';
 import React from 'react';
 import ReactApexCharts from 'react-apexcharts';
+import { ICountByDate } from '../../../@types/dashboard';
 
-const AreaChart: React.FC = () => {
+interface IAreaChartProps {
+    bookingData: ICountByDate[],
+    userData: ICountByDate[]
+}
+
+const AreaChart: React.FC<IAreaChartProps> = ({ bookingData, userData }) => {
+
+    const startDate = new Date();
+    startDate.setMonth(startDate.getMonth() - 4); // Start date 5 months ago
+
+    const completeBookingData = fillMissingMonths(bookingData, startDate);
+    const completeUserData = fillMissingMonths(userData, startDate);
+
+    const bookingSeriesData = generateChartData(completeBookingData);
+    const userSeriesData = generateChartData(completeUserData);
+
     const series = [{
-        name: 'series1',
-        data: [31, 40, 28, 51, 42, 109, 100]
+        name: 'Users',
+        data: userSeriesData
     }, {
-        name: 'series2',
-        data: [11, 32, 45, 32, 34, 52, 41]
+        name: 'Bookings',
+        data: bookingSeriesData
     }];
-
 
     const options: ApexOptions = {
         chart: {
@@ -18,6 +33,9 @@ const AreaChart: React.FC = () => {
             type: 'area',
             zoom: {
                 enabled: false
+            },
+            toolbar: {
+                show: false
             }
         },
         dataLabels: {
@@ -27,20 +45,11 @@ const AreaChart: React.FC = () => {
             curve: 'smooth'
         },
         xaxis: {
-            type: 'datetime',
-            categories: [
-                "2018-09-19T00:00:00.000Z",
-                "2018-09-19T01:30:00.000Z",
-                "2018-09-19T02:30:00.000Z",
-                "2018-09-19T03:30:00.000Z",
-                "2018-09-19T04:30:00.000Z",
-                "2018-09-19T05:30:00.000Z",
-                "2018-09-19T06:30:00.000Z"
-            ],
+            categories: completeBookingData.map(item => new Date(item._id.year, item._id.month - 1).toLocaleString('default', { month: 'long' }))
         },
         tooltip: {
             x: {
-                format: 'dd/MM/yy HH:mm'
+                format: 'MMM'
             },
         },
     };
@@ -53,3 +62,33 @@ const AreaChart: React.FC = () => {
 };
 
 export default AreaChart;
+
+// Helper functions
+
+const fillMissingMonths = (data: ICountByDate[], startDate: Date): ICountByDate[] => {
+    const result: ICountByDate[] = [];
+    const currentDate = new Date(startDate);
+
+    for (let i = 0; i < 5; i++) {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1; // getMonth is zero-indexed
+
+        const existingData = data.find(d => d._id.year === year && d._id.month === month);
+        if (existingData) {
+            result.push(existingData);
+        } else {
+            result.push({
+                _id: { year, month },
+                count: 0
+            });
+        }
+
+        currentDate.setMonth(currentDate.getMonth() + 1);
+    }
+
+    return result;
+};
+
+const generateChartData = (data: ICountByDate[]): number[] => {
+    return data.map(item => item.count);
+};

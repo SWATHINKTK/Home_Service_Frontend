@@ -5,6 +5,7 @@ import adminAuthSlicer from "../reducers/admin/adminAuthSlicer";
 import workerSlicer from "../reducers/worker/workerSlice";
 import userLocationSlice from "../reducers/user/userLocationSlice";
 import bookingSlice from "../reducers/worker/bookingSlice";
+import loaderSlice from "../reducers/worker/loaderSlice";
 
 const rootReducer = combineReducers({
     user:userSlice,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     workerSlice:workerSlicer,
     location:userLocationSlice,
     booking:bookingSlice,
+    loading:loaderSlice
 })
 const store  = configureStore({
     reducer:rootReducer

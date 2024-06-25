@@ -83,7 +83,7 @@ const RegisterStep2: React.FC = () => {
                         )}
                         <input
                             type="file"
-                            accept=".png"
+                            accept="image/*"
                             style={{ display: "none" }}
                             ref={(el) => {
                                 if (el) fileInputRefs.current[0] = el;

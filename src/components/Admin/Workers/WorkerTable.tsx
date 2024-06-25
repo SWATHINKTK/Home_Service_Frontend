@@ -3,35 +3,46 @@ import { toast } from "react-toastify";
 import { CgMoreO } from "react-icons/cg";
 import { MdVerifiedUser } from "react-icons/md";
 import { GoUnverified } from "react-icons/go";
-import Swal from 'sweetalert2'
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import Swal from 'sweetalert2';
+import moment from "moment";
+
 import { IWorker } from "../../../@types/worker";
 import WorkerMoreInfoModal from "./WorkerMoreInfoModal";
 import { blockWorkerAPI, fetchAllWorkerAPI, verifyWorkerAPI } from "../../../utils/api/adminAPI";
-import moment from "moment";
 import { IService } from "../../../@types/service";
 
 
 const WorkerTable: React.FC = () => {
-    const [workers, setWorker] = useState<IWorker[]>([]);
+    const heading = ["#", "Username", "Email", "Phn.No", "Service", "district", "Location", "Status", "createdAt", "More", "Action"];
+
+    const [ workers, setWorker ] = useState<IWorker[]>([]);
     const [ workerId, setWorkerId ] = useState('');
-    const [verifyStatus, setVerifyStatus] = useState(true);
-    const [modalIsOpen, setIsOpen] = useState(false);
+    const [ verifyStatus, setVerifyStatus ] = useState(true);
+    const [ modalIsOpen, setIsOpen ] = useState(false);
+    const [ pageNumber, setPageNumber ] = useState(1);
+    const [ paginationContent, setPaginationContent ] = useState({totalDocument:0, totalPages:0});
+
     useEffect(() => {
         const userFetch = async () => {
-            const response = await fetchAllWorkerAPI(verifyStatus);
-            console.log(response.data);
-            setWorker(response.data)
+            const response = await fetchAllWorkerAPI(pageNumber,verifyStatus);
+            console.log(response)
+            setPaginationContent({totalPages:response.data.totalPages, totalDocument:response.data.totalDocuments})
+            setWorker(response.data.workers)
         }
         userFetch();
 
-    }, [verifyStatus]);
-    const heading = ["#", "Username", "Email", "Phn.No", "Service", "district", "Location", "Status", "createdAt", "More", "Action"];
+    }, [verifyStatus, pageNumber]);
 
     const handleMoreInfo = (workerId: string) => {
         setWorkerId(workerId)
         setIsOpen(true);
     }
 
+    const handleStatus = () => {
+        setVerifyStatus(!verifyStatus); 
+        setPageNumber(1)
+    }
     const handleBlockWorker = async (workerId: string, index: number) => {
         Swal.fire({
             title: "Block Worker",
@@ -90,7 +101,7 @@ const WorkerTable: React.FC = () => {
                 <button
                     className={`cursor-pointer w-28 border border-black py-0.5 ${verifyStatus ? "bg-[#06B6D4] text-white " : ""
                         } relative inline-flex items-center justify-center gap-1 rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-[#F5F5F5] hover:text-[#06B6D4] px-3`}
-                    onClick={() => setVerifyStatus(true)}
+                    onClick={handleStatus}
                 >
                     <MdVerifiedUser />
                     Verified
@@ -99,7 +110,7 @@ const WorkerTable: React.FC = () => {
                 <button
                     className={`cursor-pointer w-28 py-0.5 border border-black ${verifyStatus ? " " : "bg-[#FB923C] text-green-950"
                         } relative inline-flex items-center justify-center gap-1 rounded-lg text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-[#F5F5F5] hover:text-[#FB923C]  px-3`}
-                    onClick={() => setVerifyStatus(false)}
+                    onClick={handleStatus}
                 >
                     <GoUnverified />
                     Unverified
@@ -180,6 +191,26 @@ const WorkerTable: React.FC = () => {
                                 </td>
                             </tr>
                         ))}
+                        {workers.length != 0 ?
+                                <td className='bg-[#e0e5eb] text-left text-[#0202029c] font-medium' colSpan={11}>
+                                    <ul className='flex justify-between items-center px-4 py-2'>
+                                        <li> Showing {pageNumber} to {paginationContent.totalPages} of {paginationContent.totalDocument} results</li>
+                                        <li className='flex  gap-x-4 px-3'>
+                                            <button className='px-2 py-1  shadow-sm border border-[#b9b5b5c2] bg-white rounded-md flex items-center gap-x-1 disabled:bg-transparent' onClick={() =>  setPageNumber(pageNumber - 1)} disabled={pageNumber == 1}>
+                                                <FaArrowLeft />
+                                                Previous
+                                            </button>
+                                            <button className='px-2 py-1 shadow-sm border border-[#b9b5b5c2] bg-white rounded-md flex items-center gap-x-2 disabled:bg-transparent' onClick={() =>  setPageNumber(pageNumber + 1)} disabled={pageNumber == paginationContent.totalPages}>
+                                                Next
+                                                <FaArrowRight />
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </td> 
+                             : 
+                                <td colSpan={11} className='bg-gradient-to-r from-rose-400 to-red-500 font-bold text-xl text-black text-center animate-bounce'> 
+                                    Data Not Found
+                                </td>} 
                     </tbody>
                 </table>
             </div>

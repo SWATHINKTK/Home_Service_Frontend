@@ -30,7 +30,7 @@ const ProfileLayout: React.FC = () => {
             {
                 name: "Payment Method",
                 description: "add your credit card and debit card",
-                link: "/",
+                link: "/worker/payments",
                 icon: MdPayment,
             },
         ],
@@ -50,9 +50,9 @@ const ProfileLayout: React.FC = () => {
         ],
         [
             {
-                name: "Helps",
+                name: "About",
                 description: "edit or add new address",
-                link: "/",
+                link: "/worker/about",
                 icon: FaQuestion,
             },
         ],

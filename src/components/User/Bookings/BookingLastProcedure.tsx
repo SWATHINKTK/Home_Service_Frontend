@@ -91,7 +91,7 @@ const BookingLastProcedure: React.FC = () => {
 
     return (
         <>
-            <section className='max-w-5xl mx-auto my-6 font-Montserrat px-3'>
+            <section className='max-w-5xl mx-auto pt-28 font-Montserrat px-3'>
                 <h1 className=' font-bold tracking-wide text-4xl text-center'>Booking</h1>
                 <p className='text-center my-5 md:text-sm text-xs   text-[#414141d8]'>Select and book our free available slots; if a worker is available at your chosen time, they will be assigned to you. If not, your request will be automatically canceled after one hour.</p>
             </section>

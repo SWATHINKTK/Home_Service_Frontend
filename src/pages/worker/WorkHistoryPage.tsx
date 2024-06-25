@@ -11,7 +11,7 @@ const WorkHistoryPage: React.FC = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await workHistoryAPI();
+            const response = await workHistoryAPI(1);
             console.log(response)
             dispatch(addBooking(response.data));
         })()

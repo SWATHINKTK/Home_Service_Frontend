@@ -36,7 +36,7 @@ const AdminMainComponent: React.FC<AdminMainComponentProb> = ({ content }) => {
         <div className="h-full px-3 py-4 overflow-y-auto bg-[#F8F8F8] dark:bg-gray-800 shadow-md  ">
           <div className="flex items-center justify-center mb-10 mt-2">
             <img
-              src="/public/logo.svg"
+              src="/public/logo.png"
               className="h-6 me-3 sm:h-7"
               alt="Logo"
             />

@@ -11,7 +11,9 @@ const ServiceDetailsPage: React.FC = () => {
         <title>Service Details</title>
       </Helmet>
       <Navbar user={true} special={false} />
-      <ServiceDetails />
+      <div className='pt-28'>
+        <ServiceDetails />
+      </div>
       <Footer />
     </>
   )

@@ -17,7 +17,7 @@ import { useParams } from 'react-router-dom';
 
 const WorksListing: React.FC = () => {
     const [expandedCardId, setExpandedCardId] = useState<string | undefined>();
-    const { booking } = useAppSelector(state => state.booking);
+    const { bookings } = useAppSelector(state => state.booking);
     const dispatch = useAppDispatch();
     const { conversationId } = useParams();
     console.log(1)
@@ -134,7 +134,7 @@ const WorksListing: React.FC = () => {
                 <>
 
                     <div className='grid lg:grid-cols-2'>
-                        {booking.map((bookedService, index) => (
+                        {bookings.map((bookedService, index) => (
                             <BookingCard
                                 key={index}
                                 bookedService={bookedService}
@@ -147,7 +147,7 @@ const WorksListing: React.FC = () => {
                             />
                         ))}
                     </div>
-                    {booking.length == 0 &&
+                    {bookings.length == 0 &&
                         <div className=''>
                             <img className=' mx-auto' src="/public/notfound.png" alt="" />
                             <h3 className='text-center font-bold font-Montserrat tracking-widest mt-2 text-[#150f3e]'>No Booking Found</h3>

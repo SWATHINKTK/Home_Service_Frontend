@@ -10,7 +10,7 @@ const CommittedWorksPage: React.FC = () => {
 
     useEffect(() => {
         (async () => {
-            const response = await viewAcceptedWorkAPI();
+            const response = await viewAcceptedWorkAPI(1);
             console.log(response)
             dispatch(addBooking(response.data));
         })()

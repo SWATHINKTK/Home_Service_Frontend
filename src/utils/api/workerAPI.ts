@@ -66,9 +66,9 @@ export const workerProfileUpdateAPI = async(workerUpdateData:FormData) => {
 }
 
 
-export const allBookingViewOnWorkerAPI = async() => {
+export const allBookingViewOnWorkerAPI = async(page:number) => {
     try {
-        const response = await axiosInstance.get('/booking');
+        const response = await axiosInstance.get(`/booking?page=${page}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -92,9 +92,9 @@ export const acceptWorkAPI = async(bookingData:{bookingId:string}) => {
 }
 
 
-export const viewAcceptedWorkAPI = async() => {
+export const viewAcceptedWorkAPI = async(page:number) => {
     try {
-        const response = await axiosInstance.get('/booking/viewAcceptWork');
+        const response = await axiosInstance.get(`/booking/viewAcceptWork?page=${page}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -143,9 +143,9 @@ export const completedWorkAPI = async(completeData:{bookingId:string,additionalC
 }
 
 
-export const workHistoryAPI = async() => {
+export const workHistoryAPI = async(page:number) => {
     try {
-        const response = await axiosInstance.get('/history');
+        const response = await axiosInstance.get(`/history?page=${page}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {

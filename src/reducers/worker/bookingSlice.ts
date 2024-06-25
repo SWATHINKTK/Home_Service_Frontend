@@ -1,18 +1,27 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { IBooking } from "../../@types/booking";
 
+type FilterDate = {
+    startDate:string;
+    endDate:string;
+}
 interface IBookingState {
     bookings: IBooking[];
     currentPage:number,
     totalPages:number;
-    totalDocuments:number
+    totalDocuments:number;
+    filterDate: FilterDate
 }
 
 const INITIAL_STATE:IBookingState = {
     bookings:[],
     currentPage:1,
     totalPages:4,
-    totalDocuments:0
+    totalDocuments:0,
+    filterDate:{
+        startDate:'',
+        endDate:''
+    }
 }
 
 const bookingSlice = createSlice({
@@ -46,9 +55,12 @@ const bookingSlice = createSlice({
             state.bookings = [...state.bookings,...action.payload.bookings];
             state.totalPages = action.payload.totalPages;
             state.totalDocuments = action.payload.totalDocuments;
+        },
+        updateFilterDate: (state, action:PayloadAction<FilterDate>) => {
+            state.filterDate = action.payload;
         }
     }
 })
 
-export const { addBooking, removeBooking, updateWorkStatus, additionalChargeUpdate, previousPage, nextPage, updateBookingData } = bookingSlice.actions;
+export const { addBooking, removeBooking, updateWorkStatus, additionalChargeUpdate, previousPage, nextPage, updateBookingData, updateFilterDate } = bookingSlice.actions;
 export default bookingSlice.reducer
