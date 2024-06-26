@@ -19,7 +19,7 @@ interface IBillingInfo {
     amount: number;
 }
 const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, handleComplete }) => {
-    const [billingInfo, setBillingInfo] = useState<IBillingInfo[]>([]);
+    const [billingInfo, setBillingInfo] = useState<IBillingInfo[]>(booking.additionalCharges || []);
     const [isBilling, setIsBilling] = useState<IBillingInfo>({ description: '', qty: 0, amount: 0 });
     const billingRef = useRef<HTMLFormElement>(null);
     const [billingInfoError, setBillingInfoError] = useState('');
@@ -28,15 +28,8 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, han
 
 
     useEffect(() => {
-        if (booking?.additionalCharges) {
-            setBillingInfo([...booking.additionalCharges]);
-        }
-        if (booking.workStatus == 'Completed') {
-            const totalAmount = billingInfo.reduce((acc, curr) => (acc + (curr.amount * curr.qty)), booking.serviceMinimumAmount);
-            setTotalAmount(totalAmount)
-            setIsBillDone(true);
-        }
-    }, []);
+        setTotalAmount(billingInfo.reduce((acc, curr) => (acc + (curr.amount * curr.qty)), booking.serviceMinimumAmount))
+    }, [billingInfo, booking.serviceMinimumAmount]);
 
     const handleValidation = () => {
         if (isBilling.description.trim() == '') {
@@ -90,17 +83,19 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, han
                     <div className='my-3 w-full font-Montserrat'>
                         <h3 className='text-[17px] font-semibold text-center'>Billing Details</h3>
                         <table className='w-full text-[0.8rem] mt-3'>
-                            <thead className='border-b-2'>
-                                <th className='w-8/12 text-left'>Description</th>
-                                <th className='md:w-2/12 w-3/12'>Quantity</th>
-                                <th className='w-2/12'>Amount</th>
-                                <th></th>
+                            <thead className='border-b-2 border-[#636363b5]'>
+                                <tr>
+                                    <th className='w-8/12 text-left pb-1'>Description</th>
+                                    <th className='md:w-2/12 w-3/12 pb-1'>Quantity</th>
+                                    <th className='w-2/12 pb-1'>Amount</th>
+                                    <th></th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Service amount</td>
-                                    <td className='text-center'>-</td>
-                                    <td className='text-center'>{booking.serviceMinimumAmount}</td>
+                                    <td className='py-1'>Service amount</td>
+                                    <td className='text-center py-1'>-</td>
+                                    <td className='text-center py-1'>{booking.serviceMinimumAmount}</td>
                                     <td></td>
                                 </tr>
                                 {billingInfo.map((bill, index) => (
@@ -111,16 +106,15 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, han
                                         {!isBillDone && <td onClick={() => handleRemoveBillingFields(index)}><RxCross2 size={17} className='text-red-700' /></td>}
                                     </tr>
                                 ))}
-                                {isBillDone &&
-                                    <tr className='font-semibold py-3'>
-                                        <td colSpan={2}> Total</td>
-                                        <td className='text-center'>{totalAmount}</td>
-                                    </tr>
-                                }
+                                <tr className='font-semibold py-3 border-t border-dotted border-[#000] text-sm mt-10'>
+                                    <td colSpan={2}> Total</td>
+                                    <td className='text-center'>{totalAmount}</td>
+                                </tr>
+
                             </tbody>
                         </table>
                         {!isBillDone &&
-                            <form ref={billingRef} onSubmit={handleAddBillingFields}>
+                            <form ref={billingRef} onSubmit={handleAddBillingFields} className='mt-5'>
                                 <div className='flex w-full justify-center items-center mt-2'>
                                     <PiDotsSixVerticalBold size={35} className='hidden md:block' />
                                     <input type="text"

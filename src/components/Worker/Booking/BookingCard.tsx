@@ -101,7 +101,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
 
                 {/* Booking Information View Section */}
                 <div className='flex my-4'>
-                    <img src={(bookedService.serviceId as IService).image} className='w-[8.5rem] h-[9rem]  rounded-lg object-cover' alt="" />
+                    <img src={(bookedService.serviceId as IService).image} className='w-[8.5rem]  rounded-lg object-cover' alt="" />
                     <div className='w-full  px-2.5 '>
                         <h3 className='font-semibold md:text-lg text-[0.9rem]'>{(bookedService.serviceId as IService).serviceName}</h3>
                         <div className='mt-1'>
@@ -111,8 +111,8 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                             <h6 className='font-semibold text-xs text-green-950'>{placeDetails[4]}</h6>
                             <h6 className='font-semibold text-xs text-green-950'>{placeDetails[1]}</h6>
                         </div>
-                        <div className='mt-1 w-40'>
-                            <h6 className='font-semibold text-sm bg-[#0d0456] text-center text-white rounded-lg'>{bookedService.startTime}AM <span className='px-2'>-</span> {bookedService.endTime}AM</h6>
+                        <div className='mt-1 max-w-40'>
+                            <h6 className='font-bold lg:text-sm bg-[#0d0456] text-center text-white rounded-lg px-1'>{bookedService.startTime}AM<span className='lg:px-2 px-1'>-</span>{bookedService.endTime}AM</h6>
                         </div>
                     </div>
                 </div>
