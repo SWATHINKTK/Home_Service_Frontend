@@ -18,3 +18,22 @@
     opacity: 1;
     transform: scaleY(1);
 }
+
+.billing-table{
+    width: 100%;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    border-collapse: collapse;
+}
+
+.billing-table td{
+    /* border: 1px solid ; */
+    border-top: none;
+}
+
+.billing-input{
+    width: 100%;
+    padding: 0.2rem 0;
+    font-weight: 500;
+    text-align: center;
+}

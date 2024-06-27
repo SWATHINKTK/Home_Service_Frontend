@@ -27,9 +27,6 @@ const BookingLastProcedure: React.FC = () => {
     const location = useAppSelector((state) => state.location);
     const { serviceId } = useParams();
 
-
-
-
     const createRequiredValidator = (fieldName: string) => (value: string) => {
         return !value.trim() ? `${fieldName} is required.` : undefined;
     };
@@ -57,11 +54,12 @@ const BookingLastProcedure: React.FC = () => {
     };
 
     const validateEndTime = (endTime:string) => {
-        const { startTime } = getValues();
-        const startTym = new Date(`2024-01-01T${startTime}:00`);
-        const endTym = new Date(`2024-01-01T${endTime}:00`);
+        const { startTime, date } = getValues();
+
+        const startTym = new Date(`${date}T${startTime}:00`);
+        const endTym = new Date(`${date}T${endTime}:00`);
         const differenceInMinutes = (endTym.getTime() - startTym.getTime()) / (1000 * 60);
-        const sixPM = new Date('2024-01-01T18:00:00').getTime();
+        const sixPM = new Date(`${date}T18:00:00`).getTime();
         
         if(differenceInMinutes < 30) {
             return 'minimum 30min gap.';

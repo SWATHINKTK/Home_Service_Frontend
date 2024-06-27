@@ -12,7 +12,6 @@ export interface IService {
 }
 
 
-
 export interface ServiceCardProps {
     service: IService;
 }

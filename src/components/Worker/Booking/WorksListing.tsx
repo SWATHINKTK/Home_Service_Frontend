@@ -120,7 +120,7 @@ const WorksListing: React.FC = () => {
     };
 
     const handleCompleted = (bookingId: string, index: number) => async (additionalCharges: IBillingInfo[]) => {
-        console.log(additionalCharges, bookingId, index);
+        console.log("completerd",additionalCharges, bookingId, index);
         const response = await completedWorkAPI({ bookingId, additionalCharges });
         toast.success(response.data.message);
         dispatch(updateWorkStatus({ index, status: WorkStatus.COMPLETED }));
