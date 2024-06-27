@@ -1,6 +1,6 @@
 import React from 'react'
 
-const WorkerLandingPageBanner = () => {
+const WorkerLandingPageBanner:React.FC = () => {
   return (
     <>
    <div className='relative h-[90vh] bg-[#16185a] text-white rounded-b-[20%] py-5'>

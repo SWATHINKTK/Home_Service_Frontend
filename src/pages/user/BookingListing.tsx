@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import BookedServices from '../../components/User/BookingDetails/ListBookings'
-import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector'
+import { useAppDispatch } from '../../hooks/useTypedSelector'
 import { bookedDataRetrieveAPI } from '../../utils/api/userAPI'
-import { addBooking, updateBookingData } from '../../reducers/worker/bookingSlice'
+import { addBooking } from '../../reducers/worker/bookingSlice'
 import { Helmet } from 'react-helmet-async'
 
-const BookingListing: React.FC = () => {
-    const { currentPage } = useAppSelector((state) => state.booking);
+const BookingListing:React.FC = () => {
+    // const { currentPage } = useAppSelector((state) => state.booking);
     const dispatch = useAppDispatch();
     useEffect(() => {
         (async () => {

@@ -3,7 +3,7 @@ import Authentication from '../../components/Common/AuthLayout/AuthLayout'
 import UserLoginForm from '../../components/User/Login/UserLoginForm'
 import { Helmet } from 'react-helmet-async'
 
-const UserLogin = () => {
+const UserLogin:React.FC = () => {
   return (
     <>
       <Helmet>

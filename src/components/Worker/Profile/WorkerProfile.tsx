@@ -31,6 +31,7 @@ const WorkerProfile: React.FC = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             const response = await workerProfileAPI();
+            console.log(response.data)
             setWorkerData(response.data);
             if (response.data.profile) {
                 setImageUrl(response.data.profile);
@@ -190,7 +191,7 @@ const WorkerProfile: React.FC = () => {
                             <div className=" bg-[#F2F2F2] py-1  px-5 rounded-xl flex items-center">
                                 <div className="flex justify-center flex-col mx-2 ">
                                     <h5 className="text-sm font-semibold">Service</h5>
-                                    <h2>{workerData?.service}</h2>
+                                    <h2>{workerData?.service as string}</h2>
                                 </div>
                             </div>
                         </div>

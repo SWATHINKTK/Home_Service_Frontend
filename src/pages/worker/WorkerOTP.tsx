@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import Authentication from '../../components/Common/AuthLayout/AuthLayout'
 import WorkerOTPForm from '../../components/Worker/OTPVerification/WorkerOTPForm'
 
-const WorkerOTP = () => {
+const WorkerOTP:React.FC = () => {
   return (
     <>
       <Helmet>

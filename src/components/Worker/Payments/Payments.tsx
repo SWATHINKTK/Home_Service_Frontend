@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector'
 import { workHistoryAPI } from '../../../utils/api/workerAPI';
 import { addBooking } from '../../../reducers/worker/bookingSlice';
 
-const Payments = () => {
+const Payments:React.FC  = () => {
     const { bookings } = useAppSelector((state) => state.booking)
     const dispatch = useAppDispatch();
 

@@ -2,7 +2,7 @@ import { PiArrowBendDoubleUpRightDuotone } from "react-icons/pi";
 import { PiArrowBendDoubleUpLeftDuotone } from "react-icons/pi";
 import React from 'react';
 
-const WorkerLandingPageProcessSection = () => {
+const WorkerLandingPageProcessSection:React.FC = () => {
   return (
     <div className="lg:mt-[7.3%] mt-10">
       <div className="text-center">

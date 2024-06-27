@@ -1,6 +1,6 @@
 import React from "react";
 
-const LandingPageBusiness = () => {
+const LandingPageBusiness:React.FC = () => {
   return (
     <div className="mt-10 w-full bg-[#091054] md:h-[26.75rem] flex justify-center place-items-center ">
       <div className=" w-[80%] h-[75%] text-white md:flex justify-between py-9">

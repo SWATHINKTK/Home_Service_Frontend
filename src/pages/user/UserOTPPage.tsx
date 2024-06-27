@@ -3,7 +3,7 @@ import Authentication from '../../components/Common/AuthLayout/AuthLayout'
 import UserOTPForm from '../../components/User/OTPVerification/UserOTPForm'
 import { Helmet } from 'react-helmet-async'
 
-const UserOTPPage = () => {
+const UserOTPPage:React.FC = () => {
   return (
     <>
         <Helmet>

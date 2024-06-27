@@ -9,7 +9,7 @@ import WorkerFooter from '../../components/Worker/Footer/WorkerFooter';
 import WorkerLandingPageService from '../../components/Worker/LandingPageSections/WorkerLandingPageService';
 
 
-const WorkerLanding = () => {
+const WorkerLanding:React.FC = () => {
   return (
     <>
       <Helmet>

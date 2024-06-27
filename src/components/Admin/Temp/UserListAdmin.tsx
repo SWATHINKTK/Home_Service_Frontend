@@ -1,11 +1,11 @@
-import React from 'react'
+// import React from 'react'
 
-const UserListAdmin = () => {
-  return (
-    <div>
+// const UserListAdmin = () => {
+//   return (
+//     <div>
       
-    </div>
-  )
-}
+//     </div>
+//   )
+// }
 
-export default UserListAdmin
+// export default UserListAdmin

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Failed = () => {
+const Failed:React.FC = () => {
   return (
     <div>
       <h1>Failed</h1>

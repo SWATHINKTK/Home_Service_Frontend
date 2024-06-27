@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/useTypedSelector'
 import { salesReportAPI } from '../../utils/api/adminAPI'
 import { addBooking } from '../../reducers/worker/bookingSlice'
 
-const SalesReportPage = () => {
+const SalesReportPage:React.FC  = () => {
     const { filterDate, currentPage } = useAppSelector((state) =>  state.booking);
     const dispatch = useAppDispatch();
     useEffect(() => {
