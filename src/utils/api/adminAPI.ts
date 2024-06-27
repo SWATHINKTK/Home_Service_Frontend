@@ -206,3 +206,15 @@ export const dashboardChartDataFetchingAPI = async() => {
         throw error
     }
 }
+
+export const dashboardPerformanceDataFetchingAPI = async() => {
+    try {
+        const response = await adminInstance.get('/admin/dashboard/performingWorkersAndUsers');
+        return response.data;
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+        }
+        throw error
+    }
+}

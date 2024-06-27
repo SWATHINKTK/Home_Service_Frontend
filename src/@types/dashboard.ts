@@ -42,3 +42,12 @@ export interface IDashboardChartData {
     bookingCount: ICountByDate[];
     servicePercentage: IServicePercentage[];
 }
+
+
+export interface IPerformanceUserAndWorker{
+    _id:string;
+    sum:number;
+    name:string;
+    email:string;
+    phoneNumber:string;
+}
