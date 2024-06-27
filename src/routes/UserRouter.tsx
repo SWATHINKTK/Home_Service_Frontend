@@ -22,19 +22,22 @@ const UserRouter: React.FC = () => {
     return (
         <Routes>
             <Route element={<UserPrivateRouter />}>
-                <Route path="/" element={<UserLanding />} />
                 <Route path='/user/*' element={<ProfileLayout />}>
                     <Route path='accountInformation' element={<UserProfile />} />
                     <Route path="bookingHistory" element={<CompletedBooking />} />
                     <Route path="bookedServices" element={<BookingListing />} />
                     <Route path="chat/:conversationId" element={<Conversation />} />
                 </Route>
-                <Route path="/service" element={<ServicePage />} />
-                <Route path="/service/:serviceId" element={<ServiceDetailsPage />} />
+                {/* <Route path="/service" element={<ServicePage />} />
+                <Route path="/service/:serviceId" element={<ServiceDetailsPage />} /> */}
                 <Route path="/service/:serviceId/currentLocation" element={<LocationSelectingPage />} />
                 <Route path="/service/:serviceId/booking" element={<BookingPage />} />
                 <Route path="/failed" element={<Failed />} />
             </Route>
+
+            <Route path="/" element={<UserLanding />} />
+            <Route path="/service" element={<ServicePage />} />
+            <Route path="/service/:serviceId" element={<ServiceDetailsPage />} />
             <Route path="/success" element={<Success />} />
             <Route path="/otpVerification" element={<UserOTPPage />} />
             <Route path="/login" element={<UserLogin />} />

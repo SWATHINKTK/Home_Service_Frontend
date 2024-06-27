@@ -8,19 +8,19 @@ const WorkerLandingPageService:React.FC = () => {
       </div>
       <div className='flex mx-10 justify-between'>
         <div className=''>
-           <img src="/public/worker/quality.png" className='rounded-full w-16 h-16 mx-auto' alt=""  />
+           <img src="/public/image/services/quality.png" className='rounded-full w-16 h-16 mx-auto' alt=""  />
            <h6>High Quality</h6>
         </div>
         <div className=''>
-        <img src="/public/worker/reliable.png" className='rounded-full w-16 h-16 mx-auto' alt=""  />
+        <img src="/public/image/services/reliable.png" className='rounded-full w-16 h-16 mx-auto' alt=""  />
            <h6>Reliable Service</h6>
         </div>
         <div className=''>
-        <img src="/public/worker/availability.png" className='rounded-full w-16 h-16 mx-auto' alt=""  />
+        <img src="/public/image/services/availability.png" className='rounded-full w-16 h-16 mx-auto' alt=""  />
            <h6>Instant Availability</h6>
         </div>
         <div className=''>
-        <img src="/public/worker/affordable.png" className='rounded-full w-16 h-16 mx-auto' alt=""  />
+        <img src="/public/image/services/affordable.png" className='rounded-full w-16 h-16 mx-auto' alt=""  />
            <h6>Affordable Price</h6>
         </div>
       </div>

@@ -1,9 +1,11 @@
 
-import { CiSearch } from "react-icons/ci";
-import { IService } from "../../../@types/service";
 import { useEffect, useState } from "react";
-import { serviceListAPI } from "../../../utils/api/userAPI";
 import { useNavigate } from "react-router-dom";
+import { CiSearch } from "react-icons/ci";
+import { FaArrowRight } from "react-icons/fa6";
+
+import { IService } from "../../../@types/service";
+import { serviceListAPI } from "../../../utils/api/userAPI";
 
 const LandingPageServiceSection = () => {
 
@@ -30,7 +32,6 @@ const LandingPageServiceSection = () => {
             const response = await serviceListAPI(1, search);
             setServices(response.data)
             setLoading(false)
-
         }
         fetchServices();
     }, [search]);
@@ -62,7 +63,6 @@ const LandingPageServiceSection = () => {
                     </h2>
                 </div>
                 {/* Service Section */}
-                {/* <div className="my-6 flex flex-wrap justify-center items-center"> */}
                 <div className=" my-6 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 justify-items-center">
                     {loading
                         ? Array.from({ length: 4 }).map((_, index) => (
@@ -80,11 +80,7 @@ const LandingPageServiceSection = () => {
                             <div key={service._id} className="h-auto transition-transform duration-300 hover:drop-shadow-lg ease-in-out transform hover:-translate-y-1 bg-[#F8F8F8] md:w-[15rem] w-[80%] py-6 rounded-sm drop-shadow-md" onClick={() => navigate(`/service/${service._id}`)}>
                                 <div className="flex flex-col place-items-center justify-center">
                                     <div className="flex place-items-center justify-center h-24 w-24 rounded-[37%] bg-[#C3F4BE]">
-                                        <img
-                                            className="object-contain w-[70%] h-[70%]"
-                                            src={service.icon}
-                                            alt=""
-                                        />
+                                        <img className="object-contain w-[70%] h-[70%]" src={service.icon} alt="service icon"/>
                                     </div>
                                     <h3 className="font-Montserrat text-[1.1rem] font-[650] mt-2">
                                         {service.serviceName}
@@ -96,18 +92,15 @@ const LandingPageServiceSection = () => {
                             </div>
                         ))}
                 </div>
-                {/* </div> */}
+
+                {/* All Service Going Button */}
                 <div className="flex justify-center">
                     <button
                         className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 px-5 py-2 font-sans text-xs font-bold text-center font-Montserrat border-2 text-gray-900 align-middle  rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/10 active:bg-gray-900/20"
-                        type="button"
                         onClick={() => navigate('/service')}
                     >
                         All Services
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                            className="w-5 h-5 transition-transform  transform-gpu hover:translate-x-1">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"></path>
-                        </svg>
+                        <FaArrowRight />
                     </button>
                 </div>
             </div>

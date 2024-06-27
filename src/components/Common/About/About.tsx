@@ -17,7 +17,7 @@ const About: React.FC<IAboutPageProb> = ({ user }) => {
             <div className='py-28 max-w-6xl mx-auto font-Montserrat'>
                 <div className='flex py-3'>
                     <div className='w-6/12 flex justify-center items-end'>
-                        <div className='w-[90%] h-[90%] rounded-lg drop-shadow-2xl' style={{ backgroundImage: "url('/public/about.jpg')", backgroundSize: 'cover' }}>
+                        <div className='w-[90%] h-[90%] rounded-lg drop-shadow-2xl' style={{ backgroundImage: "url('/public/image/about.jpg')", backgroundSize: 'cover' }}>
                         </div>
                     </div>
                     <div className='w-6/12 flex flex-col  justify-center items-center'>
@@ -31,7 +31,7 @@ const About: React.FC<IAboutPageProb> = ({ user }) => {
                         <p className='text-gray-600 leading-relaxed tracking-wide my-5 text-justify'>Why choose Heaven Crew for your home service needs? At Heaven Crew, we stand out for our unwavering commitment to excellence and customer satisfaction. With a team of highly skilled professionals specializing in plumbing, electrical work, carpentry, painting, appliance repair, and cleaning, we ensure that every job is completed to the highest standards. Our dedication to quality craftsmanship means you can trust us with any project, big or small. We prioritize clear communication, transparency in pricing, and a hassle-free experience, making it easy for you to manage and schedule services through our user-friendly platform. Whether you're looking for routine maintenance or require urgent repairs, Heaven Crew is here to provide reliable, efficient, and personalized service tailored to your home's unique needs. Choose Heaven Crew and discover why we're the preferred choice for homeowners seeking exceptional home services.</p>
                     </div>
                     <div className='w-6/12 flex justify-center items-end'>
-                        <div className='w-[90%] h-[90%] rounded-lg drop-shadow-2xl' style={{ backgroundImage: "url('/public/about-worker.jpg')", backgroundSize: 'cover' }}>
+                        <div className='w-[90%] h-[90%] rounded-lg drop-shadow-2xl' style={{ backgroundImage: "url('/public/image/about-work-tool.jpg')", backgroundSize: 'cover' }}>
                         </div>
                     </div>
 

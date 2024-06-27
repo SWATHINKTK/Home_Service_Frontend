@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 import Navbar from '../../components/Common/Navbar/Navbar';
 import WorkerLandingPageBanner from '../../components/Worker/LandingPageSections/WorkerLandingPageBanner';
-import LandingPageBusiness from '../../components/User/LandingPageSections/LandingPageBusiness';
+import LandingPageBusiness from '../../components/User/LandingSections/LandingPageBusiness';
 import WorkerLandingPageProcessSection from '../../components/Worker/LandingPageSections/WorkerLandingPageProcessSection';
 import WorkerFooter from '../../components/Worker/Footer/WorkerFooter';
 import WorkerLandingPageService from '../../components/Worker/LandingPageSections/WorkerLandingPageService';

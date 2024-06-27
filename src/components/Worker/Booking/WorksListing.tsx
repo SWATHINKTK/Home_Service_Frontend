@@ -120,7 +120,6 @@ const WorksListing: React.FC = () => {
     };
 
     const handleCompleted = (bookingId: string, index: number) => async (additionalCharges: IBillingInfo[]) => {
-        console.log("completerd",additionalCharges, bookingId, index);
         const response = await completedWorkAPI({ bookingId, additionalCharges });
         toast.success(response.data.message);
         dispatch(updateWorkStatus({ index, status: WorkStatus.COMPLETED }));
@@ -149,7 +148,7 @@ const WorksListing: React.FC = () => {
                     </div>
                     {bookings.length == 0 &&
                         <div className=''>
-                            <img className=' mx-auto' src="/public/notfound.png" alt="" />
+                            <img className=' mx-auto' src="/public/image/notfound.png" alt="" />
                             <h3 className='text-center font-bold font-Montserrat tracking-widest mt-2 text-[#150f3e]'>No Booking Found</h3>
                         </div>
                     }

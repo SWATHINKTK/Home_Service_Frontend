@@ -1,9 +1,9 @@
 import React  from 'react'
 import Navbar from '../../components/Common/Navbar/Navbar'
-import LandingPageBanner from '../../components/User/LandingPageSections/LandingPageBanner'
-import LandingPageServiceSection from '../../components/User/LandingPageSections/LandingPageServiceSection'
-import LandingPageBusiness from '../../components/User/LandingPageSections/LandingPageBusiness'
-import LandingPageProcessSection from '../../components/User/LandingPageSections/LandingPageProcessSection'
+import LandingPageBanner from '../../components/User/LandingSections/LandingPageBanner'
+import LandingPageServiceSection from '../../components/User/LandingSections/LandingPageServiceSection'
+import LandingPageBusiness from '../../components/User/LandingSections/LandingPageBusiness'
+import LandingPageProcessSection from '../../components/User/LandingSections/LandingPageProcessSection'
 import Footer from '../../components/User/Footer/Footer'
 import { Helmet } from 'react-helmet-async'
 
