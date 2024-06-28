@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 export const fetchAllServicesAPI = async () => {
     try {
-        const response = await axios.get("/api/admin/service");
+        const response = await axios.get(`${process.env.BASE_API_URL}/admin/service`);
         return response.data
     } catch (error) {
         if (error instanceof AxiosError)

@@ -2,7 +2,7 @@
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { IUser } from "../../@types/user";
-import axiosInstance from "./instances/userInstance";
+import userAxiosInstance from "./instances/userInstance";
 
 
 // ! -------------------------------- USER API CALLING FUNCTIONS IN USER SIDE -------------------------------
@@ -94,7 +94,7 @@ export const registerUser = async (registerCredentials: IUser) => {
 export const userProfileAPI = async () => {
     try {
         console.log('API')
-        const response = await axiosInstance.get('/user/profile', { withCredentials: true });
+        const response = await userAxiosInstance.get('/user/profile', { withCredentials: true });
         return response.data;
     } catch (error) {
         console.log('hello error')
@@ -129,7 +129,7 @@ export const manageUserProfileAPI = async (userUpdateData: FormData) => {
  */
 export const serviceListAPI = async (pageNumber:number, search:string) => {
     try {
-        const response = await axiosInstance.get(`/user/service?page=${pageNumber}&search=${search}`);
+        const response = await userAxiosInstance.get(`/user/service?page=${pageNumber}&search=${search}`);
         console.log(response)
         return response.data;
     } catch (error) {
@@ -149,7 +149,7 @@ export const serviceListAPI = async (pageNumber:number, search:string) => {
  */
  export const serviceDataRetrieveAPI = async (serviceId:string) => {
     try {
-        const response = await axiosInstance.get(`/user/service/details/${serviceId}`);
+        const response = await userAxiosInstance.get(`/user/service/details/${serviceId}`);
         return response.data;
     } catch (error) {
         console.log('hello error',error)
@@ -157,10 +157,23 @@ export const serviceListAPI = async (pageNumber:number, search:string) => {
     }
 }
 
+export const advanceBookingPaymentAPI = async (bookingDetails:unknown) => {
+    try {
+        const response = await userAxiosInstance.post('/user/booking',bookingDetails);
+        return response.data;
+    } catch (error) {
+        console.log('error',error)
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+            throw error
+        }
+        toast.error('server Error please try again.')
+    }
+}
 
 export const bookedDataRetrieveAPI = async(page:number, history:boolean) => {
     try {
-        const response = await axiosInstance.get(`/user/booking?history=${history}&page=${page}`);
+        const response = await userAxiosInstance.get(`/user/booking?history=${history}&page=${page}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -173,7 +186,7 @@ export const bookedDataRetrieveAPI = async(page:number, history:boolean) => {
 
 export const cancelBookingUserAPI = async (cancelData:{bookingId:string, status:string}) => {
     try {
-        const response = await axiosInstance.patch('/user/booking/cancel',cancelData);
+        const response = await userAxiosInstance.patch('/user/booking/cancel',cancelData);
         return response.data;
     } catch (error) {
         console.log('error',error)
@@ -189,7 +202,7 @@ export const cancelBookingUserAPI = async (cancelData:{bookingId:string, status:
 
 export const paymentAPI = async (bookingId:string, serviceName:string) => {
     try {
-        const response = await axiosInstance.post('/user/payment',{bookingId, serviceName});
+        const response = await userAxiosInstance.post('/user/payment',{bookingId, serviceName});
         return response.data;
     } catch (error) {
         console.log('error',error)

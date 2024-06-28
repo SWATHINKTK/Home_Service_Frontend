@@ -1,11 +1,10 @@
 import axios from "axios";
-import { BASE_WORKER_URL } from "../../../constants/baseURL";
 import { toast } from "react-toastify";
 
 
 // Create Axios instance with base URL and headers
-const axiosInstance = axios.create({
-    baseURL: BASE_WORKER_URL,
+const workerAxiosInstance = axios.create({
+    baseURL: process.env.BASE_API_URL,
     headers: {
         'Content-Type': 'application/json',
     },
@@ -14,14 +13,14 @@ const axiosInstance = axios.create({
 
 
 // axios interceptor for the request
-axiosInstance.interceptors.request.use(request => {
+workerAxiosInstance.interceptors.request.use(request => {
     return request;
 }, error => {
     return Promise.reject(error);
 });
 
 // response interceptor to handle 401 Unauthorized errors and refresh tokens
-axiosInstance.interceptors.response.use(
+workerAxiosInstance.interceptors.response.use(
     response => response,
     async error => {
 
@@ -30,8 +29,8 @@ axiosInstance.interceptors.response.use(
             originalRequest._retry = true;
             try {
                 // refresh token api is calling
-                await axios.post('/api/worker/refreshToken');
-                return axiosInstance(originalRequest);
+                await axios.post(`${process.env.BASE_API_URL}/worker/refreshToken`);
+                return workerAxiosInstance(originalRequest);
 
             } catch (refreshError) {
 
@@ -60,4 +59,4 @@ axiosInstance.interceptors.response.use(
     }
 );
 
-export default axiosInstance;
+export default workerAxiosInstance;

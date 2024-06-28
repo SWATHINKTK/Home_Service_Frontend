@@ -4,8 +4,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import PaymentSummary from './PaymentSummary';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useAppSelector } from '../../../hooks/useTypedSelector';
-import { advanceBookingPaymentAPI } from '../../../utils/api/bookingAPI';
 import { useParams } from 'react-router-dom';
+import { advanceBookingPaymentAPI } from '../../../utils/api/userAPI';
 
 
 interface IBookingData {

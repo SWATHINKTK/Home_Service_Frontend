@@ -1,35 +1,40 @@
 import axios, { AxiosError } from "axios";
 import { toast } from "react-hot-toast";
-import axiosInstance from './instances/workerInstance';
+import workerAxiosInstance from './instances/workerInstance';
 import { IBillingInfo } from "../../@types/booking";
+const BASE_URL = process.env.BASE_API_URL;
 
-export const workerRegisterAPI = async(registerData:unknown) => {
+export const workerRegisterAPI = async (registerData: unknown) => {
     try {
-        const response = await axios.post('/api/worker/register', registerData);
+        const response = await axios.post(`${BASE_URL}/worker/register`, registerData);
         return response.data
     } catch (error) {
         console.log(error)
         if (error instanceof AxiosError && error.response) {
             toast.error(error.response.data.errors[0].message);
+            throw error;
         }
         toast.error('Something went wrong try again.')
     }
 }
 
-export const workerLoginApi = async(workerCredentials: { phoneNumber: string, password: string }) => {
-   try {
-        const response = await axios.post('/api/worker/login',workerCredentials);
+export const workerLoginApi = async (workerCredentials: { phoneNumber: string, password: string }) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/worker/login`, workerCredentials);
         return response.data;
-   } catch (error) {
-        console.log("error",error)
+    } catch (error) {
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+            throw error
+        }
         throw error;
-   }
+    }
 };
 
-export const workerLogOutAPI = async() => {
+export const workerLogOutAPI = async () => {
     try {
-         const response = await axios.post('/api/worker/logout');
-         return response.data;
+        const response = await axios.post(`${BASE_URL}/worker/logout`);
+        return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
             toast.error(error.response.data.errors[0].message);
@@ -37,12 +42,12 @@ export const workerLogOutAPI = async() => {
         }
         toast.error('something went wrong.')
     }
- };
+};
 
 
-export const workerProfileAPI = async() => {
+export const workerProfileAPI = async () => {
     try {
-        const response = await axiosInstance.get('/profile');
+        const response = await workerAxiosInstance.get('/worker/profile');
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -53,9 +58,9 @@ export const workerProfileAPI = async() => {
 }
 
 
-export const workerProfileUpdateAPI = async(workerUpdateData:FormData) => {
+export const workerProfileUpdateAPI = async (workerUpdateData: FormData) => {
     try {
-        const response = await axios.put('/api/worker/editProfile',workerUpdateData);
+        const response = await workerAxiosInstance.put('/worker/editProfile', workerUpdateData);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -66,9 +71,9 @@ export const workerProfileUpdateAPI = async(workerUpdateData:FormData) => {
 }
 
 
-export const allBookingViewOnWorkerAPI = async(page:number) => {
+export const allBookingViewOnWorkerAPI = async (page: number) => {
     try {
-        const response = await axiosInstance.get(`/booking?page=${page}`);
+        const response = await workerAxiosInstance.get(`/worker/booking?page=${page}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -79,9 +84,9 @@ export const allBookingViewOnWorkerAPI = async(page:number) => {
 }
 
 
-export const acceptWorkAPI = async(bookingData:{bookingId:string}) => {
+export const acceptWorkAPI = async (bookingData: { bookingId: string }) => {
     try {
-        const response = await axiosInstance.patch('/booking/acceptWork', bookingData);
+        const response = await workerAxiosInstance.patch('/worker/booking/acceptWork', bookingData);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -92,9 +97,9 @@ export const acceptWorkAPI = async(bookingData:{bookingId:string}) => {
 }
 
 
-export const viewAcceptedWorkAPI = async(page:number) => {
+export const viewAcceptedWorkAPI = async (page: number) => {
     try {
-        const response = await axiosInstance.get(`/booking/viewAcceptWork?page=${page}`);
+        const response = await workerAxiosInstance.get(`/worker/booking/viewAcceptWork?page=${page}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -107,9 +112,9 @@ export const viewAcceptedWorkAPI = async(page:number) => {
 
 
 
-export const startWorkAPI = async(bookingData:{bookingId:string,userEmail:string}) => {
+export const startWorkAPI = async (bookingData: { bookingId: string, userEmail: string }) => {
     try {
-        const response = await axiosInstance.patch('/booking/startWork', bookingData);
+        const response = await workerAxiosInstance.patch('/worker/booking/startWork', bookingData);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -120,9 +125,9 @@ export const startWorkAPI = async(bookingData:{bookingId:string,userEmail:string
 }
 
 
-export const workVerificationAPI = async(verificationData:{bookingId:string,otp:string}) => {
+export const workVerificationAPI = async (verificationData: { bookingId: string, otp: string }) => {
     try {
-        const response = await axiosInstance.post('/booking/startWork/verification', verificationData);
+        const response = await workerAxiosInstance.post('/worker/booking/startWork/verification', verificationData);
         return response.data;
     } catch (error) {
         console.log(error)
@@ -130,9 +135,9 @@ export const workVerificationAPI = async(verificationData:{bookingId:string,otp:
     }
 }
 
-export const completedWorkAPI = async(completeData:{bookingId:string,additionalCharges:IBillingInfo[]}) => {
+export const completedWorkAPI = async (completeData: { bookingId: string, additionalCharges: IBillingInfo[] }) => {
     try {
-        const response = await axiosInstance.patch('/booking/completeWork', completeData);
+        const response = await workerAxiosInstance.patch('/worker/booking/completeWork', completeData);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -143,9 +148,9 @@ export const completedWorkAPI = async(completeData:{bookingId:string,additionalC
 }
 
 
-export const workHistoryAPI = async(page:number) => {
+export const workHistoryAPI = async (page: number) => {
     try {
-        const response = await axiosInstance.get(`/history?page=${page}`);
+        const response = await workerAxiosInstance.get(`/worker/history?page=${page}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
