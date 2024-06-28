@@ -1,49 +1,55 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import UserPrivateRouter from './PrivateRoutes/UserPrivateRouter'
-import UserLanding from '../pages/user/UserLanding'
-import ServicePage from '../pages/user/ServicePage'
-import ServiceDetailsPage from '../pages/user/serviceDetailsPage'
-import LocationSelectingPage from '../pages/user/LocationSelectingPage'
-import BookingPage from '../pages/user/BookingPage'
-import BookingListing from '../pages/user/BookingListing'
-import Failed from '../components/User/Bookings/Failed'
-import CompletedBooking from '../pages/user/CompletedBooking'
-import Success from '../components/User/Bookings/PaymentSuccess'
-import UserOTPPage from '../pages/user/UserOTPPage'
-import UserLogin from '../pages/user/UserLogin'
-import UserRegistration from '../pages/user/UserRegistration'
-import ProfileLayout from '../components/Common/ProfileLayout/UserProfileLayout'
-import UserProfile from '../components/User/Profile/UserProfile'
-import Conversation from '../components/Common/Chat/Conversation'
-import About from '../components/Common/About/About'
+import React, { Suspense, lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import UserPrivateRouter from './PrivateRoutes/UserPrivateRouter';
+import MainLoader from '../components/Common/Loader/MainLoader';
+
+const UserLanding = lazy(() => import('../pages/user/UserLanding'));
+const ServicePage = lazy(() => import('../pages/user/ServicePage'));
+const ServiceDetailsPage = lazy(() => import('../pages/user/serviceDetailsPage'));
+const LocationSelectingPage = lazy(() => import('../pages/user/LocationSelectingPage'));
+const BookingPage = lazy(() => import('../pages/user/BookingPage'));
+const BookingListing = lazy(() => import('../pages/user/BookingListing'));
+const Failed = lazy(() => import('../components/User/Bookings/Failed'));
+const CompletedBooking = lazy(() => import('../pages/user/CompletedBooking'));
+const Success = lazy(() => import('../components/User/Bookings/PaymentSuccess'));
+const UserOTPPage = lazy(() => import('../pages/user/UserOTPPage'));
+const UserLogin = lazy(() => import('../pages/user/UserLogin'));
+const UserRegistration = lazy(() => import('../pages/user/UserRegistration'));
+const ProfileLayout = lazy(() => import('../components/Common/ProfileLayout/UserProfileLayout'));
+const UserProfile = lazy(() => import('../components/User/Profile/UserProfile'));
+const Conversation = lazy(() => import('../components/Common/Chat/Conversation'));
+const About = lazy(() => import('../components/Common/About/About'));
+
 
 const UserRouter: React.FC = () => {
     return (
-        <Routes>
-            <Route element={<UserPrivateRouter />}>
-                <Route path='/user/*' element={<ProfileLayout />}>
-                    <Route path='accountInformation' element={<UserProfile />} />
-                    <Route path="bookingHistory" element={<CompletedBooking />} />
-                    <Route path="bookedServices" element={<BookingListing />} />
-                    <Route path="chat/:conversationId" element={<Conversation />} />
-                </Route>
-                {/* <Route path="/service" element={<ServicePage />} />
+        <Suspense fallback={<MainLoader/>}>
+            <Routes>
+                <Route element={<UserPrivateRouter />}>
+                    <Route path='/user/*' element={<ProfileLayout />}>
+                        <Route path='accountInformation' element={<UserProfile />} />
+                        <Route path="bookingHistory" element={<CompletedBooking />} />
+                        <Route path="bookedServices" element={<BookingListing />} />
+                        <Route path="chat/:conversationId" element={<Conversation />} />
+                    </Route>
+                    {/* <Route path="/service" element={<ServicePage />} />
                 <Route path="/service/:serviceId" element={<ServiceDetailsPage />} /> */}
-                <Route path="/service/:serviceId/currentLocation" element={<LocationSelectingPage />} />
-                <Route path="/service/:serviceId/booking" element={<BookingPage />} />
-                <Route path="/failed" element={<Failed />} />
-            </Route>
+                    <Route path="/service/:serviceId/currentLocation" element={<LocationSelectingPage />} />
+                    <Route path="/service/:serviceId/booking" element={<BookingPage />} />
+                    <Route path="/failed" element={<Failed />} />
+                </Route>
 
-            <Route path="/" element={<UserLanding />} />
-            <Route path="/service" element={<ServicePage />} />
-            <Route path="/service/:serviceId" element={<ServiceDetailsPage />} />
-            <Route path="/success" element={<Success />} />
-            <Route path="/otpVerification" element={<UserOTPPage />} />
-            <Route path="/login" element={<UserLogin />} />
-            <Route path="/register" element={<UserRegistration />} />
-            <Route path="/about" element={<About user={true} />} />
-        </Routes>)
+                <Route path="/" element={<UserLanding />} />
+                <Route path="/service" element={<ServicePage />} />
+                <Route path="/service/:serviceId" element={<ServiceDetailsPage />} />
+                <Route path="/success" element={<Success />} />
+                <Route path="/otpVerification" element={<UserOTPPage />} />
+                <Route path="/login" element={<UserLogin />} />
+                <Route path="/register" element={<UserRegistration />} />
+                <Route path="/about" element={<About user={true} />} />
+            </Routes>
+        </Suspense>
+    )
 }
 
 export default UserRouter

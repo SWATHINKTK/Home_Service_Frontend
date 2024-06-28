@@ -1,13 +1,160 @@
+.loading-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #4299e1;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
+    to {
         transform: rotate(360deg);
     }
 }
 
-.loader {
-    border-top-color: #3490dc;
-    animation: spin 1s infinite linear;
+
+
+.main-loader {
+    --loader: rgb(87, 65, 226);
+    --loader-size: 4px;
+    position: relative;
+    overflow: hidden;
+    transition: .5s;
+    letter-spacing: 2px ;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
 }
+
+.main-loader span {
+    position: absolute;
+}
+
+.main-loader span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: var(--loader-size);
+    background: linear-gradient(90deg, transparent, var(--loader));
+    animation: loader-anim1 1s linear infinite;
+}
+
+@keyframes loader-anim1 {
+    0% {
+        left: -100%;
+    }
+
+    50%,
+    100% {
+        left: 100%;
+    }
+}
+
+.main-loader span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: var(--loader-size);
+    height: 100%;
+    background: linear-gradient(180deg, transparent, var(--loader));
+    animation: loader-anim2 1s linear infinite;
+    animation-delay: .25s
+}
+
+@keyframes loader-anim2 {
+    0% {
+        top: -100%;
+    }
+
+    50%,
+    100% {
+        top: 100%;
+    }
+}
+
+.main-loader span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: var(--loader-size);
+    background: linear-gradient(270deg, transparent, var(--loader));
+    animation: loader-anim3 1s linear infinite;
+    animation-delay: .5s
+}
+
+@keyframes loader-anim3 {
+    0% {
+        right: -100%;
+    }
+
+    50%,
+    100% {
+        right: 100%;
+    }
+}
+
+.main-loader span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: var(--loader-size);
+    height: 100%;
+    background: linear-gradient(360deg, transparent, var(--loader));
+    animation: loader-anim4 1s linear infinite;
+    animation-delay: .75s
+}
+
+@keyframes loader-anim4 {
+    0% {
+        bottom: -100%;
+    }
+
+    50%,
+    100% {
+        bottom: 100%;
+    }
+}
+
+
+
+
+
+
+/* Temp------------ */
+
+/* 
+.main-loader {
+    width: 15rem;
+    height: 7px;
+    border-radius: 2px;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+}
+
+.main-loader::before {
+    content: "";
+    position: absolute;
+    background: rgb(51,17,207);
+    background: linear-gradient(90deg, rgba(51,17,207,1) 0%, rgba(32,32,185,1) 34%, rgba(132,169,255,1) 99%);
+    width: 0%;
+    height: 100%;
+    border-radius: 2px;
+    animation: load 3.5s ease-in-out infinite;
+    box-shadow: rgb(159, 159, 159) 0px 2px 29px 0px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    
+}
+
+@keyframes load {
+    50% {
+        width: 100%;
+    }
+
+    100% {
+        right: 0;
+        left: unset;
+    }
+} */
