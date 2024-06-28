@@ -10,7 +10,7 @@ const ServiceDetailsPage: React.FC = () => {
       <Helmet>
         <title>Service Details</title>
       </Helmet>
-      <Navbar user={true} special={false} />
+      <Navbar worker={false} special={false} />
       <div className='pt-28'>
         <ServiceDetails />
       </div>

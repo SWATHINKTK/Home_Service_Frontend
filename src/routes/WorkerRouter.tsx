@@ -17,27 +17,27 @@ import Payments from '../components/Worker/Payments/Payments'
 
 
 const WorkerRouter: React.FC = () => {
-  return (
-    <Routes>
-      <Route element={<WorkerPrivateRouter />}>
-        <Route path="/" element={<WorkerLanding />} />
-        <Route path="/bookings" element={<WorkListPage />} />
-        <Route element={<ProfileLayout/>}>
-          <Route path="/profile" element={<WorkerProfile />} />
-          <Route path="/committedWorks" element={<CommittedWorksPage />} />
-          <Route path="/chat/:conversationId" element={<Conversation />} />
-          <Route path="/booking/history" element={<WorkHistoryPage />} />
-          <Route path="/payments" element={<Payments/>} />
-        </Route>
-      </Route>
+    return (
+        <Routes>
+            <Route element={<WorkerPrivateRouter />}>
+            <Route path="/" element={<WorkerLanding />} />
+                <Route path="/bookings" element={<WorkListPage />} />
+                <Route path="/profile/*" element={<ProfileLayout />}>
+                    <Route path="accountInformation" element={<WorkerProfile />} />
+                    <Route path="committedWorks" element={<CommittedWorksPage />} />
+                    <Route path="chat/:conversationId" element={<Conversation />} />
+                    <Route path="booking/history" element={<WorkHistoryPage />} />
+                    <Route path="payments" element={<Payments />} />
+                </Route>
+            </Route>
 
-      <Route path="/login" element={<WorkerLogin />} />
-      <Route path="/register" element={<WorkerRegister />} />
-      <Route path="/register/otp" element={<WorkerOTP />} />
-      <Route path="/register/upload" element={<WorkerRegisterStep2 />} />
-      <Route path="/about" element={<About user={false} />} />
-    </Routes>
-  )
+            <Route path="/login" element={<WorkerLogin />} />
+            <Route path="/register" element={<WorkerRegister />} />
+            <Route path="/register/otp" element={<WorkerOTP />} />
+            <Route path="/register/upload" element={<WorkerRegisterStep2 />} />
+            <Route path="/about" element={<About user={false} />} />
+        </Routes>
+    )
 }
 
 export default WorkerRouter

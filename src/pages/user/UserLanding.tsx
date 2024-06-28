@@ -16,7 +16,7 @@ console.log("user landing")
       <Helmet>
         <title>Home</title>
       </Helmet>
-       <Navbar user={true} special={false} />
+       <Navbar worker={false} special={false} />
        <div className='pt-24'>
        <LandingPageBanner />
        <LandingPageServiceSection />

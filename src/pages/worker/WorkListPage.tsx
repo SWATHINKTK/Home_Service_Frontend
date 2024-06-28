@@ -23,7 +23,7 @@ const WorkListPage: React.FC = () => {
             <Helmet>
                 <title>Bookings</title>
             </Helmet>
-            <Navbar user={false} special={false} />
+            <Navbar worker={true} special={false} />
             <div className='pt-20'>
                 <WorksListing />
             </div>

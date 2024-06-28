@@ -3,16 +3,19 @@ import { BiUser } from "react-icons/bi";
 import { GrLocation } from "react-icons/gr";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { CiSearch } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../../hooks/useTypedSelector";
 
 type NavbarProb = {
-    user: boolean;
+    worker: boolean;
     special: boolean;
 }
 
-const Navbar: React.FC<NavbarProb> = ({ user, special = false }) => {
+const Navbar: React.FC<NavbarProb> = ({ worker, special = false }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLocation, setIsLocation] = useState('');
+    const { user } = useAppSelector((state) => state.user);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchLocation = () => {
@@ -44,50 +47,54 @@ const Navbar: React.FC<NavbarProb> = ({ user, special = false }) => {
 
     return (
         <>
-            <nav className={`${user && !special ? 'bg-[#F8F8F8]' : 'bg-[#16185a]'} fixed w-full z-20  border-gray-200 font-Montserrat`}>
+            <nav className={`${!worker ? 'bg-[#F8F8F8]' : 'bg-[#16185a]'} fixed w-full z-20  border-gray-200 font-Montserrat`}>
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto md:p-4  py-4 pr-2">
                     <div className="flex items-center gap-3 space-x-3 rtl:space-x-reverse">
-                        <Link to={user ? '/' : '/worker'} >
+                        <Link to={!worker ? '/' : '/worker'} >
                             <img src="/public/logo.png" className="md:h-10 h-8 hidden md:block" alt=" Logo" />
                         </Link>
                         <div className="relative ">
                             <div className="absolute inset-y-0 start-0 flex items-center ps-2 md:ps-3.5 pointer-events-none">
                                 <GrLocation className="size-6 md:size-5 " />
                             </div>
-                            <input className="bg-gray-50 md:border-2 py-1 pl-9 rounded-lg  font-semibold border-[#D9D9D9] text-gray-900 text-sm" value={isLocation} disabled/>
+                            <input className="bg-gray-50 md:border-2 py-1 pl-9 rounded-lg  font-semibold border-[#D9D9D9] text-gray-900 text-sm" value={isLocation} disabled />
                         </div>
                     </div>
                     <button className="inline-flex items-center p-2 w-10 h-10 justify-center text-gray-500 rounded-lg md:hidden hover:bg-gray-200" onClick={toggleMenu}>
                         <HiMenuAlt3 size={29} />
                     </button>
                     <div className={`${isMenuOpen ? "block" : "hidden"} w-full md:block md:w-auto`}>
-                        <ul className={`${user ? 'text-black' : 'text-white'} font-Montserrat text-[15px] font-[700] flex flex-col gap-2  p-4 md:p-0 mt-4  rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700`}>
+                        <ul className={`${!worker ? 'text-black' : 'text-white'} font-Montserrat text-[15px] font-[700] flex flex-col md:items-center gap-2  p-4 md:p-0 mt-4  rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 `}>
                             <li>
-                                <Link to={user ? '/' : '/worker'} className="block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0">
+                                <Link to={!worker ? '/' : '/worker'} className="block py-2 px-3 md:p-0">
                                     Home
                                 </Link>
                             </li>
                             <li>
-                                <Link to={user ? '/service' : '/worker/bookings'} className="block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0">
-                                    {user ? 'Services' : 'Bookings'}
+                                <Link to={!worker ? '/service' : '/worker/bookings'} className="block py-2 px-3 md:p-0">
+                                    {!worker ? 'Services' : 'Bookings'}
                                 </Link>
                             </li>
                             <li>
-                                <Link to={user ? '/about' : '/worker/about'} className="block py-2 px-3 bg-blue-700 rounded md:bg-transparent md:p-0">
+                                <Link to={!worker ? '/about' : '/worker/about'} className="block py-2 px-3 md:p-0">
                                     About
                                 </Link>
                             </li>
                             <li>
-                                <Link to={user ? '/user/accountInformation' : '/worker/profile'} className="block py-2 px-3 rounded-lg hover:text-blue-800 md:p-0">
-                                    <BiUser size={22} className="hidden md:block" />{" "}
-                                    <span className="block md:hidden font-Montserrat text-[15px] font-[700]  text-gray-900 rounded">
-                                        Profile
-                                    </span>
-                                </Link>
+                                {!user && !worker ?
+                                    <button className="px-3 py-0.5 rounded-lg border-2 hover:text-gray-700 transform translate-x-0 duration-300 hover:scale-105" onClick={() => navigate('/login')}>Login</button>
+                                    : 
+                                    <Link to={!worker ? '/user' : '/worker/profile'} className="block py-2 px-3 md:p-0">
+                                        <BiUser size={22} className="hidden md:block" />{" "}
+                                        <span className="block md:hidden font-Montserrat text-[15px] font-[700]  text-gray-900 rounded">
+                                            Profile
+                                        </span>
+                                    </Link>
+                                }
                             </li>
                         </ul>
                     </div>
-                    <div className={`w-full mx-5 ml-7 mt-4 md:hidden ${!user && 'hidden'}`}>
+                    {!special && <div className={`w-full mx-5 ml-7 mt-4 md:hidden ${worker && 'hidden'}`}>
                         <div className="relative w-full min-w-[200px] h-10 ">
                             <div className="absolute grid w-7 h-7 place-items-center text-blue-gray-500 top-2/4 right-3 -translate-y-2/4">
                                 <CiSearch size={27} />
@@ -100,11 +107,10 @@ const Navbar: React.FC<NavbarProb> = ({ user, special = false }) => {
                                 Search Services
                             </label>
                         </div>
-                    </div>
+                    </div>}
                 </div>
             </nav>
-            {/* <div className="pt-20"></div> */}
-            </>
+        </>
     );
 };
 

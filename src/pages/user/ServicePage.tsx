@@ -10,7 +10,7 @@ const ServicePage:React.FC = () => {
     <Helmet>
       <title>Services</title>
     </Helmet>
-    <Navbar user={true} special={false} />
+    <Navbar worker={false} special={false} />
     <div className='pt-28'>
     <ServiceList />
     </div>

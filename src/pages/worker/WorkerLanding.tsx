@@ -15,7 +15,7 @@ const WorkerLanding:React.FC = () => {
       <Helmet>
         <title>Worker</title>
       </Helmet>
-      <Navbar user={false} special={true} />
+      <Navbar worker={true} special={true} />
       <WorkerLandingPageBanner />
       <WorkerLandingPageProcessSection />
       <LandingPageBusiness />

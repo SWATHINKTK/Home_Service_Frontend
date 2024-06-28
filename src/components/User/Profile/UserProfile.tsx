@@ -93,7 +93,7 @@ const UserProfile: React.FC = () => {
 
     return (
         <>
-            <div className='sticky top-0 pb-3 px-4 md:pt-0 pt-4 font-Montserrat bg-white'>
+            <div className='sticky top-0 z-10 pb-3 px-4 md:pt-0 pt-4 font-Montserrat bg-white'>
                 <h1 className="md:text-2xl font-bold text-3xl md:mb-1 mb-3 md:text-left text-center">Account Information</h1>
                 <p className="md:block hidden font-thin text-sm pl-1 mb-6">
                     profile/ <span className="font-semibold">Account Information</span>
@@ -105,7 +105,7 @@ const UserProfile: React.FC = () => {
                     <div className="head font-sans  text-bold mt-5 mb-4">About Me</div>
                     <div className="pt-5">
                         {!isEditProfile && (
-                            <button className="md:text-white text-blue-900 md:bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-1 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" onClick={editButtonClick}>
+                            <button className="text-bold text-blue-600" onClick={editButtonClick}>
                                 Edit Profile
                             </button>
                         )}

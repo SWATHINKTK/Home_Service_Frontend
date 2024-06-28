@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 import { IoIosArrowDropright } from "react-icons/io";
@@ -9,7 +9,6 @@ import { FaQuestion } from "react-icons/fa6";
 import { VscChecklist } from "react-icons/vsc";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdLogout } from "react-icons/md";
-import { IoIosArrowDropleft } from "react-icons/io";
 
 import './profileLayout.css';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
@@ -37,18 +36,16 @@ const UserProfileLayout: React.FC = () => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(true);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
-    const [showLayout, setShowLayout] = useState(true);
     const { user } = useAppSelector((state) => state.user);
     const dispatch = useAppDispatch();
-    const { conversationId } = useParams();
+    const location = useLocation();
+    // const { conversationId } = useParams();
+    const navigate = useNavigate();
 
 
     useEffect(() => {
         const handleResize = () => {
             setIsSmallScreen(window.innerWidth <= 768);
-            if (window.innerWidth > 768) {
-                setShowLayout(true);
-            }
         };
         window.addEventListener('resize', handleResize);
         return () => {
@@ -56,44 +53,38 @@ const UserProfileLayout: React.FC = () => {
         };
     }, []);
 
+    useEffect(() => {
+        if(!isSmallScreen && location.pathname.endsWith('/user')){
+            navigate('/user/accountInformation')
+        }
+    },[isSmallScreen, location.pathname, navigate])
+
     const handleLogout = () => {
         dispatch(userLogout());
+        navigate('/')
     }
 
-    const handleMenuItemClick = () => {
-        if (isSmallScreen) {
-            setShowLayout(false);
-        }
-    };
-
-    if (!showLayout) {
+    if(isSmallScreen && location.pathname.startsWith('/user/')){
         return (
-            <>
-                <section className="w-full h-[100vh] overflow-y-auto md:pt-24 font-Montserrat">
-                    {!conversationId && <button className="mb-2 md:hidden flex items-center px-3 py-2 font-bold" onClick={() => { setShowLayout(true);}}>
-                        <IoIosArrowDropleft className='mr-1 size-6' />Back
-                    </button>}
-                    <Outlet />
-                </section>
-            </>
-        );
+            <Outlet />
+        )
     }
 
     return (
         <>
-            {!isSmallScreen && <Navbar user={true} special={false} />}
-            <section className="md:flex gap-x-2 md:mx-11 h-[100vh] md:pt-24 font-Montserrat">
+            <Navbar worker={false} special={true} />
+            <section className="md:flex gap-x-2 md:mx-11 h-[100vh] md:pt-24 pt-20 font-Montserrat">
                 <div className={`rounded-lg m  ${isMenuOpen ? "md:w-[25rem]" : "w-16 bg-[#9e9e9e71] "} duration-500  text-[#0e0e0e]  md:px-4 px-2`}>
                     <div className="py-3 md:flex hidden justify-end ">
                         <IoIosArrowDropright size={26} className="cursor-pointer" onClick={() => setIsMenuOpen(!isMenuOpen)} />
                     </div>
                     <div className="profile-top-div  w-full md:px-4 py-4">
                         <div className="flex justify-center md:flex-row flex-col md:mx-0 mx-8 items-center">
-                            <div style={{ backgroundImage: `url(${user?.profile ?? url})` }} className={`profile-img ${isMenuOpen ? "md:w-[6rem] w-[8rem] md:h-[6rem] h-[8rem]" : "hidden"} `}></div>
+                            <div style={{ backgroundImage: `url(${user?.profile ?? url})` }} className={`profile-img ${isMenuOpen ? "md:w-[6rem] w-[7rem] md:h-[6rem] h-[7rem]" : "hidden"} `}></div>
                             {isMenuOpen && (
                                 <div>
-                                    <h2 style={{ transitionDelay: `300ms` }} className={` whitespace-pre  mt-6 mx-3 font-Montserrat font-[700]`}>{user?.firstname + " " + user?.lastname}</h2>
-                                    <p className="text-[10px] mx-3 ">
+                                    <h2 style={{ transitionDelay: `300ms` }} className={` whitespace-pre  md:mt-6 text-center mx-3 font-Montserrat font-[700]`}>{user?.firstname + " " + user?.lastname}</h2>
+                                    <p className="text-[10px] mx-3 text-center">
                                         Register On : <span>{moment(user?.createdAt).format('DD-MM-YYYY')}</span>
                                     </p>
                                 </div>
@@ -104,7 +95,7 @@ const UserProfileLayout: React.FC = () => {
                         {menus.map((menuInner, i) => (
                             <div key={i} className={`${isMenuOpen && "px-3 bg-[#F2F2F2] rounded-[7px] py-1 mb-3"} `}>
                                 {menuInner.map((menu, index) => (
-                                    <Link to={menu.link} key={index + i} onClick={handleMenuItemClick} className={`group mt-1 flex items-center text-sm gap-3.5 font-semibold font-Montserrat p-2 hover:bg-gray-300 rounded-md`}>
+                                    <Link to={menu.link} key={index + i} className={`group mt-1 flex items-center text-sm gap-3.5 font-semibold font-Montserrat p-2 hover:bg-gray-300 rounded-md`}>
                                         <div>{React.createElement(menu.icon, { size: "21" })}</div>
                                         <div className={`flex flex-row justify-between items-center w-full ${!isMenuOpen && "opacity-0 translate-x-28 overflow-hidden"}  duration-500`}>
                                             <h2 style={{ transitionDelay: `${index}00ms` }} className={`whitespace-pre duration-500 leading-none ${!isMenuOpen && "opacity-0 translate-x-28 overflow-hidden "}`}>
@@ -136,7 +127,7 @@ const UserProfileLayout: React.FC = () => {
                     </div>
                 </div>
                 <div className="w-full h-full overflow-y-auto">
-                    {!isSmallScreen && <Outlet />}
+                    <Outlet />
                 </div>
             </section>
         </>

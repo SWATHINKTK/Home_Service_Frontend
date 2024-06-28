@@ -10,7 +10,7 @@ const BookingPage: React.FC = () => {
         <Helmet>
         <title>Booking</title>
         </Helmet>
-        <Navbar user={true} special={false}/>
+        <Navbar worker={false} special={false}/>
         <BookingLastProcedure/>
         <Footer />
     </>
