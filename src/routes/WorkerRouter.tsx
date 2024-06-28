@@ -38,7 +38,7 @@ const WorkerRouter: React.FC = () => {
                 <Route path="/register" element={<WorkerRegister />} />
                 <Route path="/register/otp" element={<WorkerOTP />} />
                 <Route path="/register/upload" element={<WorkerRegisterStep2 />} />
-                <Route path="/about" element={<About user={false} />} />
+                <Route path="/about" element={<About worker={true} />} />
             </Routes>
         </Suspense>
     )

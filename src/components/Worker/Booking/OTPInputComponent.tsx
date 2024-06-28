@@ -36,9 +36,7 @@ const OTPInputComponent: React.FC<IOTPInputProb> = ({ otp, setOTP, error, setErr
                 )}
                 inputStyle={inputStyle}
             />
-            {error && (
-                <p className="mt-1 mx-1 text-red-500 text-xs">{error}</p>
-            )}
+            {error && ( <p className="mt-1 mx-1 text-red-500 text-xs">{error}</p>)}
         </>
     );
 }

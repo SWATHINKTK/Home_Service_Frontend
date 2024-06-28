@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
 import { storeConfirmationResultFirebase, storeUploadDocuments } from '../../../reducers/worker/workerSlice';
 import { sendOTPWithPhoneNumber } from '../../../config/otpVerificationFirebase';
-import './register.css'
 
 
 
@@ -55,7 +54,6 @@ const RegisterStep2: React.FC = () => {
         }
         dispatch(storeUploadDocuments(imageFile));
         const confirmationResultFirebase = await sendOTPWithPhoneNumber(workerRegister!.phoneNumber, "verifyBtn");
-        console.log('confirmation',confirmationResultFirebase)
         dispatch(storeConfirmationResultFirebase(confirmationResultFirebase));
         toast.success('OTP Send to your mobile.please verify it.')
         navigate("/worker/register/otp");
@@ -64,14 +62,9 @@ const RegisterStep2: React.FC = () => {
         <>
             <form onSubmit={handleUploadDocuments}>
                 <div className="mt-4 flex gap-5">
-                    <div
-                        className="w-44 h-44 border rounded-md border-black flex flex-col justify-center items-center"
+                    <div className="w-44 h-44 border rounded-md border-black flex flex-col justify-center items-center"
                         onClick={() => handleDivClick(0)}
-                        style={{
-                            backgroundImage: imageUrl[0] ? `url(${imageUrl[0]})` : "none",
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                        }}
+                        style={{ backgroundImage: imageUrl[0] ? `url(${imageUrl[0]})` : "none", backgroundSize: "cover", backgroundPosition: "center",}}
                     >
                         {!imageUrl[0] && (
                             <>
@@ -81,24 +74,15 @@ const RegisterStep2: React.FC = () => {
                                 </h6>
                             </>
                         )}
-                        <input
-                            type="file"
-                            accept="image/*"
-                            style={{ display: "none" }}
+                        <input type="file" accept="image/*" style={{ display: "none" }}
                             ref={(el) => {
                                 if (el) fileInputRefs.current[0] = el;
                             }}
                             onChange={(e) => handleChange(0, e)}
                         />
                     </div>
-                    <div
-                        className="w-44 h-44 border rounded-md border-black flex flex-col justify-center items-center"
-                        onClick={() => handleDivClick(1)}
-                        style={{
-                            backgroundImage: imageUrl[1] ? `url(${imageUrl[1]})` : "none",
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                        }}
+                    <div className="w-44 h-44 border rounded-md border-black flex flex-col justify-center items-center" onClick={() => handleDivClick(1)}
+                        style={{ backgroundImage: imageUrl[1] ? `url(${imageUrl[1]})` : "none", backgroundSize: "cover", backgroundPosition: "center",}}
                     >
                         {!imageUrl[1] && (
                             <>
@@ -108,10 +92,7 @@ const RegisterStep2: React.FC = () => {
                                 </h6>
                             </>
                         )}
-                        <input
-                            type="file"
-                            accept="image/*"
-                            style={{ display: "none" }}
+                        <input type="file" accept="image/*" style={{ display: "none" }}
                             ref={(el) => {
                                 if (el) fileInputRefs.current[1] = el;
                             }}
@@ -119,13 +100,8 @@ const RegisterStep2: React.FC = () => {
                         />
                     </div>
                 </div>
-                {imageError && (
-                    <p className="mx-3 mt-1 text-red-500 text-xs ">* {imageError}</p>
-                )}
-                <button
-                    id="verifyBtn"
-                    className="login-btn md:w-[69%] w-full font-Montserrat my-2 mt-6"
-                >
+                {imageError && (<p className="mx-3 mt-1 text-red-500 text-xs ">* {imageError}</p>)}
+                <button id="verifyBtn" className="gradient-btn md:w-[69%] w-full font-Montserrat my-2 mt-6">
                     Verify OTP
                 </button>
             </form>

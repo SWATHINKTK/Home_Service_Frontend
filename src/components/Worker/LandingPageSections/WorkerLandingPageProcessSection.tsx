@@ -22,7 +22,7 @@ const WorkerLandingPageProcessSection: React.FC = () => {
                     <div className="flex">
                         <div>
                             <div className="flex place-items-center justify-center h-24 w-24 rounded-[38%] bg-[#CA5888]">
-                                <img className="object-contain w-[80%] h-[80%]" src="/public/image/booking/booking.png" alt=""/>
+                                <img className="object-contain w-[80%] h-[80%]" src="/image/booking/booking.png" alt=""/>
                             </div>
                         </div>
                         <div className=" lg:mx-5 mx-2 md:w-[50%] my-auto">
@@ -45,7 +45,7 @@ const WorkerLandingPageProcessSection: React.FC = () => {
                         </div>
                         <div>
                             <div className="flex place-items-center justify-center h-24 w-24 rounded-[38%] bg-[#2C2D19]">
-                                <img className="object-contain w-[80%] h-[80%]" src="/public/image/booking/confirmation.png" alt=""/>
+                                <img className="object-contain w-[80%] h-[80%]" src="/image/booking/confirmation.png" alt=""/>
                             </div>
                         </div>
                         <div className=" lg:mx-5 mx-2 md:w-[50%] my-auto">
@@ -63,7 +63,7 @@ const WorkerLandingPageProcessSection: React.FC = () => {
                     <div className="flex my-8">
                         <div>
                             <div className="flex place-items-center justify-center h-24 w-24 rounded-[38%] bg-[#C8CC99]">
-                                <img className="object-contain w-[80%] h-[80%]" src="/public/image/booking/worker.png" alt=""/>
+                                <img className="object-contain w-[80%] h-[80%]" src="/image/booking/worker.png" alt=""/>
                             </div>
                         </div>
                         <div className=" lg:mx-5 mx-2 md:w-[50%] my-auto">
@@ -81,7 +81,7 @@ const WorkerLandingPageProcessSection: React.FC = () => {
                 <div className="lg:w-[45%] flex items-center justify-center">
                     <div className="w-[24rem] h-[24rem] rounded-2xl ">
                         <video
-                            src="/public/user/sampleVideo.mp4"
+                            src="/user/sampleVideo.mp4"
                             className="w-full h-full rounded-2xl"
                             autoPlay
                             muted

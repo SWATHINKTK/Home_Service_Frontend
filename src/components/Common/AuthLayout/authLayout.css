@@ -1,0 +1,8 @@
+.gradient-btn{
+    font-weight: 600;
+    color: white;
+    padding: 7px 0;
+    border-radius: 7px;
+    font-size: 1.1rem;
+    background: rgb(80,23,148);
+}

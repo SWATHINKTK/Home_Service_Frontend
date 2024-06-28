@@ -46,7 +46,7 @@ const UserRouter: React.FC = () => {
                 <Route path="/otpVerification" element={<UserOTPPage />} />
                 <Route path="/login" element={<UserLogin />} />
                 <Route path="/register" element={<UserRegistration />} />
-                <Route path="/about" element={<About user={true} />} />
+                <Route path="/about" element={<About worker={false} />} />
             </Routes>
         </Suspense>
     )

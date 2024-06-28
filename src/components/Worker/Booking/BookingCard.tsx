@@ -163,7 +163,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                     <form onSubmit={(e) => { e.preventDefault(); handleVerification(otp, setError) }}>
                         <h4 className='text-2xl mb-7 font-bold text-[#2a2066] text-center'>Verify Work</h4>
                         <OTPInputComponent otp={otp} setOTP={setOTP} error={error} setError={setError} />
-                        <button className='login-btn my-3 w-full font-Montserrat'>Verify</button>
+                        <button className='gradient-btn my-3 w-full font-Montserrat'>Verify</button>
                     </form>
                 </div>
             }

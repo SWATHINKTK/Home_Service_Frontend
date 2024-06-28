@@ -29,7 +29,7 @@ const AdminMainComponent: React.FC<AdminMainComponentProb> = ({ content }) => {
       <div className={` top-0 left-0 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 md:block hidden`}>
         <div className="h-full px-3 py-4 overflow-y-auto bg-[#F8F8F8] dark:bg-gray-800 shadow-md  ">
           <div className="flex items-center justify-center mb-10 mt-2">
-            <img src="/public/logo.png" className="h-6 me-3 sm:h-7" alt="Logo"/>
+            <img src="/logo/logo.png" className="h-6 me-3 sm:h-7" alt="Logo"/>
           </div>
           <ul className="space-y-2 font-medium px-6">
             <li className="">

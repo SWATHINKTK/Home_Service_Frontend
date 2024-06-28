@@ -1,5 +1,6 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 import OTPInput from 'react-otp-input';
+
 import { useAppSelector } from '../../../hooks/useTypedSelector';
 import { useNavigate } from 'react-router-dom';
 import { numberRegex } from '../../../constants/regex';
@@ -57,7 +58,6 @@ const WorkerOTPForm: React.FC = () => {
           toast.error("Confirmation result is not available.");
         }
       } catch (error) {
-        console.log("firebase error", error);
         toast.error("OTP Does not match.");
       }
     };
@@ -76,13 +76,9 @@ const WorkerOTPForm: React.FC = () => {
                         )}
                         inputStyle={inputStyle}
                     />
-                    {error && (
-                        <p className="mt-1 mx-1 text-red-500 text-xs">{error}</p>
-                    )}
+                    {error && (<p className="mt-1 mx-1 text-red-500 text-xs">{error}</p> )}
 
-                    <button
-                        className={`login-btn my-2  w-[20.5rem] font-Montserrat `}
-                    >
+                    <button className='gradient-btn my-2  w-[20.5rem] font-Montserrat'>
                         Verify
                     </button>
                 </form>

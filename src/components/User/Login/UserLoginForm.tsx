@@ -10,7 +10,7 @@ import { ULCaseCheckRegex, emailRegex, specialCharacterCheckRegex } from "../../
 // import GoogleAuthButton from "../GoogleAuthentication/GoogleAuthButton";
 
 
-interface LoginData{
+interface LoginData {
     username: string;
     password: string;
 }
@@ -28,14 +28,14 @@ const UserLoginForm: React.FC = () => {
         formState: { errors },
     } = useForm<LoginData>();
 
-     useEffect(() => {
-        if(user){
-            navigate('/',{replace:true})
+    useEffect(() => {
+        if (user) {
+            navigate('/', { replace: true })
         }
-     },[user, navigate])
-   
+    }, [user, navigate])
 
-   
+
+
 
     const validatePassword = (value: string): boolean | string => {
         if (!ULCaseCheckRegex.test(value)) {
@@ -74,11 +74,7 @@ const UserLoginForm: React.FC = () => {
                             })}
                         />
                     </div>
-                    {errors.username && (
-                        <p className="mx-3 mt-0.5 text-red-500 text-xs italic">
-                            * {errors.username.message?.toString()}
-                        </p>
-                    )}
+                    {errors.username && (<p className="mx-3 mt-0.5 text-red-500 text-xs italic">* {errors.username.message?.toString()}</p>)}
 
                     <div className={`${errors.username ? "mt-2.5" : "mt-3.5"} relative `}>
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
@@ -103,14 +99,10 @@ const UserLoginForm: React.FC = () => {
                             })}
                         />
                     </div>
-                    {errors.password && (
-                        <p className="mx-3 mt-0.5 text-red-500 text-xs italic">
-                            * {errors.password.message?.toString()}
-                        </p>
-                    )}
+                    {errors.password && (<p className="mx-3 mt-0.5 text-red-500 text-xs italic">* {errors.password.message?.toString()}</p>)}
                 </div>
 
-                <button className="login-btn md:w-[100%] w-full font-Montserrat">
+                <button className="gradient-btn md:w-[100%] w-full font-Montserrat">
                     Sign in
                 </button>
             </form>
@@ -121,13 +113,13 @@ const UserLoginForm: React.FC = () => {
                 <hr className="w-[45%]" />
             </div>
 
-            
-                <div className="mx-auto">
+
+            <div className="mx-auto">
                 {/* <GoogleAuthButton/> */}
 
-                </div>
+            </div>
 
-            
+
 
             <h6 className="my-3 font-Montserrat font-[400] text-[12px]">
                 Don't have an account ?

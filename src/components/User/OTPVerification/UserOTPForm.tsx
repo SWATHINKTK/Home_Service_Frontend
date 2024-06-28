@@ -112,24 +112,17 @@ const UserOTPForm = () => {
                             )}
                             inputStyle={inputStyle}
                         />
-                        {error && (
-                            <p className="mt-1 mx-1 text-red-500 text-xs">{error}</p>
-                        )}
+                        {error && (<p className="mt-1 mx-1 text-red-500 text-xs">{error}</p>)}
 
-                        <button
-                            className={`login-btn my-2  w-[20.5rem] font-Montserrat `}
-                        >
+                        <button className='gradient-btn my-2  w-[20.5rem] font-Montserrat'>
                             Verify
                         </button>
                     </form>
                     <p className="text-gray-600 text-sm text-center mt-4  mb-1">
                         Not received your code?
                         {
-                            timer != 0 ? <span className='text-sm px-2'>{timer}</span> :
-                                <span
-                                    className=" px-2 cursor-pointer text-blue-500 font-semibold hover:text-blue-700"
-                                    onClick={handleResendOTP}
-                                >
+                            timer != 0 ? <span className='text-sm px-2'>{timer} </span> :
+                                <span className=" px-2 cursor-pointer text-blue-500 font-semibold hover:text-blue-700" onClick={handleResendOTP}>
                                     Resend Code
                                 </span>
                         }

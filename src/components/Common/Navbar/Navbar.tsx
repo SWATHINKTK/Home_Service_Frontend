@@ -51,7 +51,7 @@ const Navbar: React.FC<NavbarProb> = ({ worker, special = false }) => {
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto md:p-4  py-4 pr-2">
                     <div className="flex items-center gap-3 space-x-3 rtl:space-x-reverse">
                         <Link to={!worker ? '/' : '/worker'} >
-                            <img src="/public/logo.png" className="md:h-10 h-8 hidden md:block" alt=" Logo" />
+                            <img src="/logo/logo.png" className="md:h-10 h-8 hidden md:block" alt=" Logo" />
                         </Link>
                         <div className="relative ">
                             <div className="absolute inset-y-0 start-0 flex items-center ps-2 md:ps-3.5 pointer-events-none">
