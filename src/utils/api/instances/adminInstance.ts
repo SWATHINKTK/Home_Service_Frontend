@@ -28,7 +28,7 @@ adminAxiosInstance.interceptors.response.use(
             originalRequest._retry = true;
             try {
                 // refresh token api is calling
-                await axios.post(`${process.env.BASE_API_URL}/admin/refreshToken`);
+                await axios.post(`${process.env.BASE_API_URL}/admin/refreshToken`,  {}, { withCredentials: true });
                 return adminAxiosInstance(originalRequest);
 
             } catch (refreshError) {

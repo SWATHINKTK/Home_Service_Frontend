@@ -29,7 +29,7 @@ userAxiosInstance.interceptors.response.use(
             originalRequest._retry = true;
             try {
                 // refresh token api is calling
-                await axios.post(`${process.env.BASE_API_URL}/user/refresh`);
+                await axios.post(`${process.env.BASE_API_URL}/user/refresh`,{}, { withCredentials: true });
                 return userAxiosInstance(originalRequest);
 
             } catch (refreshError) {

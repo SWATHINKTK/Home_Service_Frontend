@@ -29,7 +29,7 @@ workerAxiosInstance.interceptors.response.use(
             originalRequest._retry = true;
             try {
                 // refresh token api is calling
-                await axios.post(`${process.env.BASE_API_URL}/worker/refreshToken`);
+                await axios.post(`${process.env.BASE_API_URL}/worker/refreshToken`, {}, { withCredentials: true });
                 return workerAxiosInstance(originalRequest);
 
             } catch (refreshError) {
