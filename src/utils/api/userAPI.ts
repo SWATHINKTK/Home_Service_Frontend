@@ -3,6 +3,7 @@ import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { IUser } from "../../@types/user";
 import userAxiosInstance from "./instances/userInstance";
+const BASE_URL = process.env.BASE_API_URL
 
 
 // ! -------------------------------- USER API CALLING FUNCTIONS IN USER SIDE -------------------------------
@@ -15,7 +16,7 @@ import userAxiosInstance from "./instances/userInstance";
  */
 export const userLogin = async (userCredential: { username: string, password: string }) => {
     try {
-        const response = await axios.post('/api/user/login', userCredential);
+        const response = await axios.post(`${BASE_URL}/user/login`, userCredential);
         return response.data;
     } catch (error) {
         console.log(error)
@@ -31,7 +32,7 @@ export const userLogin = async (userCredential: { username: string, password: st
  */
 export const userLogoutAPI = async () => {
     try {
-        const response = await axios.post('/api/user/logout');
+        const response = await axios.post(`${BASE_URL}/user/logout`);
         return response.data;
     } catch (error) {
         console.log(error)
@@ -49,7 +50,7 @@ export const userLogoutAPI = async () => {
  */
 export const userVerification = async (otpCredentials: { email: string, firstname: string, lastname: string }) => {
     try {
-        const response = await axios.post('/api/user/sendOTP', otpCredentials);
+        const response = await axios.post(`${BASE_URL}/user/sendOTP`, otpCredentials);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -68,10 +69,7 @@ export const userVerification = async (otpCredentials: { email: string, firstnam
  */
 export const registerUser = async (registerCredentials: IUser) => {
     try {
-        // if (!registerCredentials.email || !registerCredentials.password || !registerCredentials.firstname || !registerCredentials.lastname) {
-        //     throw new Error("Email, password, firstname, and lastname are required.");
-        // }
-        const response = await axios.post('/api/user/signup', registerCredentials);
+        const response = await axios.post(`${BASE_URL}/user/signup`, registerCredentials);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {

@@ -3,10 +3,11 @@ import { IService } from "../../components/Admin/Services/ServiceTable";
 import { toast } from "react-toastify";
 import { IAdminData } from "../../@types/admin";
 import adminInstance from './instances/adminInstance';
+const BASE_URL = process.env.BASE_API_URL
 
 export const adminAuthAPI = async(adminCredentials:IAdminData) => {
     try {
-        const response = await axios.post('/api/admin/login', adminCredentials);
+        const response = await axios.post(`${BASE_URL}/admin/login`, adminCredentials);
         return response.data
     } catch (error) {
         if (error instanceof AxiosError && error.response) {

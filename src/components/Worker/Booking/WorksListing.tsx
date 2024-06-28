@@ -148,7 +148,7 @@ const WorksListing: React.FC = () => {
                     </div>
                     {bookings.length == 0 &&
                         <div className=''>
-                            <img className=' mx-auto' src="/public/image/notfound.png" alt="" />
+                            <img className=' mx-auto' src="/image/notfound.png" alt="" />
                             <h3 className='text-center font-bold font-Montserrat tracking-widest mt-2 text-[#150f3e]'>No Booking Found</h3>
                         </div>
                     }
