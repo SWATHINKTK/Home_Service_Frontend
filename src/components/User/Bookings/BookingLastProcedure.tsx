@@ -71,7 +71,7 @@ const BookingLastProcedure: React.FC = () => {
     }
 
     const handleBooking: SubmitHandler<IBookingData> = async (data) => {
-        const stripe = await loadStripe(process.env.STRIPE_PUBLIC_KEY || '');
+        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
         data.serviceId = serviceId;
         data.location = location;
         const response = await advanceBookingPaymentAPI(data);

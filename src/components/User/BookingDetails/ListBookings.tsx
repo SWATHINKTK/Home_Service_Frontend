@@ -60,7 +60,7 @@ const BookedServices: React.FC<BookedServiceProb> = ({ heading }) => {
     }
 
     const handlePayment = async (bookingId: string, serviceName: string) => {
-        const stripe = await loadStripe(process.env.STRIPE_PUBLIC_KEY || '');
+        const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
 
         const response = await paymentAPI(bookingId, serviceName);
         console.log("kkk", response)

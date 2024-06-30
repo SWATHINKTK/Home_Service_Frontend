@@ -53,7 +53,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
             const latitude = bookedService.location.latitude;
             const longitude = bookedService.location.longitude;
             console.log(latitude, longitude)
-            const details = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${process.env.MAP_BOX_ACCESS_TOKEN}`);
+            const details = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${import.meta.env.VITE_MAP_BOX_ACCESS_TOKEN}`);
             setPlaceDetails(details.data.features[0].place_name.split(','))
         })();
     }, [bookedService.location.latitude, bookedService.location.longitude]);

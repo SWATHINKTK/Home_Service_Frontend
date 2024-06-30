@@ -13,7 +13,7 @@ const Geocoder: React.FC<GeocoderProb> = ({ mapRef }) => {
 	const dispatch = useAppDispatch();
 
 	const geocoder = new MapBoxGeocoder({
-		accessToken: process.env.MAP_BOX_ACCESS_TOKEN || '',
+		accessToken: import.meta.env.VITE_MAP_BOX_ACCESS_TOKEN || '',
 		marker: true,
 		collapsed: true
 	});

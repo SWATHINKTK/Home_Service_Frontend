@@ -66,7 +66,7 @@ const LocationSelecting: React.FC = () => {
                         zoom: 12
                     }}
                     attributionControl={false}
-                    mapboxAccessToken={process.env.MAP_BOX_ACCESS_TOKEN || ''}
+                    mapboxAccessToken={import.meta.env.VITE_MAP_BOX_ACCESS_TOKEN || ''}
                     mapStyle='mapbox://styles/mapbox/streets-v12'
                     onLoad={() => fetchLocation()}
                     onDblClick={(e) => dispatch(updateLocation({ latitude: e.lngLat.lat, longitude: e.lngLat.lng }))}
