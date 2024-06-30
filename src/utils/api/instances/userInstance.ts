@@ -1,10 +1,12 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+const BASE_URL = import.meta.env.VITE_BASE_API_URL;
+
 
 
 // Create Axios instance with base URL and headers
 const userAxiosInstance = axios.create({
-    baseURL: process.env.BASE_API_URL,
+    baseURL: BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },
@@ -29,7 +31,7 @@ userAxiosInstance.interceptors.response.use(
             originalRequest._retry = true;
             try {
                 // refresh token api is calling
-                await axios.post(`${process.env.BASE_API_URL}/user/refresh`,{}, { withCredentials: true });
+                await axios.post(`${BASE_URL}/user/refresh`,{}, { withCredentials: true });
                 return userAxiosInstance(originalRequest);
 
             } catch (refreshError) {

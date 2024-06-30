@@ -3,7 +3,7 @@ import { IService } from "../../components/Admin/Services/ServiceTable";
 import { toast } from "react-toastify";
 import { IAdminData } from "../../@types/admin";
 import adminInstance from './instances/adminInstance';
-const BASE_URL = process.env.BASE_API_URL
+const BASE_URL = import.meta.env.VITE_BASE_API_URL;
 
 export const adminAuthAPI = async(adminCredentials:IAdminData) => {
     try {

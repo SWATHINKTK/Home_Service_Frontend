@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { IMessage } from "../../@types/message";
-const BASE_URL = process.env.BASE_API_URL;
+const BASE_URL = import.meta.env.VITE_BASE_API_URL;
 
 export const createConversationAPI = async(senderId:string, receiverId:string) => {
     try {

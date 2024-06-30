@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { toast } from "react-hot-toast";
 import workerAxiosInstance from './instances/workerInstance';
 import { IBillingInfo } from "../../@types/booking";
-const BASE_URL = process.env.BASE_API_URL;
+const BASE_URL = import.meta.env.VITE_BASE_API_URL;
 
 export const workerRegisterAPI = async (registerData: unknown) => {
     try {
