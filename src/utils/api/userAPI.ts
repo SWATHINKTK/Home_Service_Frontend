@@ -3,7 +3,8 @@ import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { IUser } from "../../@types/user";
 import userAxiosInstance from "./instances/userInstance";
-const BASE_URL = process.env.BASE_API_URL
+const BASE_URL = process.env.BASE_API_URL;
+console.log(BASE_URL)
 
 
 // ! -------------------------------- USER API CALLING FUNCTIONS IN USER SIDE -------------------------------
