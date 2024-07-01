@@ -10,7 +10,7 @@ const LocationSelectingPage:React.FC = () => {
         <Helmet>
         <title>Location</title>
         </Helmet>
-        <Navbar worker={false} special={false}/>
+        <Navbar worker={false} special={true}/>
         <LocationSelecting />
         <Footer />
     </>
