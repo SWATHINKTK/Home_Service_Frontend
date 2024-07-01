@@ -13,7 +13,7 @@ const About: React.FC<IAboutPageProb> = ({ worker }) => {
             <Helmet>
                 <title>About</title>
             </Helmet>
-            <Navbar worker={worker} special={false} />
+            <Navbar worker={worker} special={true} />
             <div className='pt-28 max-w-6xl mx-auto font-Montserrat'>
                 <div className='flex lg:flex-row flex-col-reverse  py-3'>
                     <div className='lg:w-6/12 flex justify-center items-center p-3'>
