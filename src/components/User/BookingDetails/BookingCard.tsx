@@ -12,7 +12,7 @@ import { IService } from '../../../@types/service';
 import axios from 'axios';
 import BillingDetails from './BillingDetails';
 import { IUser } from '../../../@types/user';
-import { createConversationAPI } from '../../../utils/api/chatAPI';
+// import { createConversationAPI } from '../../../utils/api/chatAPI';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -37,7 +37,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
     // const paymentStatusIcon = bookedService.paymentStatus ? statusIcon[bookedService.paymentStatus] : null;
 
     const [placeDetails, setPlaceDetails] = useState([]);
-    const [ conversationId, setConversationId] = useState('');
+    // const [ conversationId, setConversationId] = useState('');
     const navigate = useNavigate();
     console.log('hello')
 
@@ -53,21 +53,21 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
         })();
     }, [bookedService.location.latitude, bookedService.location.longitude]);
 
-    useEffect(() => {
-            const createConversation = async () => {
-                try {
-                    const senderId = (bookedService.userId as IUser)._id as string;
-                    const receiverId = bookedService.workerId as string
-                    if(senderId  && receiverId){
-                        const response = await createConversationAPI(senderId, receiverId);
-                        setConversationId(response.data._id);
-                    }
-                } catch (error) {
-                    console.error('Error creating conversation:', error);
-                }
-            };
-            createConversation();
-    },[bookedService.userId, bookedService.workerId]);
+    // useEffect(() => {
+    //         const createConversation = async () => {
+    //             try {
+    //                 const senderId = (bookedService.userId as IUser)._id as string;
+    //                 const receiverId = bookedService.workerId as string
+    //                 if(senderId  && receiverId){
+    //                     const response = await createConversationAPI(senderId, receiverId);
+    //                     setConversationId(response.data._id);
+    //                 }
+    //             } catch (error) {
+    //                 console.error('Error creating conversation:', error);
+    //             }
+    //         };
+    //         createConversation();
+    // },[bookedService.userId, bookedService.workerId]);
 
     const handleChat = () => {
         const data = {
@@ -75,7 +75,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
             receiverId:bookedService.workerId as string,
             user:true
         }
-        navigate(`/user/chat/${conversationId}`, {state:{data}})
+        navigate(`/user/chat/${bookedService._id}`, {state:{data}})
     }
 
     return (

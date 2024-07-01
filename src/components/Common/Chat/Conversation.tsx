@@ -30,7 +30,7 @@ const Conversation = () => {
 
 
     useEffect(() => {
-        socket.current = io("ws://localhost:3000")
+        socket.current = io(import.meta.env.VITE_BASE_URL)
     },[]);
 
     const fetchReceiverData = useCallback(async () => {

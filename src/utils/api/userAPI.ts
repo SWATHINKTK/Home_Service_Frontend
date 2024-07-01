@@ -110,7 +110,7 @@ export const userProfileAPI = async () => {
  */
 export const manageUserProfileAPI = async (userUpdateData: FormData) => {
     try {
-        const response = await axios.put('/api/user/editProfile', userUpdateData);
+        const response = await userAxiosInstance.put('/api/user/editProfile', userUpdateData);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
