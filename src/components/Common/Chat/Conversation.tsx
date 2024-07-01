@@ -30,7 +30,8 @@ const Conversation = () => {
 
 
     useEffect(() => {
-        socket.current = io(import.meta.env.VITE_BASE_URL)
+        console.log('CHAT SCREEN OPEN')
+        socket.current = io(import.meta.env.VITE_BASE_URL);
     },[]);
 
     const fetchReceiverData = useCallback(async () => {

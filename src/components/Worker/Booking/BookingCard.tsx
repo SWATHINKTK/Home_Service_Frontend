@@ -77,7 +77,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
             senderId:bookedService.workerId as string,
             receiverId:(bookedService.userId as IUser)._id
         }
-        navigate(`/worker/chat/${bookedService._id}`, {state:{data}})
+        navigate(`/worker/profile/chat/${bookedService._id}`, {state:{data}})
     }
 
 

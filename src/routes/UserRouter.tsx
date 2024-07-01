@@ -32,8 +32,6 @@ const UserRouter: React.FC = () => {
                         <Route path="bookedServices" element={<BookingListing />} />
                         <Route path="chat/:conversationId" element={<Conversation />} />
                     </Route>
-                    {/* <Route path="/service" element={<ServicePage />} />
-                <Route path="/service/:serviceId" element={<ServiceDetailsPage />} /> */}
                     <Route path="/service/:serviceId/currentLocation" element={<LocationSelectingPage />} />
                     <Route path="/service/:serviceId/booking" element={<BookingPage />} />
                     <Route path="/failed" element={<Failed />} />

@@ -20,7 +20,7 @@ const WorksListing: React.FC = () => {
     const { bookings } = useAppSelector(state => state.booking);
     const dispatch = useAppDispatch();
     const { conversationId } = useParams();
-    console.log(1)
+    console.log('Conversation id', conversationId)
 
     const handleExpandToggle = (cardId: string | undefined) => {
         if (cardId == expandedCardId) {
@@ -131,7 +131,6 @@ const WorksListing: React.FC = () => {
 
             {conversationId ? <Conversation /> :
                 <>
-
                     <div className='grid lg:grid-cols-2'>
                         {bookings.map((bookedService, index) => (
                             <BookingCard
