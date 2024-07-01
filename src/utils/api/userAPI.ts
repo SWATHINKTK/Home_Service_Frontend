@@ -17,7 +17,7 @@ console.log("base api",BASE_URL)
  */
 export const userLogin = async (userCredential: { username: string, password: string }) => {
     try {
-        const response = await axios.post(`${BASE_URL}/user/login`, userCredential);
+        const response = await axios.post(`${BASE_URL}/user/login`, userCredential, { withCredentials:true });
         return response.data;
     } catch (error) {
         console.log(error)
@@ -33,7 +33,7 @@ export const userLogin = async (userCredential: { username: string, password: st
  */
 export const userLogoutAPI = async () => {
     try {
-        const response = await axios.post(`${BASE_URL}/user/logout`);
+        const response = await axios.post(`${BASE_URL}/user/logout`, { withCredentials:true });
         return response.data;
     } catch (error) {
         console.log(error)
@@ -51,7 +51,7 @@ export const userLogoutAPI = async () => {
  */
 export const userVerification = async (otpCredentials: { email: string, firstname: string, lastname: string }) => {
     try {
-        const response = await axios.post(`${BASE_URL}/user/sendOTP`, otpCredentials);
+        const response = await axios.post(`${BASE_URL}/user/sendOTP`, otpCredentials, { withCredentials:true });
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -70,7 +70,7 @@ export const userVerification = async (otpCredentials: { email: string, firstnam
  */
 export const registerUser = async (registerCredentials: IUser) => {
     try {
-        const response = await axios.post(`${BASE_URL}/user/signup`, registerCredentials);
+        const response = await axios.post(`${BASE_URL}/user/signup`, registerCredentials, { withCredentials:true });
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {

@@ -7,7 +7,7 @@ const BASE_URL = import.meta.env.VITE_BASE_API_URL;
 
 export const adminAuthAPI = async(adminCredentials:IAdminData) => {
     try {
-        const response = await axios.post(`${BASE_URL}/admin/login`, adminCredentials);
+        const response = await axios.post(`${BASE_URL}/admin/login`, adminCredentials, { withCredentials:true });
         return response.data
     } catch (error) {
         if (error instanceof AxiosError && error.response) {

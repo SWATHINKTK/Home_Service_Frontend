@@ -6,7 +6,7 @@ const BASE_URL = import.meta.env.VITE_BASE_API_URL;
 
 export const workerRegisterAPI = async (registerData: unknown) => {
     try {
-        const response = await axios.post(`${BASE_URL}/worker/register`, registerData);
+        const response = await axios.post(`${BASE_URL}/worker/register`, registerData, { withCredentials:true });
         return response.data
     } catch (error) {
         console.log(error)
@@ -20,7 +20,7 @@ export const workerRegisterAPI = async (registerData: unknown) => {
 
 export const workerLoginApi = async (workerCredentials: { phoneNumber: string, password: string }) => {
     try {
-        const response = await axios.post(`${BASE_URL}/worker/login`, workerCredentials);
+        const response = await axios.post(`${BASE_URL}/worker/login`, workerCredentials, { withCredentials:true });
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
@@ -33,7 +33,7 @@ export const workerLoginApi = async (workerCredentials: { phoneNumber: string, p
 
 export const workerLogOutAPI = async () => {
     try {
-        const response = await axios.post(`${BASE_URL}/worker/logout`);
+        const response = await axios.post(`${BASE_URL}/worker/logout`, { withCredentials:true });
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {
