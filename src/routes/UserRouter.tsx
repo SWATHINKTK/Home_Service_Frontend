@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import UserPrivateRouter from './PrivateRoutes/UserPrivateRouter';
 import MainLoader from '../components/Common/Loader/MainLoader';
+import Error404 from '../components/Common/Error/Error404';
 
 const UserLanding = lazy(() => import('../pages/user/UserLanding'));
 const ServicePage = lazy(() => import('../pages/user/ServicePage'));
@@ -45,6 +46,7 @@ const UserRouter: React.FC = () => {
                 <Route path="/login" element={<UserLogin />} />
                 <Route path="/register" element={<UserRegistration />} />
                 <Route path="/about" element={<About worker={false} />} />
+                <Route path="/*" element={<Error404/>}></Route>
             </Routes>
         </Suspense>
     )

@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AdminPrivateRouter from './PrivateRoutes/AdminPrivateRouter';
 import MainLoader from '../components/Common/Loader/MainLoader';
+import Error404 from '../components/Common/Error/Error404';
 
 const AdminDashboardPage = lazy(() => import('../pages/admin/AdminDashboardPage'));
 const AdminServiceViewPage = lazy(() => import('../pages/admin/AdminServiceViewPage'));
@@ -26,6 +27,7 @@ const AdminRouter: React.FC = () => {
                     <Route path="/bookings" element={<BookingHistoryPage />} />
                 </Route>
                 <Route path="/login" element={<AdminLogin />} />
+                <Route path="/*" element={<Error404/>}></Route>
             </Routes>
         </Suspense>
     )

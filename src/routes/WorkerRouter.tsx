@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import WorkerPrivateRouter from './PrivateRoutes/WorkerPrivateRouter';
 import MainLoader from '../components/Common/Loader/MainLoader';
+import Error404 from '../components/Common/Error/Error404';
 
 const WorkerLanding = lazy(() => import('../pages/worker/WorkerLanding'));
 const WorkListPage = lazy(() => import('../pages/worker/WorkListPage'));
@@ -39,6 +40,7 @@ const WorkerRouter: React.FC = () => {
                 <Route path="/register/otp" element={<WorkerOTP />} />
                 <Route path="/register/upload" element={<WorkerRegisterStep2 />} />
                 <Route path="/about" element={<About worker={true} />} />
+                <Route path="/*" element={<Error404/>}></Route>
             </Routes>
         </Suspense>
     )
