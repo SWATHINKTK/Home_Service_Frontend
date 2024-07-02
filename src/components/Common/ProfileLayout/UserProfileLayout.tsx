@@ -126,7 +126,7 @@ const UserProfileLayout: React.FC = () => {
                         </button>
                     </div>
                 </div>
-                <div className="w-full h-full overflow-y-auto">
+                <div className="w-full h-full hide-scrollbar overflow-y-auto">
                     <Outlet />
                 </div>
             </section>

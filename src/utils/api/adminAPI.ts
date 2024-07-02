@@ -187,9 +187,9 @@ export const blockUserAPI = async (userId: string) => {
 }
 
 
-export const salesReportAPI = async(startDate:string, endDate:string, currentPage:number)=> {
+export const salesReportAPI = async(startDate:string, endDate:string)=> {
     try {
-        const response = await adminInstance.get(`/admin/salesReport?startDate=${startDate}&endDate=${endDate}&page=${currentPage}`);
+        const response = await adminInstance.get(`/admin/salesReport?startDate=${startDate}&endDate=${endDate}&page=${1}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {

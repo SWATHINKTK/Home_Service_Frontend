@@ -12,15 +12,15 @@ const WorkerLandingPageService: React.FC = () => {
                     <h6>High Quality</h6>
                 </div>
                 <div className=''>
-                    <img src="/public/image/services/reliable.png" className='rounded-full w-16 h-16 mx-auto' alt="" />
+                    <img src="/image/services/reliable.png" className='rounded-full w-16 h-16 mx-auto' alt="" />
                     <h6>Reliable Service</h6>
                 </div>
                 <div className=''>
-                    <img src="/public/image/services/availability.png" className='rounded-full w-16 h-16 mx-auto' alt="" />
+                    <img src="/image/services/availability.png" className='rounded-full w-16 h-16 mx-auto' alt="" />
                     <h6>Instant Availability</h6>
                 </div>
                 <div className=''>
-                    <img src="/public/image/services/affordable.png" className='rounded-full w-16 h-16 mx-auto' alt="" />
+                    <img src="/image/services/affordable.png" className='rounded-full w-16 h-16 mx-auto' alt="" />
                     <h6>Affordable Price</h6>
                 </div>
             </div>

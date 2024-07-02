@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const ServiceOverView = React.lazy(() => import('./ServiceOverView'));
 const ServiceWorking = React.lazy(() => import('./ServiceWorking'));
-const ServiceComments = React.lazy(() => import('./ServiceComments'));
+// const ServiceComments = React.lazy(() => import('./ServiceComments'));
 
 
 import './serviceDetails.css'
@@ -66,7 +66,7 @@ const ServiceDetails: React.FC = () => {
             <Suspense fallback={<div>Loading...</div>}>
             <ServiceOverView />
             <ServiceWorking />
-            <ServiceComments />
+            {/* <ServiceComments /> */}
             </Suspense>
             <section className=' w-full  p-2 font-Montserrat z-10  sticky  md:bottom-auto transition-bottom duration-500' style={{ bottom: bottom }}>
                 <div className='mx-auto max-w-5xl  bg-[#F0F3FF] shadow-lg flex md:flex-row flex-col  justify-between items-center px-7 py-3 rounded-2xl'>

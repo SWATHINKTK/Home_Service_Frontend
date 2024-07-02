@@ -2,6 +2,7 @@ import React from "react";
 import { CiFacebook } from "react-icons/ci";
 import { BsInstagram } from "react-icons/bs";
 import { FaLinkedin } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Footer:React.FC = () => {
   return (
@@ -15,24 +16,21 @@ const Footer:React.FC = () => {
                   Quick Link
                 </p>
                 <div className="flex flex-col items-start mt-5 space-y-2">
-                  <a
-                    href="#"
+                  <Link to={'/'}
                     className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500"
                   >
                     Home
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link to={'/service'}
                     className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500"
                   >
                     Service
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link to={'/service'}
                     className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500"
                   >
                    About
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div>
@@ -62,21 +60,19 @@ const Footer:React.FC = () => {
               </div>
               <div>
                 <p className="font-semibold text-gray-800 dark:text-white">
-                  For Customers
+                  For Worker
                 </p>
                 <div className="flex flex-col items-start mt-5 space-y-2">
-                  <a
-                    href="#"
+                  <Link to={'/worker/register'}
                     className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500"
                   >
                    Register
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link to={'/worker/login'}
                     className="text-gray-600 transition-colors duration-300 dark:text-gray-300 dark:hover:text-blue-400 hover:underline hover:text-blue-500"
                   >
                     Login
-                  </a>
+                  </Link>
                  
                 </div>
               </div>

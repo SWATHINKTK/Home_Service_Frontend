@@ -11,7 +11,7 @@ const SalesReportPage:React.FC  = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         (async () => {
-            const response = await salesReportAPI(filterDate.startDate, filterDate.endDate, currentPage);
+            const response = await salesReportAPI(filterDate.startDate, filterDate.endDate);
             dispatch(addBooking(response.data));
         })()
     }, [currentPage, dispatch, filterDate.endDate, filterDate.startDate]);

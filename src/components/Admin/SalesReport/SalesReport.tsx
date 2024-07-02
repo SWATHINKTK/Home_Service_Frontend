@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { FaFilter } from "react-icons/fa6";
 import moment from 'moment';
 import jsPDF from 'jspdf';
@@ -11,15 +10,14 @@ import { SiMicrosoftexcel } from "react-icons/si";
 
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector'
 import { IService } from '../Services/ServiceTable';
-import { nextPage, previousPage, updateFilterDate } from '../../../reducers/worker/bookingSlice';
+import { updateFilterDate } from '../../../reducers/worker/bookingSlice';
 import { salesReportDownloadAPI } from '../../../utils/api/adminAPI';
 import { IBooking } from '../../../@types/booking';
 
 const SalesReport: React.FC = () => {
-    const { bookings, totalPages, currentPage, totalDocuments, filterDate } = useAppSelector((state) => state.booking);
+    const { bookings, currentPage, filterDate } = useAppSelector((state) => state.booking);
     const [isFilterDate, setIsFilterDate] = useState({ startDate: '', endDate: '' });
     const [ isDownload, setIsDownload ] = useState(false)
-    // const [ downloadBooking, setDownloadBooking ] = useState<IBooking[]>([]);
     const [error, setError] = useState('');
     const dispatch = useAppDispatch();
 
@@ -69,7 +67,7 @@ const SalesReport: React.FC = () => {
                 const rowData: Array<string | number> = [
                     (index + 1).toString() || '',
                     booking.bookingId || '',
-                    booking.transactionId || '',  
+                    (booking.transactionId?.slice(0,16)) || '',  
                     (booking.serviceId as IService)?.serviceName || '', 
                     booking.totalAmount.toString() || '',
                     booking.paymentStatus || '',
@@ -143,8 +141,9 @@ const SalesReport: React.FC = () => {
                     </div>
 
                 </div>
-                <table className="w-full  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-scroll">
-                    <thead className="text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
+                <div className="relative max-h-[300px] overflow-y-auto hide-scrollbar">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="sticky top-0 text-xs text-gray-700 bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                         <tr className='uppercase'>
                             {heading.map((title) => (
                                 <th key={title} scope="col" className="px-3 py-3">
@@ -153,6 +152,7 @@ const SalesReport: React.FC = () => {
                             ))}
                         </tr>
                     </thead>
+                   
                     <tbody>
                         {bookings.map((data, index) => {
 
@@ -163,7 +163,7 @@ const SalesReport: React.FC = () => {
                                 >
                                     <td className="px-3 py-2">{(index + 1) + ((currentPage - 1) * 4)}</td>
                                     <td className="px-3 py-2">{data.bookingId}</td>
-                                    <td className="px-3 py-2">{data.transactionId}</td>
+                                    <td className="px-3 py-2">{data.transactionId?.slice(0,16)}</td>
                                     <td className="px-3 py-2">{(data.serviceId as IService).serviceName}</td>
                                     <td className="px-3 py-2">{data.totalAmount}</td>
                                     <td className="px-3 py-2">
@@ -179,29 +179,15 @@ const SalesReport: React.FC = () => {
                             );
                         })}
                         <tr>
-                            {bookings.length != 0 ?
-                                <td className='bg-[#e0e5eb] text-left text-[#0202029c] font-medium' colSpan={9}>
-                                    <ul className='flex justify-between items-center px-4 py-2'>
-                                        <li> Showing {currentPage} to {totalPages} of {totalDocuments} results</li>
-                                        <li className='flex  gap-x-4 px-3'>
-                                            <button className='px-2 py-1  shadow-sm border border-[#b9b5b5c2] bg-white rounded-md flex items-center gap-x-1 disabled:bg-transparent' onClick={() => dispatch(previousPage())} disabled={currentPage == 1}>
-                                                <FaArrowLeft />
-                                                Previous
-                                            </button>
-                                            <button className='px-2 py-1 shadow-sm border border-[#b9b5b5c2] bg-white rounded-md flex items-center gap-x-2 disabled:bg-transparent' onClick={() => dispatch(nextPage())} disabled={currentPage == totalPages}>
-                                                Next
-                                                <FaArrowRight />
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </td>
-                                :
+                            {bookings.length == 0 &&
                                 <td colSpan={9} className='bg-gradient-to-r from-rose-400 to-red-500 font-bold text-xl text-black text-center animate-bounce'>
                                     Data Not Found
-                                </td>}
+                                </td>
+                            }
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     )

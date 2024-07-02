@@ -1,12 +1,12 @@
 import React from "react";
-import { CiFacebook } from "react-icons/ci";
-import { BsInstagram } from "react-icons/bs";
-import { FaLinkedin } from "react-icons/fa";
+// import { CiFacebook } from "react-icons/ci";
+// import { BsInstagram } from "react-icons/bs";
+// import { FaLinkedin } from "react-icons/fa";
 
 const WorkerFooter:React.FC = () => {
   return (
     <div>
-      <footer className="bg-[#F5F5F5] mt-20 dark:bg-gray-900">
+      {/* <footer className="bg-[#F5F5F5] mt-20 dark:bg-gray-900">
         <div className="lg:w-[80%] w-[100%] mx-auto ">
           <div className="container px-6 pt-12 pb-5">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 font-SegoeUI">
@@ -106,7 +106,7 @@ const WorkerFooter:React.FC = () => {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   );
 };
