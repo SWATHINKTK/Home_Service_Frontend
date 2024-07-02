@@ -16,13 +16,7 @@ const UserProfile: React.FC = () => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [imageUrl, setImageUrl] = useState<string>("");
     const [imageFile, setImageFile] = useState<File | null>(null);
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        setValue,
-        reset,
-    } = useForm<IUser>();
+    const { register, handleSubmit, formState: { errors },setValue,reset, } = useForm<IUser>();
     const [isEditProfile, setIsEditProfile] = useState(false);
     const [userData, setUserData] = useState<IUser | null>(null);
     const dispatch = useAppDispatch();
@@ -58,7 +52,6 @@ const UserProfile: React.FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        console.log(file);
         if (file) {
             const url = URL.createObjectURL(file);
             setImageUrl(url);
@@ -78,11 +71,14 @@ const UserProfile: React.FC = () => {
     };
 
     const onSubmit = async (editData: IUser) => {
+        console.log(imageFile)
         const formDataToSend = new FormData();
         Object.entries(editData).forEach(([key, value]) => formDataToSend.append(key, value));
         if (imageFile) {
-            formDataToSend.append("profile", imageFile as Blob);
+            console.log('hello')
+            formDataToSend.append("profile", imageFile);
         }
+        console.log(...formDataToSend)
         const response = await manageUserProfileAPI(formDataToSend);
         toast.success(response.message);
         editData.profile = imageUrl;

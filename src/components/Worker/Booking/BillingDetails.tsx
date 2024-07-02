@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BsHourglassSplit } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import './booking.css';
 import { IBooking, WorkStatus } from '../../../@types/booking';
 
@@ -35,7 +36,7 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, han
         setTotalAmount(isBilling.reduce((acc, curr) => (acc + (curr.amount * curr.qty)), booking.serviceMinimumAmount))
     }, [isBilling, booking.serviceMinimumAmount]);
 
-    const handleValidation = (data:IBillingInfo, index: number) => {
+    const handleValidation = (data: IBillingInfo, index: number) => {
         if (data.description.trim() == '') {
             setIsBillingError({ message: 'Enter description', index, key: 'description' });
             return false;
@@ -50,7 +51,7 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, han
             setIsBillingError({ message: 'Amount must be greater than zero ', index, key: 'amount' });
             return false;
         }
-       
+
         setIsBillingError(null);
         return true;
     }
@@ -61,14 +62,14 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, han
 
     const handleChange = (key: keyof IBillingInfo, value: string | number, index: number) => {
         const updatedBillInput = isBilling.map((item, idx) =>
-            idx === index ? { ...item, [key]:value } : item
+            idx === index ? { ...item, [key]: value } : item
         );
 
         let generate = true;
-        if(index > 0 && !handleValidation(updatedBillInput[index],index)){
+        if (index > 0 && !handleValidation(updatedBillInput[index], index)) {
             generate = false;
         }
-        
+
         if (index === isBilling.length - 1 && generate) {
             setIsBilling([...updatedBillInput, { description: '', qty: 0, amount: 0 }]);
         } else {
@@ -79,21 +80,21 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, han
 
     const handleGenerateBill = () => {
         const index = isBilling.length - 1;
-        if (!handleValidation(isBilling[index],index)) {
+        if (!handleValidation(isBilling[index], index)) {
             setIsBillingError(null);
             setIsBilling(isBilling.slice(0, -1))
         }
         setIsBillDone(true);
     }
 
-    const handleKeyPress = (event:React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (['e', 'E', '+', '-'].includes(event.key)) {
             event.preventDefault();
-          }
+        }
     }
 
     return (
-        <div className={`transition-height ${isViewMore ? 'expanded' : 'collapsed'}`}>
+        <div className={`transition-height  ${isViewMore ? 'expanded' : 'collapsed'}`}>
             {isViewMore && (
                 <>
                     <div className='my-3 w-full font-Montserrat'>
@@ -188,6 +189,13 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, han
                         <div className='flex justify-end gap-3 items-center py-4 text-red-700'>
                             <BsHourglassSplit size={15} />
                             <h6 className='font-semibold text-base'>Payment Pending</h6>
+                        </div>
+                    }
+
+                    {booking.workStatus == 'Completed' && booking.paymentStatus == 'Completed' &&
+                        <div className='flex justify-end gap-3 items-center py-4 text-green-700'>
+                            <IoMdCheckmarkCircleOutline size={20} />
+                            <h6 className='font-semibold text-base'>Payment Completed</h6>
                         </div>
                     }
 

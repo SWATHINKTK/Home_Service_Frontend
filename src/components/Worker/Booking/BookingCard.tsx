@@ -4,6 +4,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { BsChatText } from "react-icons/bs";
 import { BsCheckAll } from "react-icons/bs";
 import { GiCheckMark } from "react-icons/gi";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 
 
@@ -13,7 +14,6 @@ import { IService } from '../../../@types/service';
 import axios from 'axios';
 import OTPInputComponent from './OTPInputComponent';
 import BillingDetails from './BillingDetails';
-// import { createConversationAPI } from '../../../utils/api/chatAPI';
 import { IUser } from '../../../@types/user';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,6 +28,7 @@ interface BookingViewSectionProps {
     handleStartWork: () => void;
     handleVerification: (otp: string, setError: React.Dispatch<React.SetStateAction<string>>) => void;
     handleCompleted: (additionalCharges: IBillingInfo[]) => void;
+    handleCancelBooking: () => void;
 }
 
 const statusIcon: { [key: string]: JSX.Element } = {
@@ -37,12 +38,10 @@ const statusIcon: { [key: string]: JSX.Element } = {
 }
 
 
-const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpanded, onExpandToggle, handleCommitWork, handleStartWork, handleVerification, handleCompleted }) => {
+const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpanded, onExpandToggle, handleCommitWork, handleStartWork, handleVerification, handleCompleted, handleCancelBooking }) => {
     const workStatusIcon = bookedService.workStatus ? statusIcon[bookedService.workStatus] : null;
-    // const paymentStatusIcon = bookedService.paymentStatus ? statusIcon[bookedService.paymentStatus] : null;
 
     const [placeDetails, setPlaceDetails] = useState([]);
-    // const [conversationId, setConversationId] = useState('');
     const [otp, setOTP] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -58,27 +57,15 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
         })();
     }, [bookedService.location.latitude, bookedService.location.longitude]);
 
-    // useEffect(() => {
-    //     const createConversation = async () => {
-    //         try {
-    //             const senderId = (bookedService.userId as IUser)._id as string;
-    //             const receiverId = bookedService.workerId as string
-    //             const response = await createConversationAPI(senderId, receiverId);
-    //             setConversationId(response.data._id);
-    //         } catch (error) {
-    //             console.error('Error creating conversation:', error);
-    //         }
-    //     };
-    //     createConversation();
-    // }, [bookedService.userId, bookedService.workerId]);
 
     const handleChat = () => {
         const data = {
-            senderId:bookedService.workerId as string,
-            receiverId:(bookedService.userId as IUser)._id
+            senderId: bookedService.workerId as string,
+            receiverId: (bookedService.userId as IUser)._id
         }
-        navigate(`/worker/profile/chat/${bookedService._id}`, {state:{data}})
+        navigate(`/worker/profile/chat/${bookedService._id}`, { state: { data } })
     }
+
 
 
     return (
@@ -90,7 +77,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                         <h6 className='font-medium'>Date : <span>{bookedService.date}</span></h6>
                     </div>
                     <div className='border bg-white rounded-md py-1 px-4'>
-                        <div className={`flex items-center justify-center ${bookedService.workStatus == 'Pending' ? 'text-red-800' : 'text-[#192963]'}`}>
+                        <div className={`flex items-center justify-center ${bookedService.workStatus == 'Pending' || bookedService.workStatus == 'Cancelled' ? 'text-red-800' : 'text-[#192963]'}`}>
                             {workStatusIcon}
                             <h6 className='text-sm font-bold mx-1'>{bookedService.workStatus}</h6>
                         </div>
@@ -101,7 +88,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
 
                 {/* Booking Information View Section */}
                 <div className='flex my-4'>
-                    <img src={(bookedService.serviceId as IService).image} className='w-[8.5rem]  rounded-lg object-cover' alt="" />
+                    <img src={(bookedService.serviceId as IService).image} className='w-[8.5rem] h-[8.5rem]  rounded-lg object-cover' alt="" />
                     <div className='w-full  px-2.5 '>
                         <h3 className='font-semibold md:text-lg text-[0.9rem]'>{(bookedService.serviceId as IService).serviceName}</h3>
                         <div className='mt-1'>
@@ -130,18 +117,27 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                             <h5 className='text-sm font-bold mx-1'>Accept</h5>
                         </button>
                     }
+                    {bookedService.workStatus !== 'Pending' && bookedService.workStatus !== 'Completed' && bookedService.workStatus !== 'Cancelled' &&
+                        <button className='bg-red-800 text-white text-sm font-semibold px-4 py-1 rounded-md mt-3' onClick={handleCancelBooking} >Cancel</button>
+                    }
                     {bookedService.workStatus == 'Accepted' &&
-                        <button className='bg-[#10A891]  drop-shadow-sm px-4 py-1 rounded-md mt-3 flex items-center' onClick={handleStartWork}>
-                            <h5 className='text-sm font-bold mx-1'>Start Work</h5>
+                        <button className='bg-[#10A891] text-center rounded-sm py-1 px-3 mt-3' onClick={handleStartWork}>
+                            <h5 className='text-sm font-bold mx-1 flex items-center gap-2'><IoMdCheckmarkCircleOutline size={20} />Start Work</h5>
                         </button>
                     }
-                    {bookedService.workStatus != 'Pending' && bookedService.workStatus !== 'Completed' && (
+                    {bookedService.workStatus != 'Pending' && bookedService.workStatus !== 'Completed' && bookedService.workStatus !== 'Cancelled' && (
                         <button className='bg-white px-4 py-1 rounded-md mt-3 flex items-center' onClick={handleChat}>
                             <BsChatText />
                             <h5 className='text-sm font-bold mx-1'>Chat</h5>
                         </button>
                     )}
                 </div>
+                {bookedService.cancelReason &&
+                    <div className='p-2 mt-2 text-sm text-red-800 rounded-lg bg-red-50'>
+                        <span className='font-semibold'>Cancelled: </span> <span>{bookedService.cancelReason }</span>
+                    </div>
+                }
+
 
 
                 {(bookedService.workStatus == 'Started' || bookedService.workStatus == 'Completed') && (

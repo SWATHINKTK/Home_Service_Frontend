@@ -31,9 +31,28 @@ const RegisterStep2: React.FC = () => {
         }
     };
 
-    const handleChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageValidation = (file: File | null, imageType: string, fileSize: number, imageName: string) => {
+        if (!file) {
+            setImageError(`Upload ${imageName}`);
+            return false;
+        }
+
+        if (!file?.type.startsWith(imageType)) {
+            setImageError(`${imageType == 'image/png' ? `Upload ${imageName} Must be Png Format` : 'Upload Image Only'}`);
+            return false;
+        }
+
+        if (Math.round(file.size / 1024) > fileSize * 1024) {
+            setImageError(`Upload ${imageName} below ${fileSize}Mb Size.`);
+            return false;
+        }
+        setImageError('');
+        return true;
+    }
+
+    const handleChange = (index: number, fileType: string, fileSize: number, imageName: string, e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file) {
+        if (file && handleImageValidation(file, fileType, fileSize, imageName)) {
             const url = URL.createObjectURL(file);
             if (index === 0) {
                 setImageUrl([url, imageUrl[1]]);
@@ -78,7 +97,7 @@ const RegisterStep2: React.FC = () => {
                             ref={(el) => {
                                 if (el) fileInputRefs.current[0] = el;
                             }}
-                            onChange={(e) => handleChange(0, e)}
+                            onChange={(event) => handleChange(0, 'image/', 10, 'image', event)}
                         />
                     </div>
                     <div className="w-44 h-44 border rounded-md border-black flex flex-col justify-center items-center" onClick={() => handleDivClick(1)}
@@ -96,7 +115,7 @@ const RegisterStep2: React.FC = () => {
                             ref={(el) => {
                                 if (el) fileInputRefs.current[1] = el;
                             }}
-                            onChange={(e) => handleChange(1, e)}
+                            onChange={(event) => handleChange(1, 'image/', 10, 'image', event)}
                         />
                     </div>
                 </div>

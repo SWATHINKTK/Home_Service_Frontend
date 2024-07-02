@@ -30,7 +30,6 @@ const Conversation = () => {
 
 
     useEffect(() => {
-        console.log('CHAT SCREEN OPEN')
         socket.current = io(import.meta.env.VITE_BASE_URL);
     },[]);
 
@@ -127,15 +126,13 @@ const Conversation = () => {
 
             <div className='px-2 relative h-[7vh] flex gap-x-1 items-end justify-center'>
                 <div className='absolute bottom-[100%]'><EmojiPicker open={isEmojiOpen} onEmojiClick={handleEmojiClick} /></div>
-
                     <button className='flex justify-center items-center bg-[#eaeaeac2] min-h-10 min-w-10 rounded-full' onClick={() => setIsEmojiOpen(!isEmojiOpen)}>
                         <MdOutlineEmojiEmotions size={25} color='#576872'/> 
                     </button>
                     <input placeholder="Message..." type="text" className='outline-none px-2 rounded-2xl min-h-10 w-[90%] bg-[#c6c7d288]' value={newMessage} onChange={(e) => setNewMessage(e.target.value)} onKeyDown={handleEnterButton} />
                     <button className='rotate-45 hover:text-white bg-blue-800 rounded-full min-h-10 min-w-10 flex justify-center items-center' onClick={handleSendMessage}>
                         <IoIosSend size={25} />
-                    </button>
-                    
+                    </button>    
             </div>
         </div>
     )

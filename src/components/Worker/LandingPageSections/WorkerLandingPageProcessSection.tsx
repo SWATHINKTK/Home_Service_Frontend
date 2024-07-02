@@ -81,7 +81,7 @@ const WorkerLandingPageProcessSection: React.FC = () => {
                 <div className="lg:w-[45%] flex items-center justify-center">
                     <div className="w-[24rem] h-[24rem] rounded-2xl ">
                         <video
-                            src="/user/sampleVideo.mp4"
+                            src="/video/sampleVideo.mp4"
                             className="w-full h-full rounded-2xl"
                             autoPlay
                             muted

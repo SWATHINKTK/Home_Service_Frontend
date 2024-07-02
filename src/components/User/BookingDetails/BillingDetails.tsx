@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+
 import { IBillingInfo, IBooking } from '../../../@types/booking';
 
 
@@ -54,6 +56,12 @@ const BillingDetails: React.FC<BillingDetailsProb> = ({ isViewMore, booking, han
                             Pay  ₹ {booking.totalAmount}
                         </button>
                     </div>
+                    }
+                    {booking.workStatus == 'Completed' && booking.paymentStatus == 'Completed' &&
+                        <div className='flex justify-end gap-3 items-center py-4 text-green-700'>
+                            <IoMdCheckmarkCircleOutline size={20} />
+                            <h6 className='font-semibold text-base'>Payment Completed</h6>
+                        </div>
                     }
                 </>
             )}

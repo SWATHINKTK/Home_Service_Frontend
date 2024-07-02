@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
 
 import BookingCard from './BookingCard';
-import { acceptWorkAPI, completedWorkAPI, startWorkAPI, workVerificationAPI } from '../../../utils/api/workerAPI';
+import { acceptWorkAPI, cancelWorkAPI, completedWorkAPI, startWorkAPI, workVerificationAPI } from '../../../utils/api/workerAPI';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useTypedSelector';
 import { additionalChargeUpdate, removeBooking, updateWorkStatus } from '../../../reducers/worker/bookingSlice';
 import { IUser } from '../../../@types/user';
@@ -126,6 +126,30 @@ const WorksListing: React.FC = () => {
         dispatch(additionalChargeUpdate({ index, additionalCharges }));
     }
 
+
+    const handleCancelBooking = async (bookingId: string, index: number) => {
+        Swal.fire({
+            input: 'text',
+            inputLabel: 'Enter Reason',
+            inputPlaceholder: 'reason for cancellation',
+            showCancelButton: true,
+            confirmButtonText: 'Are you Sure?',
+            cancelButtonText: 'Cancel',
+            preConfirm: (value) => {
+              if (!value) {
+                Swal.showValidationMessage('You need to write something!');
+              }
+            }
+          }).then(async(result) => {
+            if (result.isConfirmed) {
+                await cancelWorkAPI({bookingId, reason:result.value});
+                toast.success('Work Cancellation Successful');
+                dispatch(removeBooking({ index }));
+            }
+          });
+
+    }
+
     return (
         <section className='mx-auto max-w-6xl'>
 
@@ -142,6 +166,7 @@ const WorksListing: React.FC = () => {
                                 handleStartWork={() => handleStartWork(bookedService._id!, (bookedService.userId as IUser).email, index)}
                                 handleVerification={handleVerification(bookedService._id!, index)}
                                 handleCompleted={handleCompleted(bookedService._id!, index)}
+                                handleCancelBooking={() => handleCancelBooking(bookedService._id!, index)}
                             />
                         ))}
                     </div>

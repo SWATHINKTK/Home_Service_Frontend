@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IWorker } from "../../@types/worker";
 import { ConfirmationResult } from "firebase/auth";
 import { workerAuth } from "./middlewares/workerLoginThunk";
-import { toast } from "react-toastify";
 import { workerLogout } from "./middlewares/workerLogoutThunk";
 
 interface IWorkerSlice{
@@ -71,7 +70,6 @@ const workerSlicer = createSlice({
             state.loading = false;  
             state.error = true;
             state.message = (action.payload as { errors?: { message: string }[] }).errors?.[0]?.message ?? "An error occurred";
-            toast.error(state.message)
         })
 
         builder.addCase(workerLogout.fulfilled, (state) => {

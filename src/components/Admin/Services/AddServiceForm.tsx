@@ -180,8 +180,7 @@ const AddServiceForm: React.FC = () => {
                             {errors.serviceDescription && (<p className="mx-3 text-red-500 text-xs ">* {errors.serviceDescription.message?.toString()}</p>)}
                         </div>
                         <div className="mt-4 flex gap-5">
-                            <div
-                                className="w-24 h-24 border rounded-md border-black flex flex-col justify-center items-center"
+                            <div className="w-24 h-24 border rounded-md border-black flex flex-col justify-center items-center"
                                 onClick={() => handleDivClick(0)}
                                 style={{ backgroundImage: imageUrl[0] ? `url(${imageUrl[0]})` : "none", backgroundSize: "cover", backgroundPosition: "center", }}
                             >
@@ -196,8 +195,7 @@ const AddServiceForm: React.FC = () => {
                                     onChange={(event) => handleChange(0, 'image/png', 4, 'icon', event)}
                                 />
                             </div>
-                            <div
-                                className="w-24 h-24 border rounded-md border-black flex flex-col justify-center items-center"
+                            <div className="w-24 h-24 border rounded-md border-black flex flex-col justify-center items-center"
                                 onClick={() => handleDivClick(1)}
                                 style={{ backgroundImage: imageUrl[1] ? `url(${imageUrl[1]})` : "none", backgroundSize: "cover", backgroundPosition: "center" }}
                             >

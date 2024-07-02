@@ -2,26 +2,24 @@ import axios from "axios";
 import { toast } from "react-toastify";
 const BASE_URL = import.meta.env.VITE_BASE_API_URL;
 
-
-
-// Create Axios instance with base URL and headers
+// Create an Axios instance with the base URL, headers, and withCredentials set to true
 const userAxiosInstance = axios.create({
     baseURL: BASE_URL,
     headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json', 
     },
     withCredentials: true,
 });
 
 
-// axios interceptor for the request
+// This line of code creates a new instance of Axios called userAxiosInstance.
 userAxiosInstance.interceptors.request.use(request => {
     return request;
 }, error => {
     return Promise.reject(error);
 });
 
-// response interceptor to handle 401 Unauthorized errors and refresh tokens
+// Interceptor for Axios response that will intercept the response and handle errors
 userAxiosInstance.interceptors.response.use(
     response => response,
     async error => {

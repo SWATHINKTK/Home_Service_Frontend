@@ -121,7 +121,7 @@ const ProfileLayout: React.FC = () => {
                         </button>
                     </div>
                 </div>
-                <div className="w-full h-full overflow-y-auto">
+                <div className="w-full h-full overflow-y-auto hide-scrollbar">
                     <Outlet />
                 </div>
             </section>

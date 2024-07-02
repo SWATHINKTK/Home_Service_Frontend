@@ -12,7 +12,6 @@ import { IService } from '../../../@types/service';
 import axios from 'axios';
 import BillingDetails from './BillingDetails';
 import { IUser } from '../../../@types/user';
-// import { createConversationAPI } from '../../../utils/api/chatAPI';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -26,18 +25,16 @@ interface BookingViewSectionProps {
     handlePayment: () => void;
 }
 
-const statusIcon:{ [key: string]: JSX.Element } = {
-    Pending:<BsHourglassSplit />,
-    Accepted:<BsCheckAll />
+const statusIcon: { [key: string]: JSX.Element } = {
+    Pending: <BsHourglassSplit />,
+    Accepted: <BsCheckAll />
 }
 
 
 const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpanded, onExpandToggle, handleCancelBooking, handlePayment }) => {
     const workStatusIcon = bookedService.workStatus ? statusIcon[bookedService.workStatus] : null;
-    // const paymentStatusIcon = bookedService.paymentStatus ? statusIcon[bookedService.paymentStatus] : null;
 
     const [placeDetails, setPlaceDetails] = useState([]);
-    // const [ conversationId, setConversationId] = useState('');
     const navigate = useNavigate();
     console.log('hello')
 
@@ -53,33 +50,18 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
         })();
     }, [bookedService.location.latitude, bookedService.location.longitude]);
 
-    // useEffect(() => {
-    //         const createConversation = async () => {
-    //             try {
-    //                 const senderId = (bookedService.userId as IUser)._id as string;
-    //                 const receiverId = bookedService.workerId as string
-    //                 if(senderId  && receiverId){
-    //                     const response = await createConversationAPI(senderId, receiverId);
-    //                     setConversationId(response.data._id);
-    //                 }
-    //             } catch (error) {
-    //                 console.error('Error creating conversation:', error);
-    //             }
-    //         };
-    //         createConversation();
-    // },[bookedService.userId, bookedService.workerId]);
 
     const handleChat = () => {
         const data = {
-            senderId:(bookedService.userId as IUser)._id,
-            receiverId:bookedService.workerId as string,
-            user:true
+            senderId: (bookedService.userId as IUser)._id,
+            receiverId: bookedService.workerId as string,
+            user: true
         }
-        navigate(`/user/chat/${bookedService._id}`, {state:{data}})
+        navigate(`/user/chat/${bookedService._id}`, { state: { data } })
     }
 
     return (
-        
+
         <section className={`bg-[#F2F2F2] md:p-4 p-2 mx-2 my-3 shadow-md rounded-md font-Montserrat ${isExpanded && 'row-span-2'}`}>
             <div className='flex justify-between items-center text-[#252525e4] md:text-sm text-xs'>
                 <div>
@@ -89,7 +71,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                 <div className='border bg-white rounded-md py-1 px-4'>
                     <div className='flex'>
                         {/* <h6 className='text-xs font-semibold'>Work Status</h6> */}
-                        <div className={`flex items-center ${bookedService.workStatus == 'Pending' || bookedService.workStatus == 'Cancelled'  ? 'text-red-800' : 'text-[#0c0f46]'} `}>
+                        <div className={`flex items-center ${bookedService.workStatus == 'Pending' || bookedService.workStatus == 'Cancelled' ? 'text-red-800' : 'text-[#0c0f46]'} `}>
                             {workStatusIcon}
                             <h6 className='text-sm font-bold mx-1'>{bookedService.workStatus}</h6>
                         </div>
@@ -120,34 +102,40 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
             <div className='mt-1 px-2 py-1 w-full bg-white rounded-md shadow-sm'>
                 <p className='text-sm font-semibold text-[#242156]'>{bookedService.description}</p>
             </div>
-            <BillingDetails isViewMore={isExpanded} booking={bookedService}  handlePayment={handlePayment}/>
-            
-                <div className='flex justify-between'>
-                    {bookedService.workStatus == 'Pending' &&
-                        <button className='bg-red-800 text-white text-sm font-semibold px-4 py-1 rounded-md mt-3' onClick={handleCancelBooking} >Cancel</button>
-                    }
-                    {bookedService.workStatus != 'Pending' && bookedService.workStatus !== 'Completed' && bookedService.workStatus !== 'Cancelled' && (
-                        <button className='bg-white px-4 py-1 rounded-md mt-3 flex items-center' onClick={handleChat}>
-                            <BsChatText />
-                            <h5 className='text-sm font-bold mx-1'>Chat</h5>
-                        </button>
-                    )}
+            <BillingDetails isViewMore={isExpanded} booking={bookedService} handlePayment={handlePayment} />
+
+            <div className='flex justify-between'>
+                {bookedService.workStatus == 'Pending' &&
+                    <button className='bg-red-800 text-white text-sm font-semibold px-4 py-1 rounded-md mt-3' onClick={handleCancelBooking} >Cancel</button>
+                }
+                {bookedService.workStatus != 'Pending' && bookedService.workStatus !== 'Completed' && bookedService.workStatus !== 'Cancelled' && (
+                    <button className='bg-white px-4 py-1 rounded-md mt-3 flex items-center' onClick={handleChat}>
+                        <BsChatText />
+                        <h5 className='text-sm font-bold mx-1'>Chat</h5>
+                    </button>
+                )}
+            </div>
+            {bookedService.cancelReason &&
+                <div className='p-2 mt-2 text-sm text-red-800 rounded-lg bg-red-50'>
+                    <span className='font-semibold'>Cancelled: </span> <span>{bookedService.cancelReason}</span>
                 </div>
+            }
+
 
 
             {bookedService.workStatus == 'Completed' && (
                 <>
-                  
-                        <div className="flex justify-center m">
-                            <button className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 font-Montserrat text-xs font-bold text-center  text-gray-900  select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none"
-                                onClick={onExpandToggle}
-                            >
-                               {!isExpanded ? 'View More' : 'View Less'}
-                               <IoIosArrowDown className={`${isExpanded && 'rotate-180'}`} />
-                            </button>
-                        </div>
-                    
-                   
+
+                    <div className="flex justify-center m">
+                        <button className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 font-Montserrat text-xs font-bold text-center  text-gray-900  select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none"
+                            onClick={onExpandToggle}
+                        >
+                            {!isExpanded ? 'View More' : 'View Less'}
+                            <IoIosArrowDown className={`${isExpanded && 'rotate-180'}`} />
+                        </button>
+                    </div>
+
+
                 </>
             )}
 

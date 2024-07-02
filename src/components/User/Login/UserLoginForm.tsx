@@ -49,7 +49,6 @@ const UserLoginForm: React.FC = () => {
 
     const onSubmit = (data: LoginData) => {
         dispatch(userAuth(data))
-        console.log(data);
     };
     return (
         <>

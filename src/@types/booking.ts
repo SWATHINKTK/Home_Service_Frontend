@@ -25,6 +25,7 @@ export interface IBooking {
     totalAmount:number;
     workStatus?:string;
     paymentStatus?:string;
+    cancelReason?:string;
     additionalCharges?: {
         description: string;
         qty: number;

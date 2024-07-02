@@ -83,7 +83,7 @@ const WorkerProfile: React.FC = () => {
         const formDataToSend = new FormData();
         Object.entries(editData).forEach(([key, value]) => formDataToSend.append(key, value));
         if (imageFile) {
-            formDataToSend.append("profile", imageFile as Blob);
+            formDataToSend.append("profile", imageFile);
         }
         const response = await workerProfileUpdateAPI(formDataToSend);
         toast.success(response.message);
