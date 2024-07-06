@@ -1,0 +1,33 @@
+.ReactModal__Overlay {
+    background-color: rgba(0, 0, 0, 0.44);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 300ms ease-in-out;
+    z-index: 30;
+}
+
+.ReactModal__Content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: white;
+    transform: translate(-50%, -50%);
+    height: fit-content;
+    width: fit-content;
+    border-radius: 4px;
+    border: 1px solid #b4b4b467;
+    outline: none;
+}
+
+
+/* @media (min-width: 768px) {
+    .ReactModal__Content {
+        width: 60vw;
+    }
+} */

@@ -42,7 +42,6 @@ const PaymentSummary: React.FC<PaymentSummaryProp> = ({ serviceId }) => {
                         <span className={`${payment.free && 'line-through'}`}>₹ {payment.amount}</span>
                         <span className={`${!payment.free ? 'hidden' : 'ml-2 text-green-700'}`}>Free</span>
                     </h6>
-
                 </div>
             ))}
             <hr className="border-t-2 border-dotted border-gray-500 mx-auto w-[90%] mt-2 " />

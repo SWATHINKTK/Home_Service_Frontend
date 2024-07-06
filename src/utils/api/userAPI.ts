@@ -3,7 +3,9 @@ import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { IUser } from "../../@types/user";
 import userAxiosInstance from "./instances/userInstance";
+import { IAddress } from "../../@types/checkout";
 const BASE_URL = import.meta.env.VITE_BASE_API_URL;
+console.log(BASE_URL)
 
 
 /**
@@ -163,6 +165,47 @@ export const serviceDataRetrieveAPI = async (serviceId: string) => {
     } catch (error) {
         console.log('hello error', error)
         throw error
+    }
+}
+
+
+/**
+ * Makes an asynchronous POST request to the '/user/createAddress' endpoint and Creating New Address.
+ * @param {IAddress} newAddress - The details of the booking to be sent in the request.
+ * @returns {Promise<any>} A promise that resolves to the data returned from the API call.
+ * @throws {AxiosError} If the request encounters an error with a response, it will display an error message.
+ */
+export const createNewAddressAPI = async (newAddress: IAddress) => {
+    try {
+        const response = await userAxiosInstance.post('/user/createAddress', newAddress);
+        return response.data;
+    } catch (error) {
+        console.log('error', error)
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+            throw error
+        }
+        toast.error('server Error please try again.')
+    }
+}
+
+
+/**
+ * Makes an asynchronous GET request to the '/user/address' endpoint and finding All Address.
+ * @returns {Promise<any>} A promise that resolves to the data returned from the API call.
+ * @throws {AxiosError} If the request encounters an error with a response, it will display an error message.
+ */
+export const viewAllAddressAPI = async () => {
+    try {
+        const response = await userAxiosInstance.get('/user/address');
+        return response.data;
+    } catch (error) {
+        console.log('error', error)
+        if (error instanceof AxiosError && error.response) {
+            toast.error(error.response.data.errors[0].message);
+            throw error
+        }
+        toast.error('server Error please try again.')
     }
 }
 
