@@ -27,7 +27,7 @@ const Navbar: React.FC<NavbarProb> = ({ worker, special = false }) => {
                 try {
                     const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position.coords.latitude}&lon=${position.coords.longitude}`);
                     const data = await response.json();
-                    setIsLocation(`${data.address.village},${data.address.county}`)
+                    setIsLocation(`${data.address.village? data.address.village  + ','  : ''}${data.address.county || ''}`)
                 } catch (error) {
                     setIsLocation("No address found");
                 }
