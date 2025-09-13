@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { IService } from "../../components/Admin/Services/ServiceTable";
+// import { IService } from "../../components/Admin/Services/ServiceTable";
 import { toast } from "react-toastify";
 import { IAdminData } from "../../@types/admin";
 import adminInstance from './instances/adminInstance';
@@ -33,9 +33,11 @@ export const adminAuthAPI = async(adminCredentials:IAdminData) => {
  * @returns {Promise<any>} A promise that resolves to the edited service data.
  * @throws {Error} If an error occurs during the editing process.
  */
-export const editServiceAPI = async(editServiceData:IService) => {
+export const editServiceAPI = async(editServiceData:FormData) => {
     try {
-        const response = await adminInstance.put('/admin/service/edit', editServiceData);
+        const response = await adminInstance.put('/admin/service/edit', editServiceData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        });
         return response.data;
     } catch(error) {
         if (error instanceof AxiosError && error.response) {

@@ -1,6 +1,6 @@
 
 import moment from 'moment';
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { MdModeEditOutline } from "react-icons/md";
 import { IoSave } from "react-icons/io5";
@@ -40,10 +40,25 @@ const heading = [
 	"",
 ];
 
+
+const toFormData = (data: IService): FormData => {
+  const form = new FormData();
+  Object.entries(data).forEach(([key, value]) => {
+    if (value === undefined || value === null) return;
+    if (value instanceof File || value instanceof Blob) {
+      form.append(key, value);
+    } else {
+      form.append(key, value.toString());
+    }
+  });
+  return form;
+};
+
 const ServiceTable: React.FC = () => {
 	const [services, setServices] = useState<IService[]>([]);
 	const [editingIndex, setEditingIndex] = useState<number | null>(null);
 	const [editData, setEditData] = useState<IService | null>(null);
+	const [editImageUrls, setEditImageUrls] = useState<{ icon?: string; image?: string }>({});
 	const [pageNumber, setPageNumber] = useState(1);
 	const [totalPages, setTotalPages] = useState(1);
 	const [searchTerm, setSearchTerm] = useState<string | null>(null);
@@ -60,9 +75,9 @@ const ServiceTable: React.FC = () => {
 	// 			toast.error(error.response?.data.errors[0].message);
 	// 	}
 	// }, [pageNumber, search]);
-	
+
 	useEffect(() => {
-		(async() => {
+		(async () => {
 			const response = await fetchServices(pageNumber, search);
 			setServices(response.data);
 			setTotalPages(response.data);
@@ -72,13 +87,13 @@ const ServiceTable: React.FC = () => {
 
 	useEffect(() => {
 		const debounce = setTimeout(() => {
-			if(searchTerm != null){
+			if (searchTerm != null) {
 				setSearch(searchTerm);
 				setPageNumber(1);
 			}
 		}, 600);
 		return () => clearTimeout(debounce)
-	},[searchTerm])
+	}, [searchTerm])
 
 
 	const handleEditClick = (index: number) => {
@@ -87,13 +102,15 @@ const ServiceTable: React.FC = () => {
 	};
 
 	const handleSaveClick = async (index: number) => {
+		const formData = toFormData(editData!);
+		const response = await editServiceAPI(formData!)
 
-		const response = await editServiceAPI(editData!)
 		if (response) {
 			toast.success(response.message)
 			const newServices = [...services];
 			newServices[index] = editData!;
 			setServices(newServices);
+			window.location.reload(); 
 		}
 		setEditingIndex(null);
 	};
@@ -124,6 +141,21 @@ const ServiceTable: React.FC = () => {
 		});
 	};
 
+	const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: string) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			setEditData(prev => (
+				{
+					...prev!,
+					[fieldName]: file
+				}
+			))
+			setEditImageUrls(prev => ({
+				...prev,
+				[fieldName]: URL.createObjectURL(file)
+			}))
+		}
+	}
 	return (
 		<div className="mt-20 w-full px-6">
 			<div className="flex justify-between mb-3">
@@ -155,7 +187,14 @@ const ServiceTable: React.FC = () => {
 							<tr key={service._id || index} className={`${editingIndex === index ? "bg-[#d8dbe8]" : "bg-white"} border-b text-center dark:bg-gray-800 dark:border-gray-700`} >
 								<td className="px-3 py-2 font-bold text-black">{index + 1}</td>
 								<th className="mx-3 my-2">
-									<img className="w-10 h-10 rounded-full" src={service.icon} />
+									{editingIndex === index ? (
+										<div className="relative w-10 h-10">
+											<img className="w-10 h-10 rounded-full" src={editImageUrls?.icon ?? service.icon} />
+											<input type='file' className="absolute inset-0 w-10 h-10 opacity-0 cursor-pointer" onChange={(e) => handleEditInputChange(e, 'icon')} />
+										</div>
+									) : (
+										<img className="w-10 h-10 rounded-full" src={service.icon} />
+									)}
 								</th>
 								<td className="px-4">
 									{editingIndex === index ? (
@@ -211,6 +250,7 @@ const ServiceTable: React.FC = () => {
 													serviceDescription: e.target.value,
 												});
 											}}
+											value={editData?.serviceDescription || ""}
 											style={{ scrollbarWidth: "thin", msOverflowStyle: "none", }}
 										/>
 									) : (
@@ -218,7 +258,15 @@ const ServiceTable: React.FC = () => {
 									)}
 								</td>
 								<td className="">
-									<img src={service.image} className="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch" />
+									{/* <img src={service.image} className="w-16 md:w-32 max-w-full max-h-full" alt="service image" /> */}
+									{editingIndex === index ? (
+										<div className="relative w-16 h-full md:w-32">
+											<img className="w-16 md:w-32 max-w-full max-h-full" alt="service image"  src={editImageUrls?.image ?? service.image} />
+											<input type='file' className="absolute inset-0 w-16 h-full md:w-32 opacity-0 cursor-pointer" onChange={(e) => handleEditInputChange(e, 'image')} />
+										</div>
+									) : (
+										<img src={service.image} className="w-16 md:w-32 max-w-full max-h-full" alt="service image" />
+									)}
 								</td>
 								<td className="px-3 py-2">
 									{service._isBlocked ? (
@@ -232,7 +280,7 @@ const ServiceTable: React.FC = () => {
 									)}
 								</td>
 								<td className="px-1 py-2">
-									<span>{moment(service.createdAt).format('lll')}</span><br/>
+									<span>{moment(service.createdAt).format('lll')}</span><br />
 								</td>
 								<td className="px-1">
 									{editingIndex === index ? (
@@ -259,36 +307,36 @@ const ServiceTable: React.FC = () => {
 							</tr>
 						))}
 						<tr>
-							{ services.length != 0 ?
-							(<td className="bg-[#e9e9e9] p-2" colSpan={11}>
-								<div className="flex justify-end">
-									<ul className="flex items-center -space-x-px h-8 text-sm">
-										<li>
-											<button className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-												onClick={() => setPageNumber(pageNumber - 1)}
-												disabled={pageNumber == 1}
-											>
-												<IoIosArrowBack />
-											</button>
-										</li>
-										<li>
-											<button className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" >
-												{pageNumber}
-											</button>
-										</li>
-										<li>
-											<button className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-												onClick={() => setPageNumber(pageNumber + 1)}
-												disabled={pageNumber == totalPages}
-											>
-												<IoIosArrowForward />
-											</button>
-										</li>
-									</ul>
-								</div>
-							</td>)
-							:(<td className="text-center bg-red-500 text-black font-bold py-3" colSpan={11}>Data Not Found</td>)
-}
+							{services.length != 0 ?
+								(<td className="bg-[#e9e9e9] p-2" colSpan={11}>
+									<div className="flex justify-end">
+										<ul className="flex items-center -space-x-px h-8 text-sm">
+											<li>
+												<button className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+													onClick={() => setPageNumber(pageNumber - 1)}
+													disabled={pageNumber == 1}
+												>
+													<IoIosArrowBack />
+												</button>
+											</li>
+											<li>
+												<button className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" >
+													{pageNumber}
+												</button>
+											</li>
+											<li>
+												<button className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+													onClick={() => setPageNumber(pageNumber + 1)}
+													disabled={pageNumber == totalPages}
+												>
+													<IoIosArrowForward />
+												</button>
+											</li>
+										</ul>
+									</div>
+								</td>)
+								: (<td className="text-center bg-red-500 text-black font-bold py-3" colSpan={11}>Data Not Found</td>)
+							}
 						</tr>
 					</tbody>
 				</table>
