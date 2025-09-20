@@ -13,6 +13,7 @@ import axios from 'axios';
 import BillingDetails from './BillingDetails';
 import { IUser } from '../../../@types/user';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 
 
@@ -34,21 +35,16 @@ const statusIcon: { [key: string]: JSX.Element } = {
 const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpanded, onExpandToggle, handleCancelBooking, handlePayment }) => {
     const workStatusIcon = bookedService.workStatus ? statusIcon[bookedService.workStatus] : null;
 
-    const [placeDetails, setPlaceDetails] = useState([]);
+    const [placeDetails, setPlaceDetails] = useState<string[]>([]);
     const navigate = useNavigate();
     console.log('hello')
 
     useEffect(() => {
-        (async () => {
-            const latitude = bookedService.location.latitude;
-            const longitude = bookedService.location.longitude;
-            console.log(latitude, longitude)
-            const response = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${import.meta.env.VITE_MAP_BOX_ACCESS_TOKEN}`);
-            if (response.data.features.length > 0) {
-                setPlaceDetails(response.data.features[0].place_name.split(','));
-            }
-        })();
-    }, [bookedService.location.latitude, bookedService.location.longitude]);
+        if(bookedService?.address?.locationDetails){
+            const locationArray = bookedService.address.locationDetails.split(',') || [];
+            setPlaceDetails(locationArray);
+        }
+    }, [bookedService?.address?.locationDetails]);
 
 
     const handleChat = () => {
@@ -66,7 +62,7 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
             <div className='flex justify-between items-center text-[#252525e4] md:text-sm text-xs'>
                 <div>
                     <h6 className='font-semibold'>Booking Id : <span>{bookedService.bookingId}</span></h6>
-                    <h6 className='font-medium'>Date : <span>{bookedService.date}</span></h6>
+                    <h6 className='font-medium'>Date : <span>{moment(bookedService.date).format('DD/MM/YYYY')}</span></h6>
                 </div>
                 <div className='border bg-white rounded-md py-1 px-4'>
                     <div className='flex'>
@@ -88,13 +84,13 @@ const BookingCard: React.FC<BookingViewSectionProps> = ({ bookedService, isExpan
                     <h3 className='font-semibold md:text-lg text-[0.9rem]'>{(bookedService.serviceId as IService).serviceName}</h3>
                     <div className='mt-1'>
                         <h6 className='font- text-xs text-[#090808d4]'>Build/House Details:</h6>
-                        <h6 className='font-semibold text-sm text-green-950'>{bookedService.buildingName},{placeDetails[2]}</h6>
-                        <h6 className='font-semibold text-xs text-green-950'>{placeDetails[3]}</h6>
-                        <h6 className='font-semibold text-xs text-green-950'>{placeDetails[4]}</h6>
+                        <h6 className='font-semibold text-sm text-green-950'>{bookedService?.address?.buildingName}</h6>
+                        <h6 className='font-semibold text-xs text-green-950'>{placeDetails[0]}</h6>
                         <h6 className='font-semibold text-xs text-green-950'>{placeDetails[1]}</h6>
+                        <h6 className='font-semibold text-xs text-green-950'>{placeDetails[2]}</h6>
                     </div>
                     <div className='mt-1 w-40'>
-                        <h6 className='font-semibold text-sm bg-[#0d0456] text-center text-white rounded-lg'>{bookedService.startTime}AM <span className='px-2'>-</span> {bookedService.endTime}AM</h6>
+                        <h6 className='font-semibold text-sm bg-[#0d0456] text-center text-white rounded-lg'>{bookedService.startTime} - {bookedService.endTime}</h6>
                     </div>
                 </div>
             </div>

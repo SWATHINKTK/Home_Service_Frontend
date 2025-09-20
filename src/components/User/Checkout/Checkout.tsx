@@ -12,13 +12,18 @@ import { IAddress, ISlot } from '../../../@types/checkout';
 import IssueDescription from './IssueDescription';
 import AddressSelecting from './AddressSelecting';
 import moment from 'moment';
+import { useParams } from 'react-router-dom';
+import { advanceBookingPaymentAPI, serviceDataRetrieveAPI } from '../../../utils/api/userAPI';
+import { IService } from '../../../@types/service';
+import { toast } from 'react-toastify';
+import { loadStripe } from '@stripe/stripe-js';
 
 
-const payments = [
-    { description: 'Service Amount', amount: 400 },
-    { description: 'Tax Amount', amount: 30 },
-    { description: 'Visiting Amount', amount: 30, free: true }
-];
+// const payments = [
+//     { description: 'Service Amount', amount: 400 },
+//     { description: 'Tax Amount', amount: 30 },
+//     { description: 'Visiting Amount', amount: 30, free: true }
+// ];
 
 type Option = {
     name: string;
@@ -28,17 +33,22 @@ type Option = {
 
 
 const Checkout: React.FC = () => {
+    const { serviceId } = useParams();
+
     const [modalIsOpen, setIsOpen] = React.useState(false);
-    const [selectedSlot, setSelectedSlot] = useState<ISlot>({date:undefined, endTime:undefined, startTime:undefined});
-    const [bookingAddress, setBookingAddress] = useState<IAddress>({});
+    const [selectedSlot, setSelectedSlot] = useState<ISlot>({ date: undefined, endTime: undefined, startTime: undefined });
+    const [bookingAddress, setBookingAddress] = useState<Partial<IAddress>>({});
     const [description, setDescription] = useState('');
     const [activeOption, setActiveOption] = useState<number>(0);
     const [modalContent, setModalContent] = useState<string>();
+    const [serviceData, setServiceData] = useState<IService>();
+    const [payments, setPayments] = useState<{ description: string, amount: number, free?: boolean }[]>([]);
+
 
     // const checkActiveOption = useCallback(() => {
-        // if(!Object.keys(bookingAddress).length){
-        //     setActiveOption(0)
-        // }
+    // if(!Object.keys(bookingAddress).length){
+    //     setActiveOption(0)
+    // }
 
     //     if(!selectedSlot.date){
     //         setActiveOption(1);
@@ -48,45 +58,95 @@ const Checkout: React.FC = () => {
     //         setActiveOption(2)
     //     }
     // },[bookingAddress, description, selectedSlot.date]);
+    useEffect(() => {
+        const fetchData = async () => {
+            if (serviceId) {
+                const response = await serviceDataRetrieveAPI(serviceId);
+                setServiceData(response.data);
+                setPayments([
+                    { description: 'Service Amount', amount: response.data.minimumAmount },
+                    { description: 'Tax Amount', amount: 30 },
+                    { description: 'Visiting Amount', amount: 30, free: true }
+                ]);
+            }
+        }
+        fetchData();
+    }, [serviceId])
 
     useEffect(() => {
-        if(!Object.keys(bookingAddress).length){
+        if (bookingAddress && !Object.keys(bookingAddress).length) {
             setActiveOption(0)
             return
         }
-        
+
         if (!selectedSlot || !selectedSlot.date || !selectedSlot.startTime) {
             setActiveOption(1);
             return;
         }
 
-        if(!description){
+        if (!description) {
             setActiveOption(2);
         }
-    },[bookingAddress, description, modalIsOpen, selectedSlot])
-    
-    const options: Option[]  = useMemo(() => ([
-        {
-            name:'Address',
-            buttonName:'Select Address',
-            icon:MdOutlineMyLocation
-        },
-        {
-            name:'Select Slot',
-            buttonName:'Select Slot',
-            icon:FaCalendarAlt
-        },
-        {
-            name:'Description',
-            buttonName:'write issue',
-            icon:BiSolidDetail
-        }
-    ]),[]);
+    }, [bookingAddress, description, modalIsOpen, selectedSlot])
 
-    const handleButtonClick = (index:number) => {
+    const options: Option[] = useMemo(() => ([
+        {
+            name: 'Address',
+            buttonName: 'Select Address',
+            icon: MdOutlineMyLocation
+        },
+        {
+            name: 'Select Slot',
+            buttonName: 'Select Slot',
+            icon: FaCalendarAlt
+        },
+        {
+            name: 'Description',
+            buttonName: 'write issue',
+            icon: BiSolidDetail
+        }
+    ]), []);
+
+    const handleButtonClick = (index: number) => {
         setIsOpen(true);
         setModalContent(options[index].name);
     }
+    const closeModal = () => {
+        setIsOpen(false);
+    }
+
+    const handleBooking = async () => {
+        if (!bookingAddress || Object.keys(bookingAddress).length == 0) {
+            toast.error('Please select an address');
+        } else if (!selectedSlot || !selectedSlot.date || !selectedSlot.startTime) {
+            toast.error('Please select a slot');
+        } else if (!description) {
+            toast.error('Please provide a description of the issue');
+        } else {
+            const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
+            
+            const response = await advanceBookingPaymentAPI({
+                locationId: bookingAddress._id,
+                date: selectedSlot.date,
+                startTime: selectedSlot.startTime,
+                endTime: selectedSlot.endTime,
+                description,
+                serviceId,
+            });
+            
+            if (stripe) {
+                const result = await stripe.redirectToCheckout({
+                    sessionId: response.data,
+                });
+                if (result.error) {
+                    console.error(result.error.message);
+                }
+            } else {
+                console.error('Stripe failed to initialize.');
+            }
+        }
+    }
+
     return (
         <>
             <Navbar worker={false} special={true} />
@@ -102,41 +162,48 @@ const Checkout: React.FC = () => {
                         <div className='mx-auto rounded-md border'>
                             <div className='border-b py-3 flex items-center px-5'>
                                 <div className='flex'>
-                                    <img className='h-16 max-w-16 object-cover rounded-sm' src="/public/temp/123.jpg" alt="" />
+                                    <img className='h-16 max-w-16 object-cover rounded-sm' src={serviceData?.icon} alt="service icon" />
                                     <div>
-                                        <h4 className='mx-3 text-lg font-semibold'>Electrical</h4>
-                                        <p className='text-xs mx-3 line-clamp-2 break-all'>Fix your gadgets effortlessly. Now offering electronic repair services alongside plumbing and electrical assistance. Your one-stop solution for all home needs.</p>
+                                        <h4 className='mx-3 text-lg font-semibold'>{serviceData?.serviceName ?? "*****"}</h4>
+                                        <p className='text-xs mx-3 line-clamp-2 break-all'>{serviceData?.serviceDescription ?? "*****************"}</p>
                                     </div>
                                 </div>
 
                             </div>
-                            {options.map((option,index) => (
-                                <div key={index} className='border-b py-3 flex flex-col justify-center px-5'>
-                                    <div className='flex'>
+                            {options.map((option, index) => (
+                                <div key={index} className='border-b py-3 flex flex-col justify-center px-5 '>
+                                    <div className='flex w-full '>
                                         <div className='h-11 w-11 bg-slate-100 rounded-lg flex justify-center items-center'>
-                                            {React.createElement(option.icon,{size:20})}
+                                            {React.createElement(option.icon, { size: 20 })}
                                         </div>
                                         <div className='mx-3'>
-                                        <h4 className='font-semibold'>{option.name}</h4>
-                                        {Object.keys(bookingAddress).length !=0 && option.name == 'Address' &&
-                                            <div className='text-sm text-[#09123e] font-medium'>
-                                                <p>{bookingAddress.buildingName}<span className='mx-2'>-</span><span className='font-bold'>{bookingAddress.phoneNumber}</span></p>
-                                                <p>{bookingAddress.locationDetails}</p>
+                                            <div className='flex items-center justify-between gap-2'>
+                                                <h4 className='font-semibold'>{option.name}</h4>
+
                                             </div>
-                                        }
-                                        {selectedSlot.date && option.name == 'Select Slot' && 
-                                            <p className='text-sm text-[#09123e] font-medium'>
-                                                {moment(selectedSlot.date).format("Do MMMM YY ,ddd")}
-                                                <span className='mx-2'>{selectedSlot.endTime}</span>
-                                            </p>
-                                        }
-                                        {description && option.name == 'Description' && 
-                                            <p className='text-sm text-[#09123e] font-medium line-clamp-2 break-all'>{description}</p>
-                                        }
+                                            {bookingAddress && Object.keys(bookingAddress).length != 0 && option.name == 'Address' &&
+                                                <div className='text-sm text-[#09123e] font-medium'>
+                                                    <p>{bookingAddress.buildingName}<span className='mx-2'>-</span><span className='font-bold'>{bookingAddress.phoneNumber}</span></p>
+                                                    <p>{bookingAddress.locationDetails}</p>
+                                                    <button onClick={() => handleButtonClick(0)} className='mt-2 border rounded-md px-2 border-blue-500 text-blue-600 shadow-sm shadow-blue-200'>edit</button>
+                                                </div>
+                                            }
+                                            {selectedSlot.date && option.name == 'Select Slot' &&
+                                                <>
+                                                    <p className='text-sm text-[#09123e] font-medium'>
+                                                        {moment(selectedSlot.date).format("Do MMMM YY ,ddd")}
+                                                        <span className='mx-2'>{selectedSlot.endTime}</span>
+                                                    </p>
+                                                    <button onClick={() => handleButtonClick(1)} className='mt-2 border rounded-md px-2 border-blue-500 text-blue-600 shadow-sm shadow-blue-200'>edit</button>
+                                                </>
+                                            }
+                                            {description && option.name == 'Description' &&
+                                                <p className='text-sm text-[#09123e] font-medium line-clamp-2 break-all'>{description}</p>
+                                            }
                                         </div>
                                     </div>
-                                    
-                                    {index == activeOption && <button className='bg-[#77cc76] rounded-md mt-3 font-semibold py-1' onClick={() => handleButtonClick(index) }>{option.buttonName}</button>}
+
+                                    {index == activeOption && <button className='bg-[#77cc76] rounded-md mt-3 font-semibold py-1' onClick={() => handleButtonClick(index)}>{option.buttonName}</button>}
                                 </div>
                             ))}
                         </div>
@@ -163,12 +230,12 @@ const Checkout: React.FC = () => {
                             <hr className="border-t-2 border-dotted border-gray-500 mt-5" />
                             <div className='flex justify-between mt-2 text-sm font-semibold text-gray-700'>
                                 <h6>Total Amount</h6>
-                                <h6>1000</h6>
+                                <h6>{payments.reduce((acc, payment) => acc + (payment.free ? 0 : payment.amount), 0)}</h6>
                             </div>
                             <div className="p-1 text-sm my-4 text-blue-800 rounded-lg bg-blue-50" role="alert">
                                 <span className="font-medium"></span>Confirmation of booking pay <span className='font-bold'>₹ {payments[0] && payments[0].amount * 2 / 10}</span> Rupees advance.
                             </div>
-                            <button className='bg-[#1c1e5f] w-full rounded-md py-1 text-white' >Book Service</button>
+                            <button className='bg-[#1c1e5f] w-full rounded-md py-1 text-white' onClick={handleBooking} >Book Service</button>
                         </div>
                     </div>
                 </div>
@@ -179,9 +246,10 @@ const Checkout: React.FC = () => {
 
             </section>
             <CustomModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen}>
-                {modalContent == 'Address' &&  <AddressSelecting setBookingAddress={setBookingAddress}/>}
-                {modalContent == 'Select Slot' &&  <SlotSelecting selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot}/>}
-                {modalContent == 'Description' &&  <IssueDescription description={description} setDescription={setDescription}/>}
+                {modalContent == 'Address' && <AddressSelecting setBookingAddress={setBookingAddress} modalClose={closeModal} />}
+                {modalContent == 'Select Slot' && <SlotSelecting selectedSlot={selectedSlot} setSelectedSlot={setSelectedSlot} modalClose={closeModal}/>}
+                {modalContent == 'Description' && <IssueDescription description={description} setDescription={setDescription} modalClose={closeModal} />}
+
             </CustomModal>
         </>
     )

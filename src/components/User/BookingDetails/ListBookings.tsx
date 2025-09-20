@@ -87,7 +87,7 @@ const BookedServices: React.FC<BookedServiceProb> = ({ heading }) => {
                     </p>
                     <hr className="border-t-2 border-black opacity-15" />
                 </div>
-                <section className='grid md:grid-cols-2'>
+                <section className='grid lg:grid-cols-2'>
                     {bookings.map((bookedService, index) => (
                         <BookingCard
                             key={index}
@@ -104,14 +104,14 @@ const BookedServices: React.FC<BookedServiceProb> = ({ heading }) => {
                         <img className=' mx-auto' src="/image/notfound.png" alt="" />
                         <h3 className='text-center font-bold font-Montserrat tracking-widest mt-2 text-[#150f3e]'>No Booking Found</h3>
                     </div>
-                :
+                    :
                     <div className='flex justify-center ite font-bold text-sm my-7'>
-                        <button className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 px-5 py-2 font-sans text-xs font-bold text-center font-Montserrat border-2 text-gray-900 align-middle  rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/10 active:bg-gray-900/20" 
+                        <button className="flex items-center mt-3 transition-transform transform hover:scale-105 gap-2 px-5 py-2 font-sans text-xs font-bold text-center font-Montserrat border-2 text-gray-900 align-middle  rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/10 active:bg-gray-900/20"
                             onClick={() => dispatch(nextPage())}
                             disabled={currentPage == totalPages}
                         >
-                            View More 
-                            <IoIosArrowDown className='ml-1 animate-bounce '/>
+                            View More
+                            <IoIosArrowDown className='ml-1 animate-bounce ' />
                         </button>
                     </div>
                 }

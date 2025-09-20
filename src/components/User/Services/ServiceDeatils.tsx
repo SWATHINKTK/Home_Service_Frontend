@@ -85,7 +85,7 @@ const ServiceDetails: React.FC = () => {
                             <p className='text-[0.6rem]'>(extra charge)</p>
                         </div>
                     </div>
-                    <button className='bg-[#1c1e5f] md:max-w-40 w-full px-4 rounded-md py-1 font-Montserrat text-white md:m-0 mt-3' onClick={() => navigate(`/service/${serviceId}/currentLocation`)}>Book Service</button>
+                    <button className='bg-[#1c1e5f] md:max-w-40 w-full px-4 rounded-md py-1 font-Montserrat text-white md:m-0 mt-3' onClick={() => navigate(`/service/${serviceId}/booking`)}>Book Service</button>
                 </div>
             </section>
         </div>

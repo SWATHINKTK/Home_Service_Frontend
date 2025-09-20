@@ -28,7 +28,7 @@ const LocationSelecting: React.FC = () => {
             mapRef.current?.flyTo({ center: [position.coords.longitude, position.coords.latitude], zoom: 14 })
         }
         function errorLocation() {
-            alert('error')
+            // alert('error')
         }
 
 

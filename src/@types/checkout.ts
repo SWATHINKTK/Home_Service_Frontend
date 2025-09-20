@@ -5,11 +5,11 @@ export interface ISlot{
 }
 
 export interface IAddress{
+    _id:string;
     buildingName:string;
     phoneNumber:string;
     location?:{
-        longitude:number;
-        latitude:number;
+        coordinates: [number, number];
     },
     locationDetails?:string
 }

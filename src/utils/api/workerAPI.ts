@@ -116,9 +116,9 @@ export const workerProfileUpdateAPI = async (workerUpdateData: FormData) => {
  * @returns {Promise} A promise that resolves to the data of the booking views fetched.
  * @throws {Error} If there is an error during the API call or if the response contains errors.
  */
-export const allBookingViewOnWorkerAPI = async (page: number) => {
+export const allBookingViewOnWorkerAPI = async (page: number, latitude: number, longitude: number) => {
     try {
-        const response = await workerAxiosInstance.get(`/worker/booking?page=${page}`);
+        const response = await workerAxiosInstance.get(`/worker/booking?page=${page}&lat=${latitude}&lon=${longitude}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.response) {

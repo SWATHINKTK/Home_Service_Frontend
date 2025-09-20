@@ -15,6 +15,7 @@ function App() {
                     <Route path="/worker/*" element={<WorkerRouter />} />
                     <Route path="/admin/*" element={<AdminRouter />} />
                     <Route path="/temp" element={<Checkout/>}></Route>
+                    <Route path="/temp/:serviceId" element={<Checkout/>}></Route>
                 </Routes>
             </Router>
         </>

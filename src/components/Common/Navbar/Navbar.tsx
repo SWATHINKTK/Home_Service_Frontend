@@ -33,7 +33,7 @@ const Navbar: React.FC<NavbarProb> = ({ worker, special = false }) => {
                 }
             }
             function errorLocation() {
-                alert('error')
+                // alert('error')
             }
         }
 

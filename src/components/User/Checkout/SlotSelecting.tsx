@@ -6,10 +6,11 @@ import { ISlot } from '../../../@types/checkout';
 interface SlotSelectingProps {
     selectedSlot: ISlot;
     setSelectedSlot: React.Dispatch<React.SetStateAction<ISlot>>;
+    modalClose: () => void;
 }
 
 
-const SlotSelecting: React.FC<SlotSelectingProps> = ({ selectedSlot, setSelectedSlot }) => {
+const SlotSelecting: React.FC<SlotSelectingProps> = ({ selectedSlot, setSelectedSlot, modalClose }) => {
     const [availableDates, setAvailableDates] = useState<Date[]>();
     const [availableTimes, setAvailableTimes] = useState<Record<number, string>[]>([]);
     const [ currentDate, setCurrentDate] = useState<Date>();
@@ -28,7 +29,7 @@ const SlotSelecting: React.FC<SlotSelectingProps> = ({ selectedSlot, setSelected
     }, []);
 
     const times = useMemo(() => ({
-        9: '9:00 AM - 10:00 AM',
+        9: '09:00 AM - 10:00 AM',
         10: '10:00 AM - 11:00 AM',
         11: '11:00 AM - 12:00 AM',
         12: '12:00 AM - 01:00 PM',
@@ -66,12 +67,14 @@ const SlotSelecting: React.FC<SlotSelectingProps> = ({ selectedSlot, setSelected
     }
 
     const handleSelectTime = (startTime:string, endTime:string) => {
-        const newDate = new Date(`${currentDate?.toISOString().split('T')[0]}T${startTime}`);
+        const [startTimePart] = startTime.split(' ');
+        const newDate = new Date(`${currentDate?.toISOString().split('T')[0]}T${startTimePart}`);
         setSelectedSlot({
             date:newDate,
-            startTime,
-            endTime
+            startTime:startTime,
+            endTime:endTime
         })
+        modalClose();
     }
     
  
@@ -94,8 +97,7 @@ const SlotSelecting: React.FC<SlotSelectingProps> = ({ selectedSlot, setSelected
                 {
                     availableTimes.map((time, index) => {
                         const timeStamp= time[1].split(' - ');
-                        const startTime = timeStamp[0].split(' ')[0];
-                        return (<p key={index} className={`text-sm p-1 border-2 cursor-pointer rounded-full ${time == selectedSlot.endTime && 'border-blue-400'}`} onClick={() => handleSelectTime(startTime, time[1])}>{time[1]}</p>)
+                        return (<p key={index} className={`text-sm p-1 border-2 cursor-pointer rounded-full ${time == selectedSlot.endTime && 'border-blue-400'}`} onClick={() => handleSelectTime(timeStamp[0]?.trim(), timeStamp[1]?.trim())}>{time[1]}</p>)
                     })
                 }
                 

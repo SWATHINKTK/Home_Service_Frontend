@@ -10,13 +10,14 @@ import { createNewAddressAPI, viewAllAddressAPI } from '../../../utils/api/userA
 import { toast } from 'react-hot-toast';
 
 interface IAddressSelectingProps {
-    setBookingAddress: React.Dispatch<React.SetStateAction<IAddress>>;
+    setBookingAddress: React.Dispatch<React.SetStateAction<Partial<IAddress>>>;
+    modalClose: () => void;
 }
 
 
 
 
-const AddressSelecting: React.FC<IAddressSelectingProps> = ({ setBookingAddress }) => {
+const AddressSelecting: React.FC<IAddressSelectingProps> = ({ setBookingAddress, modalClose }) => {
     const { latitude, longitude } = useAppSelector((state) => state.location);
     const [locationDetails, setLocationDetails] = useState<string[]>([]);
     const [address, setAddress] = useState<IAddress[]>([]);
@@ -27,8 +28,18 @@ const AddressSelecting: React.FC<IAddressSelectingProps> = ({ setBookingAddress 
         try {
             const response = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${import.meta.env.VITE_MAP_BOX_ACCESS_TOKEN}`);
             if (response.data.features.length > 0) {
-                const location = response.data.features[0].place_name.split(',');
-                return [location[2] || '', location[3] || '', location[4] || '', location[1] || '']
+                const context = response.data.features[0].context || [];
+                const extracted = Object.fromEntries(
+                    context.map((c: { id: string; text: string; }) => [c.id.split(".")[0], c.text])
+                );
+                return [
+                    extracted.locality, // locality
+                    extracted.place,    // city
+                    extracted.district, // district
+                    extracted.region,   // state
+                    extracted.country   // country
+                ].filter(Boolean);
+
             }
         } catch (error) {
             console.error("Failed to fetch location details:", error);
@@ -47,25 +58,27 @@ const AddressSelecting: React.FC<IAddressSelectingProps> = ({ setBookingAddress 
         })();
     }, [fetchLocationDetails, latitude, longitude]);
 
-    const handlingAddress = async(data: IAddress) => {
+    const handlingAddress = async (data: IAddress) => {
         try {
             data.location = {
-                latitude,
-                longitude
+                coordinates: [longitude, latitude],
             }
             data.locationDetails = locationDetails.join(',');
-            await createNewAddressAPI(data);
+            console.log("Address Data:", data);
+            const newAddress = await createNewAddressAPI(data);
+            console.log("New Address Response:", newAddress);
             toast.success('New Address Creation Successful.')
-            setAddress([...address, data]);
+            setAddress([...address, newAddress.data]);
             setIsAddAddress(false);
-            reset() 
+            reset()
         } catch (error) {
             console.log(error)
         }
     }
 
-    const handleSelectingAddress = (index:number) => {
+    const handleSelectingAddress = (index: number) => {
         setBookingAddress(address[index]);
+        modalClose();
     }
 
     if (isAddAddress) {

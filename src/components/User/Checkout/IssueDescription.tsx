@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 interface IssueDescriptionProps {
     description:string;
     setDescription: React.Dispatch<React.SetStateAction<string>>;
+    modalClose: () => void;
 }
 
-const IssueDescription: React.FC<IssueDescriptionProps> = ({description, setDescription}) => {
+const IssueDescription: React.FC<IssueDescriptionProps> = ({description, setDescription, modalClose}) => {
     const [issue, setIssue] = useState(description);
     const [error, setError] = useState('');
     const handleIssueBtn = () => {
@@ -14,6 +15,7 @@ const IssueDescription: React.FC<IssueDescriptionProps> = ({description, setDesc
             return;
         }
         setDescription(issue)
+        modalClose();
     }
     return (
         <div className='md:w-[25vw] w-[94vw]  overflow-y-auto font-Montserrat md:p-5 px-3 py-5'>

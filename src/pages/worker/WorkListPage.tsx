@@ -6,13 +6,15 @@ import WorksListing from '../../components/Worker/Booking/WorksListing';
 import { allBookingViewOnWorkerAPI } from '../../utils/api/workerAPI';
 import { useAppDispatch } from '../../hooks/useTypedSelector';
 import { addBooking } from '../../reducers/worker/bookingSlice';
+import { getCurrentLocation } from '../../utils/location';
 
 const WorkListPage: React.FC = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         (async () => {
-            const response = await allBookingViewOnWorkerAPI(1);
+            const { latitude, longitude } = await getCurrentLocation();
+            const response = await allBookingViewOnWorkerAPI(1, latitude, longitude);
             console.log(response)
             dispatch(addBooking(response.data));
         })()

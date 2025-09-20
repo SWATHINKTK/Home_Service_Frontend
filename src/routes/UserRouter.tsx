@@ -7,8 +7,8 @@ import Error404 from '../components/Common/Error/Error404';
 const UserLanding = lazy(() => import('../pages/user/UserLanding'));
 const ServicePage = lazy(() => import('../pages/user/ServicePage'));
 const ServiceDetailsPage = lazy(() => import('../pages/user/serviceDetailsPage'));
-const LocationSelectingPage = lazy(() => import('../pages/user/LocationSelectingPage'));
-const BookingPage = lazy(() => import('../pages/user/BookingPage'));
+// const LocationSelectingPage = lazy(() => import('../pages/user/LocationSelectingPage'));
+const Checkout = lazy(() => import('../components/User/Checkout/Checkout'));
 const BookingListing = lazy(() => import('../pages/user/BookingListing'));
 const Failed = lazy(() => import('../components/User/Bookings/Failed'));
 const CompletedBooking = lazy(() => import('../pages/user/CompletedBooking'));
@@ -24,7 +24,7 @@ const About = lazy(() => import('../components/Common/About/About'));
 
 const UserRouter: React.FC = () => {
     return (
-        <Suspense fallback={<MainLoader/>}>
+        <Suspense fallback={<MainLoader />}>
             <Routes>
                 <Route element={<UserPrivateRouter />}>
                     <Route path='/user/*' element={<ProfileLayout />}>
@@ -33,8 +33,8 @@ const UserRouter: React.FC = () => {
                         <Route path="bookedServices" element={<BookingListing />} />
                         <Route path="chat/:conversationId" element={<Conversation />} />
                     </Route>
-                    <Route path="/service/:serviceId/currentLocation" element={<LocationSelectingPage />} />
-                    <Route path="/service/:serviceId/booking" element={<BookingPage />} />
+                    {/* <Route path="/service/:serviceId/currentLocation" element={<LocationSelectingPage />} /> */}
+                    <Route path="/service/:serviceId/booking" element={<Checkout />} />
                     <Route path="/failed" element={<Failed />} />
                 </Route>
 
@@ -46,7 +46,7 @@ const UserRouter: React.FC = () => {
                 <Route path="/login" element={<UserLogin />} />
                 <Route path="/register" element={<UserRegistration />} />
                 <Route path="/about" element={<About worker={false} />} />
-                <Route path="/*" element={<Error404/>}></Route>
+                <Route path="/*" element={<Error404 />}></Route>
             </Routes>
         </Suspense>
     )
